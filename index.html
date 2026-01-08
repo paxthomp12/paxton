@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
+    <title>Paxton Thompson</title>
+    
+    <!-- Social Media Preview Tags -->
+    <meta property="og:title" content="Paxton Thompson - Professional Baseball Pitcher">
+    <meta property="og:description" content="Professional Baseball Pitcher | Wealth Management Intern | Co-Founder of Old Logan Capital">
+    <meta property="og:image" content="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMwn8OwXQKiE5qk-pV4ihA%20(1).jpg?raw=true">
+    <meta property="og:url" content="https://paxthomp12.github.io/paxton/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Paxton Thompson - Professional Baseball Pitcher">
+    <meta name="twitter:description" content="Professional Baseball Pitcher | Wealth Management Intern | Co-Founder of Old Logan Capital">
+    <meta name="twitter:image" content="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMwn8OwXQKiE5qk-pV4ihA%20(1).jpg?raw=true">
+    
     <style>
         * {
             margin: 0;
@@ -124,10 +135,11 @@
         }
 
         .profile-pic {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
             object-fit: cover;
+            object-position: center 20%;
             border: 4px solid var(--accent);
             margin-bottom: 2rem;
             box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4);
@@ -490,6 +502,151 @@
             margin-top: 1rem;
         }
 
+        /* Stats Tabs */
+        .stats-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            background: var(--bg-secondary);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            color: var(--text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .stats-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .stats-table th,
+        .stats-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-table th {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .stats-table td {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Evolution Timeline */
+        .evolution-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            z-index: 10;
+        }
+
+        .timeline-velocity {
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
         /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
@@ -571,26 +728,152 @@
                 Pitcher | Jersey Shore BlueClaws (Philadelphia Phillies High-A Affiliate)
             </p>
             
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>4.11</h3>
-                    <p>Career ERA</p>
+            <!-- Stats Tabs -->
+            <div class="stats-tabs">
+                <button class="tab-btn active" onclick="showStats('phillies')">Phillies Organization</button>
+                <button class="tab-btn" onclick="showStats('charlotte')">Charlotte 49ers</button>
+                <button class="tab-btn" onclick="showStats('parkland')">Parkland College</button>
+            </div>
+
+            <!-- Phillies Stats -->
+            <div id="phillies-stats" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>4.11</h3>
+                        <p>Career ERA</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>93</h3>
+                        <p>Career Strikeouts</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>1.35</h3>
+                        <p>Career WHIP</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>6-3</h3>
+                        <p>Career W-L Record</p>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <h3>93</h3>
-                    <p>Career Strikeouts</p>
-                </div>
-                <div class="stat-card">
-                    <h3>1.35</h3>
-                    <p>Career WHIP</p>
-                </div>
-                <div class="stat-card">
-                    <h3>6-3</h3>
-                    <p>Career W-L Record</p>
+
+                <div class="stats-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Team</th>
+                                <th>G</th>
+                                <th>W-L</th>
+                                <th>ERA</th>
+                                <th>IP</th>
+                                <th>SO</th>
+                                <th>WHIP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2025</td>
+                                <td>Jersey Shore</td>
+                                <td>27</td>
+                                <td>3-1</td>
+                                <td>5.59</td>
+                                <td>37.0</td>
+                                <td>30</td>
+                                <td>1.59</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Career</strong></td>
+                                <td>MiLB</td>
+                                <td>67</td>
+                                <td>6-3</td>
+                                <td>4.11</td>
+                                <td>92.0</td>
+                                <td>93</td>
+                                <td>1.35</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div style="text-align: center;">
+            <!-- Charlotte Stats -->
+            <div id="charlotte-stats" class="tab-content">
+                <div class="stats-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>G</th>
+                                <th>GS</th>
+                                <th>W-L</th>
+                                <th>ERA</th>
+                                <th>IP</th>
+                                <th>SO</th>
+                                <th>WHIP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2023</td>
+                                <td>22</td>
+                                <td>4</td>
+                                <td>8-0</td>
+                                <td>4.22</td>
+                                <td>64.0</td>
+                                <td>69</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>2022</td>
+                                <td>8</td>
+                                <td>1</td>
+                                <td>0-0</td>
+                                <td>6.00</td>
+                                <td>6.0</td>
+                                <td>4</td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="text-align: center; color: var(--text-secondary); margin-top: 2rem;">
+                    <strong>2023 Honors:</strong> Conference USA All-Tournament Team • Academic All-District Team
+                </p>
+            </div>
+
+            <!-- Parkland Stats -->
+            <div id="parkland-stats" class="tab-content">
+                <div class="stats-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>G</th>
+                                <th>W-L</th>
+                                <th>ERA</th>
+                                <th>IP</th>
+                                <th>SO</th>
+                                <th>BB</th>
+                                <th>BAA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2020-21</td>
+                                <td>11</td>
+                                <td>7-2</td>
+                                <td>3.19</td>
+                                <td>53.2</td>
+                                <td>75</td>
+                                <td>29</td>
+                                <td>.190</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
                 <a href="https://www.milb.com/player/paxton-thompson-801505" target="_blank" class="stats-link">
                     View Full Stats on MiLB.com →
                 </a>
@@ -983,6 +1266,25 @@
         function previousPhoto() {
             currentPhotoIndex = (currentPhotoIndex - 1 + totalPhotos) % totalPhotos;
             updatePhotoStack();
+        }
+
+        // Stats Tabs
+        function showStats(team) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(team + '-stats').classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
         }
 
         // Initialize photo stack
