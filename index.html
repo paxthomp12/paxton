@@ -38,9 +38,10 @@
             z-index: 1000;
             padding: 1.5rem 2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
         }
 
-        nav ul {
+        <nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
@@ -122,20 +123,78 @@
             margin-bottom: 2rem;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4);
         }
 
-        .social-btn {
-            padding: 0.8rem 2rem;
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
             background: var(--bg-secondary);
             border: 2px solid var(--accent);
             color: var(--text-primary);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-btn:hover::before {
+            left: 0;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -158,8 +217,14 @@
         }
 
         .social-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.1);
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .social-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
 
         /* Section Styles */
@@ -340,6 +405,91 @@
             color: var(--text-secondary);
         }
 
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .photo-item {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            display: block;
+        }
+
+        /* Photo Album Stack */
+        .photo-album {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            height: 450px;
+        }
+
+        .album-photo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .album-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .album-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .album-btn {
+            padding: 0.8rem 2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .album-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+        }
+
+        .album-counter {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
         /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
@@ -376,7 +526,6 @@
     <!-- Navigation -->
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
             <li><a href="#baseball">Baseball</a></li>
             <li><a href="#career">Career</a></li>
             <li><a href="#philanthropy">Philanthropy</a></li>
@@ -387,12 +536,29 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <h1>Your Name</h1>
-        <p>Professional Baseball Pitcher | Wealth Management | Entrepreneur | Philanthropist</p>
+        <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMwn8OwXQKiE5qk-pV4ihA%20(1).jpg?raw=true" alt="Paxton Thompson" class="profile-pic">
+        <h1>Paxton Thompson</h1>
+        <p>Professional Baseball Pitcher | Wealth Management Intern | Co-Founder&nbsp;of&nbsp;Old&nbsp;Logan&nbsp;Capital</p>
+        
+        <div class="nav-buttons">
+            <a href="#baseball" class="nav-btn">Baseball</a>
+            <a href="#career" class="nav-btn">Career</a>
+            <a href="#philanthropy" class="nav-btn">Philanthropy</a>
+            <a href="#hobbies" class="nav-btn">Hobbies</a>
+            <a href="#reading" class="nav-btn">Reading</a>
+        </div>
+        
         <div class="social-links">
-            <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="social-btn">LinkedIn</a>
-            <a href="https://twitter.com/yourhandle" target="_blank" class="social-btn">Twitter</a>
-            <a href="https://instagram.com/yourhandle" target="_blank" class="social-btn">Instagram</a>
+            <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="social-btn" title="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+            </a>
+            <a href="https://x.com/paxtonthompson7" target="_blank" class="social-btn" title="Twitter/X">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </a>
         </div>
         <div class="scroll-indicator"></div>
     </section>
@@ -402,31 +568,31 @@
         <div class="container">
             <h2>Professional Baseball</h2>
             <p style="text-align: center; color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 2rem;">
-                Pitcher | Philadelphia Phillies
+                Pitcher | Jersey Shore BlueClaws (Philadelphia Phillies High-A Affiliate)
             </p>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h3>ERA</h3>
-                    <p>Earned Run Average</p>
+                    <h3>4.11</h3>
+                    <p>Career ERA</p>
                 </div>
                 <div class="stat-card">
-                    <h3>SO</h3>
-                    <p>Strikeouts</p>
+                    <h3>93</h3>
+                    <p>Career Strikeouts</p>
                 </div>
                 <div class="stat-card">
-                    <h3>WHIP</h3>
-                    <p>Walks + Hits / IP</p>
+                    <h3>1.35</h3>
+                    <p>Career WHIP</p>
                 </div>
                 <div class="stat-card">
-                    <h3>W-L</h3>
-                    <p>Win-Loss Record</p>
+                    <h3>6-3</h3>
+                    <p>Career W-L Record</p>
                 </div>
             </div>
 
             <div style="text-align: center;">
-                <a href="https://www.baseball-reference.com/players/" target="_blank" class="stats-link">
-                    View Full Stats on Baseball Reference →
+                <a href="https://www.milb.com/player/paxton-thompson-801505" target="_blank" class="stats-link">
+                    View Full Stats on MiLB.com →
                 </a>
             </div>
 
@@ -434,14 +600,35 @@
                 <h3 style="font-size: 2rem; margin-bottom: 2rem; color: var(--text-primary);">Career Journey</h3>
                 <div class="work-grid">
                     <div class="work-item">
-                        <h3>Philadelphia Phillies</h3>
-                        <h4>Professional Pitcher | Present</h4>
-                        <p style="color: var(--text-secondary);">Currently playing professional baseball in the MLB.</p>
+                        <h3>Philadelphia Phillies Organization</h3>
+                        <h4>Professional Pitcher | 2023 - Present</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            Signed as free agent in 2023. Currently with Jersey Shore BlueClaws (High-A).
+                        </p>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            <strong>MiLB Career:</strong> 6-3 W-L, 4.11 ERA, 93 SO, 1.35 WHIP in 92.0 IP
+                        </p>
                     </div>
                     <div class="work-item">
-                        <h3>College Baseball</h3>
-                        <h4>Collegiate Career</h4>
-                        <p style="color: var(--text-secondary);">Built foundation and developed skills at the collegiate level.</p>
+                        <h3>Charlotte 49ers</h3>
+                        <h4>Division I Baseball | 2022-2023</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            Conference USA All-Tournament Team. Academic All-District Team.
+                        </p>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            <strong>2023:</strong> 8-0 W-L, 4.22 ERA, 69 SO in 64 IP (22 games, 4 starts)<br>
+                            <strong>2022:</strong> 6.00 ERA, 4 SO in 6 IP (8 games, 1 start)
+                        </p>
+                    </div>
+                    <div class="work-item">
+                        <h3>Parkland College</h3>
+                        <h4>Junior College Baseball | 2020-2021</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            Developed skills and gained experience at the JUCO level.
+                        </p>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                            <strong>2020-21:</strong> 7-2 W-L, 3.19 ERA, 75 SO in 53.2 IP, .190 BAA
+                        </p>
                     </div>
                 </div>
             </div>
@@ -466,10 +653,27 @@
                 <div class="work-item">
                     <h3>Old Logan Capital</h3>
                     <h4>Co-Founder</h4>
-                    <p style="color: var(--text-secondary);">
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
                         Co-founded an investment company focused on strategic market opportunities and long-term 
                         value creation. Leading initiatives in market analysis and investment decision-making.
                     </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <h5 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem;">Research</h5>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">In-depth market analysis and investment research</p>
+                        </div>
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <h5 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem;">
+                                <a href="https://x.com/OldLoganCapital" target="_blank" style="color: var(--accent); text-decoration: none;">X Account →</a>
+                            </h5>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Follow our insights and updates</p>
+                        </div>
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 10px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <h5 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem;">Investor Letters</h5>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Quarterly updates and commentary</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -481,13 +685,174 @@
             <h2>Giving Back</h2>
             
             <div class="work-item" style="margin-top: 3rem;">
-                <h3>Homegrown Baseball Camp</h3>
-                <h4>Founder & Organizer</h4>
-                <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
-                    Created and organized a baseball camp dedicated to developing young athletes and giving back 
-                    to the community. The camp focuses on skill development, mentorship, and fostering a love 
-                    for the game in the next generation of players.
+                <h3>Youth Baseball Camp & Community Investment</h3>
+                <h4>Supporting STMA Youth Baseball | St. Michael, Minnesota</h4>
+                <p style="color: var(--text-primary); font-size: 1.2rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                    "Baseball has given me so much — lessons in discipline, resiliency, and teamwork that have shaped who I am today. Now, I want to give back by supporting the youth in my hometown through a baseball camp."
                 </p>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                    Through partnership with the Good Game Foundation, I'm investing in the next generation of players in my hometown. This camp is about more than drills and games — it's about encouragement, mentorship, and letting kids know that someone believes in them.
+                </p>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                    My goal is to be the example I wished I had growing up — someone who comes back to invest in the community and show young athletes what's possible. Together, we're building more than ballplayers. We're building confidence, community, and opportunity.
+                </p>
+                <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <a href="https://www.goodgamefoundation.org/paxton-thompson" target="_blank" class="stats-link">
+                        Learn More About My Foundation →
+                    </a>
+                    <a href="https://www.stmayouthbaseball.org/" target="_blank" class="stats-link" style="background: transparent; border: 2px solid var(--accent);">
+                        STMA Youth Baseball →
+                    </a>
+                </div>
+            </div>
+
+            <h3 style="font-size: 2rem; margin: 4rem 0 2rem; color: var(--text-primary); text-align: center;">Camp Highlights</h3>
+            <div class="photo-album">
+                <div class="album-photo" style="transform: rotate(-3deg) translateY(20px); z-index: 1;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7120.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(-2deg) translateY(15px); z-index: 2;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7121.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(-1deg) translateY(10px); z-index: 3;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7123.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(0deg) translateY(5px); z-index: 4;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7126.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(1deg) translateY(0px); z-index: 5;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7127.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(2deg) translateY(0px); z-index: 6;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7128.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(3deg) translateY(0px); z-index: 7;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7131.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(1deg) translateY(0px); z-index: 8;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7132.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(-1deg) translateY(0px); z-index: 9;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7134.jpeg?raw=true" alt="Camp photo">
+                </div>
+                <div class="album-photo" style="transform: rotate(0deg) translateY(0px); z-index: 10;">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7135.jpeg?raw=true" alt="Camp photo">
+                </div>
+            </div>
+            <div class="album-controls">
+                <button class="album-btn" onclick="previousPhoto()">← Previous</button>
+                <button class="album-btn" onclick="nextPhoto()">Next →</button>
+            </div>
+            <div class="album-counter">
+                <span id="currentPhoto">1</span> / 10
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos">
+        <div class="container">
+            <h2>Highlights & Performance</h2>
+            
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        Embed your video here
+                    </div>
+                    <h4>Game Highlights</h4>
+                </div>
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        Embed your video here
+                    </div>
+                    <h4>Training & Skills</h4>
+                </div>
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        Embed your video here
+                    </div>
+                    <h4>Behind the Scenes</h4>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
+                To add videos: Replace the video-placeholder divs with iframe embeds from YouTube, Instagram, or other platforms
+            </p>
+        </div>
+    </section>
+
+    <!-- Reading Section -->
+    <section id="reading">
+        <div class="container">
+            <h2>Currently Reading</h2>
+            
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section id="hobbies">
+        <div class="container">
+            <h2>Hobbies & Interests</h2>
+            
+            <h3 style="font-size: 2rem; margin-bottom: 2rem; color: var(--text-primary); text-align: center;">Pokemon Card Collection</h3>
+            
+            <p style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto 3rem;">
+                Beyond baseball, I'm passionate about collecting Pokemon cards. What started as a childhood hobby has grown into a serious collection.
+            </p>
+
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-cover">Card Image</div>
+                    <h4>Card Name</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Set / Year</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Card Image</div>
+                    <h4>Card Name</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Set / Year</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Card Image</div>
+                    <h4>Card Name</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Set / Year</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Card Image</div>
+                    <h4>Card Name</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Set / Year</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Card Image</div>
+                    <h4>Card Name</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Set / Year</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Card Image</div>
+                    <h4>Card Name</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Set / Year</p>
+                </div>
             </div>
         </div>
     </section>
@@ -589,6 +954,39 @@
                 }
             });
         });
+
+        // Photo Album Navigation
+        let currentPhotoIndex = 0;
+        const photos = document.querySelectorAll('.album-photo');
+        const totalPhotos = photos.length;
+
+        function updatePhotoStack() {
+            photos.forEach((photo, index) => {
+                const offset = index - currentPhotoIndex;
+                if (offset >= 0 && offset < 5) {
+                    photo.style.display = 'block';
+                    photo.style.transform = `rotate(${offset * 2 - 3}deg) translateY(${offset * 5}px)`;
+                    photo.style.zIndex = totalPhotos - offset;
+                    photo.style.opacity = 1 - (offset * 0.1);
+                } else {
+                    photo.style.display = 'none';
+                }
+            });
+            document.getElementById('currentPhoto').textContent = currentPhotoIndex + 1;
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % totalPhotos;
+            updatePhotoStack();
+        }
+
+        function previousPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + totalPhotos) % totalPhotos;
+            updatePhotoStack();
+        }
+
+        // Initialize photo stack
+        updatePhotoStack();
     </script>
 </body>
 </html>
