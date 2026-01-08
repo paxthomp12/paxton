@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, 50px) rotate(180deg); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            padding: 0.8rem 2rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-btn:hover::before {
+            left: 0;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #fff 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Baseball Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .stats-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .stats-link:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .video-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .video-card h4 {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* Work Section */
+        .work-grid {
+            display: grid;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .work-item {
+            background: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .work-item:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .work-item h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .work-item h4 {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Books Section */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .book-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .book-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            border-color: var(--accent);
+        }
+
+        .book-cover {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#baseball">Baseball</a></li>
+            <li><a href="#career">Career</a></li>
+            <li><a href="#philanthropy">Philanthropy</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#reading">Reading</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Your Name</h1>
+        <p>Professional Baseball Pitcher | Wealth Management | Entrepreneur | Philanthropist</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="social-btn">LinkedIn</a>
+            <a href="https://twitter.com/yourhandle" target="_blank" class="social-btn">Twitter</a>
+            <a href="https://instagram.com/yourhandle" target="_blank" class="social-btn">Instagram</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Baseball Section -->
+    <section id="baseball">
+        <div class="container">
+            <h2>Professional Baseball</h2>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 2rem;">
+                Pitcher | Philadelphia Phillies
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>ERA</h3>
+                    <p>Earned Run Average</p>
+                </div>
+                <div class="stat-card">
+                    <h3>SO</h3>
+                    <p>Strikeouts</p>
+                </div>
+                <div class="stat-card">
+                    <h3>WHIP</h3>
+                    <p>Walks + Hits / IP</p>
+                </div>
+                <div class="stat-card">
+                    <h3>W-L</h3>
+                    <p>Win-Loss Record</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://www.baseball-reference.com/players/" target="_blank" class="stats-link">
+                    View Full Stats on Baseball Reference →
+                </a>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="font-size: 2rem; margin-bottom: 2rem; color: var(--text-primary);">Career Journey</h3>
+                <div class="work-grid">
+                    <div class="work-item">
+                        <h3>Philadelphia Phillies</h3>
+                        <h4>Professional Pitcher | Present</h4>
+                        <p style="color: var(--text-secondary);">Currently playing professional baseball in the MLB.</p>
+                    </div>
+                    <div class="work-item">
+                        <h3>College Baseball</h3>
+                        <h4>Collegiate Career</h4>
+                        <p style="color: var(--text-secondary);">Built foundation and developed skills at the collegiate level.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career">
+        <div class="container">
+            <h2>Professional Career</h2>
+            
+            <div class="work-grid">
+                <div class="work-item">
+                    <h3>Firm Foundation Family Wealth</h3>
+                    <h4>Wealth Management Intern</h4>
+                    <p style="color: var(--text-secondary);">
+                        Gaining hands-on experience in wealth management, financial planning, and client relations 
+                        while developing expertise in investment strategies and portfolio management.
+                    </p>
+                </div>
+
+                <div class="work-item">
+                    <h3>Old Logan Capital</h3>
+                    <h4>Co-Founder</h4>
+                    <p style="color: var(--text-secondary);">
+                        Co-founded an investment company focused on strategic market opportunities and long-term 
+                        value creation. Leading initiatives in market analysis and investment decision-making.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philanthropy Section -->
+    <section id="philanthropy">
+        <div class="container">
+            <h2>Giving Back</h2>
+            
+            <div class="work-item" style="margin-top: 3rem;">
+                <h3>Homegrown Baseball Camp</h3>
+                <h4>Founder & Organizer</h4>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+                    Created and organized a baseball camp dedicated to developing young athletes and giving back 
+                    to the community. The camp focuses on skill development, mentorship, and fostering a love 
+                    for the game in the next generation of players.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos">
+        <div class="container">
+            <h2>Highlights & Performance</h2>
+            
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        Embed your video here
+                    </div>
+                    <h4>Game Highlights</h4>
+                </div>
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        Embed your video here
+                    </div>
+                    <h4>Training & Skills</h4>
+                </div>
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        Embed your video here
+                    </div>
+                    <h4>Behind the Scenes</h4>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
+                To add videos: Replace the video-placeholder divs with iframe embeds from YouTube, Instagram, or other platforms
+            </p>
+        </div>
+    </section>
+
+    <!-- Reading Section -->
+    <section id="reading">
+        <div class="container">
+            <h2>Currently Reading</h2>
+            
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">Book Cover</div>
+                    <h4>Book Title</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active state to navigation on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
