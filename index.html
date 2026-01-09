@@ -45,11 +45,17 @@
             top: 0;
             width: 100%;
             background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 1.5rem 2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: none;
+        }
+
+        /* Only apply expensive backdrop-filter on larger screens with no reduced-motion preference */
+        @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+            nav {
+                backdrop-filter: blur(10px);
+            }
         }
 
         <nav ul {
@@ -109,12 +115,18 @@
             width: 100%;
             height: 100%;
             background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            animation: float 20s infinite;
+        }
+
+        /* Only animate on devices that don't prefer reduced motion */
+        @media (prefers-reduced-motion: no-preference) {
+            .hero::before {
+                animation: float 20s infinite;
+            }
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(50px, 50px) rotate(180deg); }
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
         }
 
         .hero h1 {
@@ -693,7 +705,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMwn8OwXQKiE5qk-pV4ihA%20(1).jpg?raw=true" alt="Paxton Thompson" class="profile-pic">
+        <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMwn8OwXQKiE5qk-pV4ihA%20(1).jpg?raw=true" alt="Paxton Thompson" class="profile-pic" width="250" height="250">
         <h1>Paxton Thompson</h1>
         <p>Professional Baseball Pitcher | Wealth Management Intern | Co-Founder&nbsp;of&nbsp;Old&nbsp;Logan&nbsp;Capital</p>
         
@@ -730,9 +742,9 @@
             
             <!-- Stats Tabs -->
             <div class="stats-tabs">
-                <button class="tab-btn active" onclick="showStats('phillies')">Phillies Organization</button>
-                <button class="tab-btn" onclick="showStats('charlotte')">Charlotte 49ers</button>
-                <button class="tab-btn" onclick="showStats('parkland')">Parkland College</button>
+                <button class="tab-btn active">Phillies Organization</button>
+                <button class="tab-btn">Charlotte 49ers</button>
+                <button class="tab-btn">Parkland College</button>
             </div>
 
             <!-- Phillies Stats -->
@@ -992,39 +1004,39 @@
             <h3 style="font-size: 2rem; margin: 4rem 0 2rem; color: var(--text-primary); text-align: center;">Camp Highlights</h3>
             <div class="photo-album">
                 <div class="album-photo" style="transform: rotate(-3deg) translateY(20px); z-index: 1;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7120.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7120.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(-2deg) translateY(15px); z-index: 2;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7121.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7121.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(-1deg) translateY(10px); z-index: 3;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7123.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7123.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(0deg) translateY(5px); z-index: 4;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7126.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7126.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(1deg) translateY(0px); z-index: 5;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7127.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7127.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(2deg) translateY(0px); z-index: 6;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7128.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7128.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(3deg) translateY(0px); z-index: 7;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7131.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7131.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(1deg) translateY(0px); z-index: 8;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7132.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7132.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(-1deg) translateY(0px); z-index: 9;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7134.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7134.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
                 <div class="album-photo" style="transform: rotate(0deg) translateY(0px); z-index: 10;">
-                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7135.jpeg?raw=true" alt="Camp photo">
+                    <img src="https://github.com/paxthomp12/paxton/blob/main/assets/images/IMG_7135.jpeg?raw=true" alt="Camp photo" loading="lazy" width="600" height="450">
                 </div>
             </div>
             <div class="album-controls">
-                <button class="album-btn" onclick="previousPhoto()">← Previous</button>
-                <button class="album-btn" onclick="nextPhoto()">Next →</button>
+                <button class="album-btn">← Previous</button>
+                <button class="album-btn">Next →</button>
             </div>
             <div class="album-counter">
                 <span id="currentPhoto">1</span> / 10
@@ -1140,69 +1152,14 @@
         </div>
     </section>
 
-    <!-- Videos Section -->
-    <section id="videos">
-        <div class="container">
-            <h2>Highlights & Performance</h2>
-            
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="video-placeholder">
-                        Embed your video here
-                    </div>
-                    <h4>Game Highlights</h4>
-                </div>
-                <div class="video-card">
-                    <div class="video-placeholder">
-                        Embed your video here
-                    </div>
-                    <h4>Training & Skills</h4>
-                </div>
-                <div class="video-card">
-                    <div class="video-placeholder">
-                        Embed your video here
-                    </div>
-                    <h4>Behind the Scenes</h4>
-                </div>
-            </div>
-
-            <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
-                To add videos: Replace the video-placeholder divs with iframe embeds from YouTube, Instagram, or other platforms
-            </p>
-        </div>
-    </section>
-
-    <!-- Reading Section -->
-    <section id="reading">
-        <div class="container">
-            <h2>Currently Reading</h2>
-            
-            <div class="books-grid">
-                <div class="book-card">
-                    <div class="book-cover">Book Cover</div>
-                    <h4>Book Title</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
-                </div>
-                <div class="book-card">
-                    <div class="book-cover">Book Cover</div>
-                    <h4>Book Title</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
-                </div>
-                <div class="book-card">
-                    <div class="book-cover">Book Cover</div>
-                    <h4>Book Title</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
-                </div>
-                <div class="book-card">
-                    <div class="book-cover">Book Cover</div>
-                    <h4>Book Title</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Author Name</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <script>
+        // Cache DOM selectors for performance
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+        const photos = document.querySelectorAll('.album-photo');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1217,11 +1174,11 @@
             });
         });
 
-        // Add active state to navigation on scroll
-        window.addEventListener('scroll', () => {
+        // Throttled scroll handler for performance
+        let scrollTimeout;
+        function updateActiveNav() {
             let current = '';
-            const sections = document.querySelectorAll('section');
-            
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
@@ -1230,32 +1187,44 @@
                 }
             });
 
-            document.querySelectorAll('nav a').forEach(link => {
+            navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href').slice(1) === current) {
                     link.classList.add('active');
                 }
             });
-        });
+        }
+
+        // Add throttled scroll event listener (fires max 10x/sec instead of 60+)
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => {
+                scrollTimeout = null;
+                updateActiveNav();
+            }, 100);
+        }, { passive: true });
 
         // Photo Album Navigation
         let currentPhotoIndex = 0;
-        const photos = document.querySelectorAll('.album-photo');
         const totalPhotos = photos.length;
+        const currentPhotoEl = document.getElementById('currentPhoto');
 
         function updatePhotoStack() {
-            photos.forEach((photo, index) => {
-                const offset = index - currentPhotoIndex;
-                if (offset >= 0 && offset < 5) {
-                    photo.style.display = 'block';
-                    photo.style.transform = `rotate(${offset * 2 - 3}deg) translateY(${offset * 5}px)`;
-                    photo.style.zIndex = totalPhotos - offset;
-                    photo.style.opacity = 1 - (offset * 0.1);
-                } else {
-                    photo.style.display = 'none';
-                }
+            // Use requestAnimationFrame for smooth, optimized DOM updates
+            requestAnimationFrame(() => {
+                photos.forEach((photo, index) => {
+                    const offset = index - currentPhotoIndex;
+                    if (offset >= 0 && offset < 5) {
+                        photo.style.display = 'block';
+                        photo.style.transform = `rotate(${offset * 2 - 3}deg) translateY(${offset * 5}px)`;
+                        photo.style.zIndex = totalPhotos - offset;
+                        photo.style.opacity = 1 - (offset * 0.1);
+                    } else {
+                        photo.style.display = 'none';
+                    }
+                });
+                currentPhotoEl.textContent = currentPhotoIndex + 1;
             });
-            document.getElementById('currentPhoto').textContent = currentPhotoIndex + 1;
         }
 
         function nextPhoto() {
@@ -1268,24 +1237,50 @@
             updatePhotoStack();
         }
 
-        // Stats Tabs
-        function showStats(team) {
+        // Stats Tabs - using cached selectors
+        function showStats(team, clickedButton) {
             // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
+            tabContents.forEach(content => {
                 content.classList.remove('active');
             });
-            
+
             // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
+            tabButtons.forEach(btn => {
                 btn.classList.remove('active');
             });
-            
+
             // Show selected tab
-            document.getElementById(team + '-stats').classList.add('active');
-            
+            const targetTab = document.getElementById(team + '-stats');
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
             // Add active class to clicked button
-            event.target.classList.add('active');
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
         }
+
+        // Event delegation for tab buttons
+        document.querySelector('.stats-tabs')?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-btn')) {
+                const team = e.target.textContent.toLowerCase().includes('phillies') ? 'phillies' :
+                             e.target.textContent.toLowerCase().includes('charlotte') ? 'charlotte' :
+                             'parkland';
+                showStats(team, e.target);
+            }
+        });
+
+        // Event delegation for album controls
+        document.querySelector('.album-controls')?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('album-btn')) {
+                if (e.target.textContent.includes('Previous')) {
+                    previousPhoto();
+                } else if (e.target.textContent.includes('Next')) {
+                    nextPhoto();
+                }
+            }
+        });
 
         // Initialize photo stack
         updatePhotoStack();
