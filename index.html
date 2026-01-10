@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paxton Thompson</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -23,6 +23,86 @@
             --border-subtle: rgba(201, 169, 98, 0.1);
             --border-light: rgba(201, 169, 98, 0.2);
             --border-medium: rgba(201, 169, 98, 0.3);
+            --lume: #c9a962;
+        }
+
+        /* Submariner Hour Marker Shapes */
+        .marker-triangle {
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 14px solid var(--lume);
+            display: inline-block;
+        }
+
+        .marker-circle {
+            width: 10px;
+            height: 10px;
+            background: var(--lume);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .marker-rectangle {
+            width: 6px;
+            height: 18px;
+            background: var(--lume);
+            display: inline-block;
+        }
+
+        .marker-rectangle-h {
+            width: 18px;
+            height: 6px;
+            background: var(--lume);
+            display: inline-block;
+        }
+
+        /* Submariner Section Divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 3rem 0;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+        }
+
+        .divider-markers {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .divider-markers .marker-circle {
+            width: 8px;
+            height: 8px;
+        }
+
+        .divider-markers .marker-triangle {
+            border-left-width: 6px;
+            border-right-width: 6px;
+            border-top-width: 10px;
+        }
+
+        .divider-markers .marker-rectangle {
+            width: 4px;
+            height: 14px;
+        }
+
+        /* Watch-style typography */
+        .watch-text {
+            font-family: 'Bebas Neue', 'Inter', sans-serif;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         body {
@@ -50,17 +130,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border: 2px solid var(--accent);
             border-radius: 50%;
             text-decoration: none;
             transition: all 0.3s;
             cursor: pointer;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid var(--accent);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: var(--accent);
         }
 
         .logo:hover {
             background: var(--accent);
+        }
+
+        .logo:hover::before {
+            border-top-color: var(--bg);
+        }
+
+        .logo:hover::after {
+            background: var(--bg);
         }
 
         .logo:hover .logo-text {
@@ -68,11 +182,11 @@
         }
 
         .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            font-weight: 900;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
             color: var(--accent);
-            letter-spacing: -1px;
+            letter-spacing: 1px;
         }
 
         .section-logo {
@@ -94,10 +208,11 @@
         nav a {
             color: white;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
+            letter-spacing: 2px;
+            font-weight: 400;
         }
 
         /* Hero */
@@ -145,10 +260,15 @@
         }
 
         .hero-desc {
-            font-size: 1.1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            max-width: 400px;
+            max-width: 500px;
             margin-bottom: 3rem;
+            letter-spacing: 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
         }
 
         .hero-cta {
@@ -157,10 +277,11 @@
             gap: 1rem;
             color: var(--accent);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
+            letter-spacing: 3px;
+            font-weight: 400;
         }
 
         .hero-cta::after {
@@ -173,6 +294,29 @@
 
         .hero-cta:hover::after {
             width: 100px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .hero-btn {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
         }
 
         /* Section */
@@ -188,10 +332,12 @@
         }
 
         section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 400;
             line-height: 1.1;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
         /* Baseball Card Section */
@@ -225,12 +371,13 @@
         }
 
         .card-header-left h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Bebas Neue', sans-serif;
             font-size: 3.5rem;
-            font-weight: 900;
+            font-weight: 400;
             color: var(--text);
             margin: 0.5rem 0 0;
             line-height: 1.1;
+            letter-spacing: 3px;
         }
 
         .card-tabs {
@@ -288,12 +435,12 @@
         }
 
         .stats-table-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
             color: var(--text);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             margin-bottom: 1.5rem;
         }
 
@@ -382,17 +529,19 @@
         }
 
         .card-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Bebas Neue', sans-serif;
             font-size: 2rem;
-            font-weight: 700;
+            font-weight: 400;
             margin-bottom: 0.5rem;
+            letter-spacing: 2px;
         }
 
         .card-subtitle {
-            font-size: 0.9rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin-bottom: 1.5rem;
         }
 
@@ -418,10 +567,12 @@
         }
 
         .evolution-header h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 400;
             margin-bottom: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         .evolution-header p {
@@ -520,18 +671,20 @@
         }
 
         .timeline-year {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 400;
             color: var(--accent);
             margin-bottom: 0.25rem;
+            letter-spacing: 2px;
         }
 
         .timeline-label {
-            font-size: 0.9rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .timeline-line {
@@ -611,11 +764,11 @@
             background: transparent;
             border: 1px solid rgba(201, 169, 98, 0.3);
             color: var(--text-muted);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -637,7 +790,7 @@
         footer {
             padding: 4rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
 
@@ -651,6 +804,32 @@
             border-radius: 50%;
             text-decoration: none;
             transition: all 0.3s;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .footer-logo::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid var(--accent);
+        }
+
+        .footer-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: var(--accent);
         }
 
         .footer-logo:hover {
@@ -658,16 +837,24 @@
             background: var(--accent);
         }
 
+        .footer-logo:hover::before {
+            border-top-color: var(--bg);
+        }
+
+        .footer-logo:hover::after {
+            background: var(--bg);
+        }
+
         .footer-logo:hover .footer-logo-text {
             color: var(--bg);
         }
 
         .footer-logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 900;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
             color: var(--accent);
-            letter-spacing: -1px;
+            letter-spacing: 1px;
         }
 
         .footer-links {
@@ -678,9 +865,10 @@
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             transition: color 0.2s;
         }
 
@@ -771,27 +959,39 @@
         <a href="#home" class="logo">
             <span class="logo-text">PT</span>
         </a>
-        <ul>
-            <li><a href="#baseball">Baseball</a></li>
-            <li><a href="#career">Career</a></li>
-            <li><a href="#philanthropy">Giving Back</a></li>
-        </ul>
     </nav>
 
     <section id="home" class="hero">
         <div class="hero-image"></div>
         <div class="hero-content">
-            <span class="hero-eyebrow">Professional Baseball Pitcher</span>
             <h1>Paxton<br>Thompson</h1>
-            <p class="hero-desc">Pitcher for the Philadelphia Phillies organization. Building a career in wealth management while pursuing my passion for the game.</p>
+            <p class="hero-desc">
+                <span>Professional Baseball Player</span>
+                <span>Wealth Management Intern</span>
+                <span>Co-Founder of Old Logan Capital</span>
+            </p>
             <a href="#baseball" class="hero-cta">Explore My Journey</a>
+            <div class="hero-buttons">
+                <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
+                <a href="#" class="hero-btn">Resume</a>
+            </div>
         </div>
     </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <span class="marker-circle"></span>
+            <span class="marker-rectangle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-rectangle"></span>
+            <span class="marker-circle"></span>
+        </div>
+    </div>
 
     <section class="stats-section" id="baseball">
         <div class="section-header">
             <span class="section-logo">PT</span>
-            <h2>Career Statistics</h2>
+            <h2>On the Mound</h2>
         </div>
         <div class="baseball-card">
             <div class="card-header">
@@ -855,7 +1055,7 @@
                                 <td>1.18</td>
                             </tr>
                             <tr class="career-row">
-                                <td colspan="3">MiLB Career</td>
+                                <td colspan="3"><a href="https://www.milb.com/player/paxton-thompson-801505" target="_blank" style="color: var(--accent); text-decoration: none;">MiLB Career</a></td>
                                 <td>67</td>
                                 <td>6-3</td>
                                 <td>4.26</td>
@@ -1007,6 +1207,16 @@
         </div>
     </section>
 
+    <div class="section-divider">
+        <div class="divider-markers">
+            <span class="marker-rectangle"></span>
+            <span class="marker-circle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-circle"></span>
+            <span class="marker-rectangle"></span>
+        </div>
+    </div>
+
     <section id="career">
         <div class="section-header">
             <span class="section-logo">PT</span>
@@ -1026,6 +1236,14 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <span class="marker-circle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-circle"></span>
+        </div>
+    </div>
 
     <section class="gallery-section" id="philanthropy">
         <div class="section-header">
@@ -1067,11 +1285,6 @@
         <a href="#home" class="footer-logo">
             <span class="footer-logo-text">PT</span>
         </a>
-        <div class="footer-links">
-            <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank">LinkedIn</a>
-            <a href="https://x.com/paxtonthompson7" target="_blank">Twitter</a>
-            <a href="https://www.milb.com/player/paxton-thompson-801505" target="_blank">MiLB</a>
-        </div>
     </footer>
 
     <script>
