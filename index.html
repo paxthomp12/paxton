@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paxton Thompson</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230a0f0a' stroke='%23c9a962' stroke-width='3'/%3E%3Cpolygon points='50,20 45,28 55,28' fill='%23c9a962'/%3E%3Crect x='47' y='70' width='6' height='12' fill='%23c9a962'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='sans-serif' font-size='24' font-weight='bold' fill='%23c9a962'%3EPT%3C/text%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         * {
@@ -189,16 +190,6 @@
             letter-spacing: 1px;
         }
 
-        .section-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 8rem;
-            font-weight: 900;
-            color: var(--accent);
-            letter-spacing: -4px;
-            opacity: 0.15;
-            line-height: 1;
-        }
-
         nav ul {
             list-style: none;
             display: flex;
@@ -264,36 +255,11 @@
             font-size: 1.2rem;
             color: var(--text-muted);
             max-width: 500px;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             letter-spacing: 2px;
             display: flex;
             flex-direction: column;
             gap: 0.25rem;
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 400;
-        }
-
-        .hero-cta::after {
-            content: '';
-            width: 60px;
-            height: 1px;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-
-        .hero-cta:hover::after {
-            width: 100px;
         }
 
         .hero-buttons {
@@ -340,85 +306,116 @@
             text-transform: uppercase;
         }
 
-        /* Baseball Card Section */
+        /* Baseball Card Section - Submariner Inspired */
         .stats-section {
             background: transparent;
             padding: 8rem 4rem;
         }
 
         .baseball-card {
-            background: linear-gradient(180deg, rgba(18, 107, 74, 0.05) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(18, 107, 74, 0.03) 0%, rgba(10, 15, 10, 0.5) 100%);
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
+            border: 2px solid var(--border-light);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Submariner Bezel-Style Top Border */
+        .baseball-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                var(--accent) 0%,
+                var(--accent) 8%,
+                var(--border-medium) 8%,
+                var(--border-medium) 16%,
+                var(--accent) 16%,
+                var(--accent) 24%,
+                var(--border-medium) 24%,
+                var(--border-medium) 32%,
+                var(--accent) 32%,
+                var(--accent) 40%,
+                var(--border-medium) 40%,
+                var(--border-medium) 48%,
+                var(--accent) 48%,
+                var(--accent) 56%,
+                var(--border-medium) 56%,
+                var(--border-medium) 64%,
+                var(--accent) 64%,
+                var(--accent) 72%,
+                var(--border-medium) 72%,
+                var(--border-medium) 80%,
+                var(--accent) 80%,
+                var(--accent) 88%,
+                var(--border-medium) 88%,
+                var(--border-medium) 96%,
+                var(--accent) 96%
+            );
         }
 
         .card-header {
-            padding: 3rem 3rem 2rem;
-            border-bottom: 1px solid var(--border-light);
+            padding: 3rem 3rem 0;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .card-header-left {
+            display: flex;
+            align-items: center;
         }
 
         .card-header-left span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .card-header-left h2 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 400;
-            color: var(--text);
-            margin: 0.5rem 0 0;
-            line-height: 1.1;
+            font-size: 1.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
             letter-spacing: 3px;
         }
 
         .card-tabs {
             display: flex;
-            gap: 0;
+            gap: 0.5rem;
+            background: rgba(18, 107, 74, 0.05);
+            padding: 0.5rem;
+            border-radius: 50px;
         }
 
         .card-tab {
             background: transparent;
-            border: 1px solid var(--border-medium);
-            border-bottom: none;
+            border: none;
             color: var(--text-muted);
-            padding: 1rem 2rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
+            padding: 0.75rem 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
-            transition: color 0.2s, background 0.2s, border-color 0.2s;
-        }
-
-        .card-tab:first-child {
-            border-right: none;
+            transition: all 0.3s;
+            border-radius: 50px;
         }
 
         .card-tab.active {
-            background: rgba(18, 107, 74, 0.1);
-            color: var(--accent);
-            border-color: var(--accent);
-            border-bottom: 1px solid transparent;
-            margin-bottom: -1px;
+            background: var(--accent);
+            color: var(--bg);
         }
 
         .card-tab:hover:not(.active) {
             color: var(--accent);
-            border-color: rgba(201, 169, 98, 0.5);
         }
 
         .card-body {
-            padding: 4rem 3rem;
+            padding: 3rem;
             position: relative;
         }
 
@@ -430,65 +427,86 @@
             display: block;
         }
 
-        .stats-table-container {
-            margin-bottom: 0;
-        }
-
-        .stats-table-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
-        }
-
         .stats-table {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 1.1rem;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.95rem;
+        }
+
+        .stats-table thead {
+            background: linear-gradient(135deg, rgba(18, 107, 74, 0.15) 0%, rgba(18, 107, 74, 0.05) 100%);
         }
 
         .stats-table th {
             color: var(--accent);
-            padding: 1.75rem 2rem;
+            padding: 1.25rem 1rem;
             text-align: center;
-            font-weight: 500;
-            font-size: 0.85rem;
+            font-weight: 600;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid var(--border-light);
+            letter-spacing: 1.5px;
+            border-bottom: 2px solid var(--accent);
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+        .stats-table th:first-child {
+            text-align: left;
+            padding-left: 2rem;
+        }
+
+        .stats-table tbody tr {
+            transition: all 0.2s;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .stats-table tbody tr:hover {
+            background: rgba(18, 107, 74, 0.08);
         }
 
         .stats-table td {
-            padding: 1.75rem 2rem;
+            padding: 1.5rem 1rem;
             text-align: center;
             color: var(--text);
-            border-bottom: 1px solid var(--border-subtle);
             font-weight: 400;
         }
 
-        .stats-table .team-name {
+        .stats-table td:first-child {
             text-align: left;
-            font-weight: 500;
-        }
-
-        .stats-table .level {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .stats-table .career-row td {
+            padding-left: 2rem;
             font-weight: 600;
-            border-bottom: none;
-            border-top: 1px solid var(--border-medium);
             color: var(--accent);
         }
 
+        .stats-table .organization-name {
+            text-align: left;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .stats-table .levels {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .stats-table .career-row {
+            background: linear-gradient(135deg, rgba(18, 107, 74, 0.1) 0%, transparent 100%);
+            border-top: 2px solid var(--accent);
+            border-bottom: none;
+        }
+
+        .stats-table .career-row td {
+            font-weight: 700;
+            color: var(--accent);
+            padding: 1.75rem 1rem;
+        }
+
         .stats-table .career-row td:first-child {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Bebas Neue', sans-serif;
             font-size: 1rem;
+            letter-spacing: 2px;
         }
 
         /* Cards */
@@ -879,6 +897,7 @@
         @media (max-width: 1024px) {
             .hero {
                 grid-template-columns: 1fr;
+                min-height: 90vh;
             }
             .hero-image {
                 position: absolute;
@@ -888,17 +907,16 @@
             .hero-content {
                 position: relative;
                 z-index: 1;
+                padding: 3rem 2rem;
             }
             .hero h1 {
                 font-size: 3.5rem;
             }
             .section-header {
-                flex-direction: column-reverse;
+                flex-direction: column;
                 align-items: flex-start;
-                gap: 1rem;
-            }
-            .section-logo {
-                font-size: 5rem;
+                gap: 0.5rem;
+                margin-bottom: 3rem;
             }
             section h2 {
                 font-size: 2.5rem;
@@ -910,46 +928,180 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1.5rem;
+                padding: 2rem 2rem 0;
             }
-            .card-header-left h2 {
-                font-size: 2.5rem;
+            .card-header-left span {
+                font-size: 1.25rem;
             }
             .card-tab {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.75rem;
+                padding: 0.6rem 1.5rem;
+                font-size: 0.8rem;
+            }
+            .card-body {
+                padding: 2rem 1.5rem;
             }
             .stats-table {
                 font-size: 0.75rem;
             }
             .stats-table th,
             .stats-table td {
-                padding: 0.75rem 0.4rem;
+                padding: 1rem 0.5rem;
+            }
+            .stats-table th:first-child,
+            .stats-table td:first-child {
+                padding-left: 1rem;
             }
             .card-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
-            .gallery-masonry {
-                grid-template-columns: 1fr;
+            .card {
+                padding: 2rem;
+            }
+            .photo-album {
+                height: 350px;
+            }
+            .evolution-section {
+                padding: 4rem 2rem;
+            }
+            .timeline-item {
+                flex: 0 0 280px;
             }
         }
 
         @media (max-width: 768px) {
             nav {
-                padding: 1.5rem 2rem;
+                padding: 1.5rem 1.5rem;
             }
             nav ul {
                 display: none;
             }
             section {
-                padding: 4rem 2rem;
+                padding: 4rem 1.5rem;
+            }
+            .hero {
+                min-height: 100vh;
             }
             .hero-content {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero-desc {
+                font-size: 1rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .hero-btn {
+                text-align: center;
+                padding: 0.75rem 1.5rem;
+            }
+            section h2 {
+                font-size: 2rem;
+            }
+            .baseball-card {
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+            }
+            .card-header {
+                padding: 1.5rem 1.5rem 0;
+            }
+            .card-header-left span {
+                font-size: 1.1rem;
+            }
+            .card-tabs {
+                width: 100%;
+                padding: 0.4rem;
+            }
+            .card-tab {
+                flex: 1;
+                padding: 0.6rem 0.5rem;
+                font-size: 0.75rem;
+            }
+            .card-body {
+                padding: 1.5rem 0.5rem;
+                overflow-x: auto;
+            }
+            .stats-table {
+                font-size: 0.7rem;
+                min-width: 650px;
+            }
+            .stats-table th,
+            .stats-table td {
+                padding: 0.9rem 0.4rem;
+            }
+            .stats-table th:first-child,
+            .stats-table td:first-child {
+                padding-left: 0.75rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .card-title {
+                font-size: 1.5rem;
+            }
+            .photo-album {
+                height: 300px;
+                max-width: 100%;
+            }
+            .album-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            .evolution-section {
+                padding: 3rem 1.5rem;
+            }
+            .evolution-header h3 {
+                font-size: 2rem;
+            }
+            .timeline-item {
+                flex: 0 0 240px;
+            }
+            .timeline-year {
+                font-size: 1.5rem;
+            }
+            .timeline-label {
+                font-size: 0.85rem;
             }
             footer {
                 flex-direction: column;
                 gap: 2rem;
                 text-align: center;
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero-desc {
+                font-size: 0.9rem;
+            }
+            section h2 {
+                font-size: 1.75rem;
+            }
+            .stats-table {
+                font-size: 0.65rem;
+                min-width: 600px;
+            }
+            .stats-table th,
+            .stats-table td {
+                padding: 0.75rem 0.3rem;
+            }
+            .card-title {
+                font-size: 1.25rem;
+            }
+            .photo-album {
+                height: 250px;
+            }
+            .timeline-item {
+                flex: 0 0 200px;
             }
         }
     </style>
@@ -970,7 +1122,6 @@
                 <span>Wealth Management Intern</span>
                 <span>Co-Founder of Old Logan Capital</span>
             </p>
-            <a href="#baseball" class="hero-cta">Explore My Journey</a>
             <div class="hero-buttons">
                 <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
                 <a href="#" class="hero-btn">Resume</a>
@@ -990,7 +1141,6 @@
 
     <section class="stats-section" id="baseball">
         <div class="section-header">
-            <span class="section-logo">PT</span>
             <h2>On the Mound</h2>
         </div>
         <div class="baseball-card">
@@ -1010,57 +1160,62 @@
                         <thead>
                             <tr>
                                 <th>Year</th>
-                                <th>Team</th>
-                                <th>Level</th>
-                                <th>G</th>
-                                <th>W-L</th>
+                                <th>Organization</th>
+                                <th>Levels</th>
+                                <th>W</th>
+                                <th>L</th>
                                 <th>ERA</th>
                                 <th>IP</th>
                                 <th>SO</th>
+                                <th>BB</th>
                                 <th>WHIP</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>2025</td>
-                                <td class="team-name">Jersey Shore</td>
-                                <td class="level">A+</td>
-                                <td>27</td>
-                                <td>3-1</td>
+                                <td class="organization-name">Philadelphia Phillies</td>
+                                <td class="levels">A+</td>
+                                <td>3</td>
+                                <td>1</td>
                                 <td>5.59</td>
                                 <td>37.0</td>
                                 <td>30</td>
+                                <td>15</td>
                                 <td>1.59</td>
                             </tr>
                             <tr>
                                 <td>2024</td>
-                                <td class="team-name">Jersey Shore</td>
-                                <td class="level">A+</td>
-                                <td>17</td>
-                                <td>1-1</td>
-                                <td>3.38</td>
-                                <td>16.0</td>
-                                <td>21</td>
-                                <td>1.19</td>
+                                <td class="organization-name">Philadelphia Phillies</td>
+                                <td class="levels">A / A+</td>
+                                <td>3</td>
+                                <td>2</td>
+                                <td>2.73</td>
+                                <td>49.1</td>
+                                <td>53</td>
+                                <td>15</td>
+                                <td>1.11</td>
                             </tr>
                             <tr>
-                                <td>2024</td>
-                                <td class="team-name">Clearwater</td>
-                                <td class="level">A</td>
-                                <td>23</td>
-                                <td>2-1</td>
-                                <td>3.32</td>
-                                <td>38.0</td>
-                                <td>42</td>
-                                <td>1.18</td>
+                                <td>2023</td>
+                                <td class="organization-name">Philadelphia Phillies</td>
+                                <td class="levels">Rk / A</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>6.35</td>
+                                <td>5.2</td>
+                                <td>10</td>
+                                <td>2</td>
+                                <td>1.59</td>
                             </tr>
                             <tr class="career-row">
-                                <td colspan="3"><a href="https://www.milb.com/player/paxton-thompson-801505" target="_blank" style="color: var(--accent); text-decoration: none;">MiLB Career</a></td>
-                                <td>67</td>
-                                <td>6-3</td>
-                                <td>4.26</td>
-                                <td>91.0</td>
+                                <td colspan="3"><a href="https://www.baseball-reference.com/register/player.fcgi?id=thomps000pax" target="_blank" style="color: var(--accent); text-decoration: none;">Professional Career</a></td>
+                                <td>6</td>
+                                <td>3</td>
+                                <td>4.11</td>
+                                <td>92.0</td>
                                 <td>93</td>
+                                <td>32</td>
                                 <td>1.35</td>
                             </tr>
                         </tbody>
@@ -1072,49 +1227,49 @@
                         <thead>
                             <tr>
                                 <th>Year</th>
-                                <th>Team</th>
-                                <th>Level</th>
-                                <th>G</th>
-                                <th>W-L</th>
+                                <th>School</th>
+                                <th>W</th>
+                                <th>L</th>
                                 <th>ERA</th>
                                 <th>IP</th>
                                 <th>SO</th>
                                 <th>BB</th>
+                                <th>WHIP</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>2023</td>
-                                <td class="team-name">Charlotte</td>
-                                <td class="level">D1</td>
-                                <td>22</td>
-                                <td>8-0</td>
+                                <td class="organization-name">UNC Charlotte</td>
+                                <td>8</td>
+                                <td>2</td>
                                 <td>4.22</td>
                                 <td>64.0</td>
                                 <td>69</td>
-                                <td>--</td>
+                                <td>26</td>
+                                <td>1.28</td>
                             </tr>
                             <tr>
                                 <td>2022</td>
-                                <td class="team-name">Charlotte</td>
-                                <td class="level">D1</td>
-                                <td>8</td>
-                                <td>0-0</td>
+                                <td class="organization-name">UNC Charlotte</td>
+                                <td>0</td>
+                                <td>2</td>
                                 <td>6.00</td>
                                 <td>6.0</td>
                                 <td>4</td>
-                                <td>--</td>
+                                <td>4</td>
+                                <td>1.50</td>
                             </tr>
                             <tr>
                                 <td>2021</td>
-                                <td class="team-name">Parkland College</td>
-                                <td class="level">JUCO</td>
-                                <td>11</td>
-                                <td>7-2</td>
+                                <td class="organization-name">Parkland College</td>
+                                <td>7</td>
+                                <td>2</td>
                                 <td>3.19</td>
                                 <td>53.2</td>
                                 <td>75</td>
                                 <td>29</td>
+                                <td>1.30</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1219,7 +1374,6 @@
 
     <section id="career">
         <div class="section-header">
-            <span class="section-logo">PT</span>
             <h2>Beyond Baseball</h2>
         </div>
 
@@ -1247,7 +1401,6 @@
 
     <section class="gallery-section" id="philanthropy">
         <div class="section-header">
-            <span class="section-logo">PT</span>
             <h2>Giving Back</h2>
         </div>
 
