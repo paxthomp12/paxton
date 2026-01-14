@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Paxton Thompson</title>
 
     <!-- Favicon -->
@@ -132,6 +134,13 @@
             background-attachment: fixed;
             color: var(--text);
             line-height: 1.6;
+            /* iOS safe area padding */
+            padding-top: env(safe-area-inset-top);
+        }
+
+        /* Ensure smooth blending at the top on iOS */
+        html {
+            background-color: #0a0f0a;
         }
 
         /* Navigation */
@@ -229,80 +238,243 @@
         /* Hero */
         .hero {
             min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
+            padding: 8rem 4rem 4rem;
         }
 
-        .hero-image {
-            background: url('https://github.com/paxthomp12/paxton/blob/main/assets/images/IMwn8OwXQKiE5qk-pV4ihA%20(1).jpg?raw=true') center/cover;
+        .hero-watch {
+            width: 600px;
+            height: 600px;
             position: relative;
+            margin: 0 auto;
         }
 
-        .hero-image::after {
-            content: '';
+        /* Watch Bezel - Outer Ring */
+        .hero-bezel {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, transparent 0%, var(--bg) 90%),
-                        linear-gradient(to bottom, transparent 70%, var(--bg) 100%);
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(18, 107, 74, 0.2) 0%, rgba(10, 15, 10, 0.8) 100%);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--border-light);
+        }
+
+        /* Bezel markers container */
+        .bezel-markers {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+        }
+
+        /* 12 o'clock triangle marker on bezel (luminous pip) */
+        .bezel-triangle {
+            position: absolute;
+            left: 50%;
+            top: 6px;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 14px solid var(--accent);
+            filter: drop-shadow(0 0 3px rgba(201, 169, 98, 0.5));
+        }
+
+        /* Minute markers on bezel (first 15 minutes have individual markers) */
+        .bezel-minute-marker {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: var(--text);
+            left: 50%;
+            top: 8px;
+            transform-origin: center 292px;
+        }
+
+        /* 5-minute markers (larger rectangles) */
+        .bezel-five-marker {
+            position: absolute;
+            width: 3px;
+            height: 14px;
+            background: var(--accent);
+            left: 50%;
+            top: 8px;
+            transform-origin: center 292px;
+            filter: drop-shadow(0 0 2px rgba(201, 169, 98, 0.4));
+        }
+
+        /* Special markers at 15, 30, 45 (circles or rectangles) */
+        .bezel-quarter-marker {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            left: 50%;
+            top: 12px;
+            transform-origin: center 288px;
+            filter: drop-shadow(0 0 2px rgba(201, 169, 98, 0.5));
+        }
+
+        /* Watch Dial - Inner Circle */
+        .hero-dial {
+            position: absolute;
+            inset: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(18, 107, 74, 0.05) 0%, rgba(10, 15, 10, 0.95) 100%);
+            border: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-markers {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        /* 12 o'clock position - Long Triangle */
+        .hero-marker-12 {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-marker-12 .marker-triangle {
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 24px solid var(--accent);
+            border-bottom: none;
+            filter: drop-shadow(0 0 3px rgba(201, 169, 98, 0.5));
+        }
+
+        /* 3 o'clock position - Horizontal Rectangle */
+        .hero-marker-3 {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hero-marker-3 .marker-rectangle {
+            width: 24px;
+            height: 8px;
+            background: var(--accent);
+            filter: drop-shadow(0 0 3px rgba(201, 169, 98, 0.5));
+        }
+
+        /* 6 o'clock position - Vertical Rectangle */
+        .hero-marker-6 {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero-marker-6 .marker-rectangle {
+            width: 8px;
+            height: 24px;
+            background: var(--accent);
+            filter: drop-shadow(0 0 3px rgba(201, 169, 98, 0.5));
+        }
+
+        /* 9 o'clock position - Horizontal Rectangle */
+        .hero-marker-9 {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hero-marker-9 .marker-rectangle {
+            width: 24px;
+            height: 8px;
+            background: var(--accent);
+            filter: drop-shadow(0 0 3px rgba(201, 169, 98, 0.5));
         }
 
         .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
-            padding: 4rem;
+            padding: 5rem 3rem;
         }
 
-        .hero-eyebrow {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
+        /* Name positioned like ROLEX text */
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 5rem;
+            font-size: 3rem;
             font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 2rem;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
         }
 
-        .hero-desc {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 500px;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
+        .hero-name-first {
+            display: block;
+            color: var(--text);
+            font-size: 2.5rem;
+        }
+
+        .hero-name-last {
+            display: block;
+            color: var(--accent);
+            font-size: 2.5rem;
+        }
+
+        /* Titles positioned like SUBMARINER text */
+        .hero-titles {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.35rem;
+            margin: 2rem 0 2.5rem;
         }
 
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Buttons positioned like depth rating */
         .hero-buttons {
             display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
         }
 
         .hero-btn {
-            padding: 0.5rem 1.25rem;
-            border: 1px solid var(--accent);
-            color: var(--accent);
+            padding: 0;
+            border: none;
+            background: none;
+            color: var(--text-muted);
             text-decoration: none;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: all 0.3s;
+            transition: color 0.3s;
         }
 
         .hero-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
+            color: var(--accent);
         }
 
         /* Section */
@@ -1007,21 +1179,55 @@
 
         @media (max-width: 1024px) {
             .hero {
-                grid-template-columns: 1fr;
-                min-height: 90vh;
+                padding: 6rem 2rem 4rem;
             }
-            .hero-image {
-                position: absolute;
-                inset: 0;
-                opacity: 0.3;
-            }
-            .hero-content {
-                position: relative;
-                z-index: 1;
-                padding: 3rem 2rem;
+            .hero-watch {
+                width: 500px;
+                height: 500px;
             }
             .hero h1 {
-                font-size: 3.5rem;
+                font-size: 2.5rem;
+            }
+            .hero-name-first,
+            .hero-name-last {
+                font-size: 2rem;
+            }
+            .hero-title {
+                font-size: 0.75rem;
+            }
+            .hero-content {
+                padding: 4rem 2.5rem;
+            }
+            .hero-marker-12 {
+                top: 20px;
+            }
+            .hero-marker-3 {
+                right: 20px;
+            }
+            .hero-marker-6 {
+                bottom: 20px;
+            }
+            .hero-marker-9 {
+                left: 20px;
+            }
+            /* Bezel markers for 500px watch */
+            .bezel-minute-marker {
+                transform-origin: center 243px;
+                height: 8px;
+            }
+            .bezel-five-marker {
+                transform-origin: center 243px;
+                height: 12px;
+            }
+            .bezel-quarter-marker {
+                transform-origin: center 239px;
+                top: 10px;
+            }
+            .bezel-triangle {
+                top: 5px;
+                border-left-width: 7px;
+                border-right-width: 7px;
+                border-top-width: 12px;
             }
             .section-header {
                 flex-direction: column;
@@ -1096,25 +1302,82 @@
                 padding: 4rem 1.5rem;
             }
             .hero {
-                min-height: 100vh;
+                padding: 5rem 1.5rem 4rem;
             }
-            .hero-content {
-                padding: 2rem 1.5rem;
-                justify-content: center;
+            .hero-watch {
+                width: 90vw;
+                height: 90vw;
+                max-width: 450px;
+                max-height: 450px;
             }
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
-            .hero-desc {
-                font-size: 1rem;
+            .hero-name-first,
+            .hero-name-last {
+                font-size: 1.75rem;
             }
-            .hero-buttons {
-                flex-direction: column;
-                gap: 0.75rem;
+            .hero-title {
+                font-size: 0.7rem;
+                letter-spacing: 1.5px;
             }
             .hero-btn {
-                text-align: center;
-                padding: 0.75rem 1.5rem;
+                font-size: 0.7rem;
+            }
+            .hero-content {
+                padding: 3rem 2rem;
+            }
+            .hero-marker-12 {
+                top: 20px;
+            }
+            .hero-marker-12 .marker-triangle {
+                border-left-width: 8px;
+                border-right-width: 8px;
+                border-top-width: 20px;
+            }
+            .hero-marker-3 {
+                right: 20px;
+            }
+            .hero-marker-3 .marker-rectangle {
+                width: 20px;
+                height: 6px;
+            }
+            .hero-marker-9 {
+                left: 20px;
+            }
+            .hero-marker-9 .marker-rectangle {
+                width: 20px;
+                height: 6px;
+            }
+            .hero-marker-6 {
+                bottom: 20px;
+            }
+            .hero-marker-6 .marker-rectangle {
+                width: 6px;
+                height: 20px;
+            }
+            /* Bezel markers responsive - max 450px watch */
+            .bezel-minute-marker {
+                transform-origin: center 218px;
+                height: 7px;
+                top: 7px;
+            }
+            .bezel-five-marker {
+                transform-origin: center 218px;
+                height: 10px;
+                top: 7px;
+            }
+            .bezel-quarter-marker {
+                transform-origin: center 214px;
+                width: 5px;
+                height: 5px;
+                top: 9px;
+            }
+            .bezel-triangle {
+                top: 5px;
+                border-left-width: 6px;
+                border-right-width: 6px;
+                border-top-width: 10px;
             }
             section h2 {
                 font-size: 2rem;
@@ -1199,11 +1462,86 @@
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
+            .hero-watch {
+                width: 85vw;
+                height: 85vw;
+                max-width: 350px;
+                max-height: 350px;
             }
-            .hero-desc {
-                font-size: 0.9rem;
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .hero-name-first,
+            .hero-name-last {
+                font-size: 1.5rem;
+            }
+            .hero-title {
+                font-size: 0.6rem;
+                letter-spacing: 1.5px;
+            }
+            .hero-btn {
+                font-size: 0.6rem;
+            }
+            .hero-content {
+                padding: 2rem 1.5rem;
+            }
+            .hero-titles {
+                gap: 0.25rem;
+                margin: 1.5rem 0 2rem;
+            }
+            .hero-marker-12 {
+                top: 15px;
+            }
+            .hero-marker-12 .marker-triangle {
+                border-left-width: 6px;
+                border-right-width: 6px;
+                border-top-width: 16px;
+            }
+            .hero-marker-3 {
+                right: 15px;
+            }
+            .hero-marker-3 .marker-rectangle {
+                width: 16px;
+                height: 5px;
+            }
+            .hero-marker-6 {
+                bottom: 15px;
+            }
+            .hero-marker-6 .marker-rectangle {
+                width: 5px;
+                height: 16px;
+            }
+            .hero-marker-9 {
+                left: 15px;
+            }
+            .hero-marker-9 .marker-rectangle {
+                width: 16px;
+                height: 5px;
+            }
+            /* Bezel markers responsive - max 350px watch */
+            .bezel-minute-marker {
+                transform-origin: center 168px;
+                height: 6px;
+                width: 1.5px;
+                top: 6px;
+            }
+            .bezel-five-marker {
+                transform-origin: center 168px;
+                height: 9px;
+                width: 2.5px;
+                top: 6px;
+            }
+            .bezel-quarter-marker {
+                transform-origin: center 165px;
+                width: 4px;
+                height: 4px;
+                top: 8px;
+            }
+            .bezel-triangle {
+                top: 4px;
+                border-left-width: 5px;
+                border-right-width: 5px;
+                border-top-width: 8px;
             }
             section h2 {
                 font-size: 1.75rem;
@@ -1482,17 +1820,58 @@
     </nav>
 
     <section id="home" class="hero">
-        <div class="hero-image"></div>
-        <div class="hero-content">
-            <h1>Paxton<br>Thompson</h1>
-            <p class="hero-desc">
-                <span>Professional Baseball Player</span>
-                <span>Wealth Management Intern</span>
-                <span>Co-Founder of Old Logan Capital</span>
-            </p>
-            <div class="hero-buttons">
-                <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
-                <a href="#" class="hero-btn">Resume</a>
+        <div class="hero-watch">
+            <!-- Bezel - Outer Ring -->
+            <div class="hero-bezel">
+                <!-- Bezel markers will be added via JavaScript -->
+                <div class="bezel-markers"></div>
+            </div>
+
+            <!-- Watch Dial - Inner Circle -->
+            <div class="hero-dial">
+                <!-- Hour Markers -->
+                <div class="hero-markers">
+                    <!-- 12 o'clock - Inverted triangle -->
+                    <div class="hero-marker-12">
+                        <div class="marker-triangle"></div>
+                    </div>
+
+                    <!-- 3 o'clock - Rectangle bar -->
+                    <div class="hero-marker-3">
+                        <div class="marker-rectangle"></div>
+                    </div>
+
+                    <!-- 6 o'clock - Rectangle bar -->
+                    <div class="hero-marker-6">
+                        <div class="marker-rectangle"></div>
+                    </div>
+
+                    <!-- 9 o'clock - Rectangle bar -->
+                    <div class="hero-marker-9">
+                        <div class="marker-rectangle"></div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <!-- Name (like ROLEX text) -->
+                    <h1>
+                        <span class="hero-name-first">Paxton</span>
+                        <span class="hero-name-last">Thompson</span>
+                    </h1>
+
+                    <!-- Titles (like SUBMARINER text) -->
+                    <div class="hero-titles">
+                        <div class="hero-title">Professional Baseball Player</div>
+                        <div class="hero-title">Co-Founder</div>
+                        <div class="hero-title">Wealth Management Intern</div>
+                    </div>
+
+                    <!-- Buttons (like depth rating) -->
+                    <div class="hero-buttons">
+                        <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
+                        <a href="#" class="hero-btn">Resume</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1541,15 +1920,15 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>2025</td>
+                                <td>2023</td>
                                 <td class="organization-name">Philadelphia Phillies</td>
-                                <td class="levels">A+</td>
-                                <td>3</td>
-                                <td>1</td>
-                                <td>5.59</td>
-                                <td>37.0</td>
-                                <td>30</td>
-                                <td>15</td>
+                                <td class="levels">Rk / A</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>6.35</td>
+                                <td>5.2</td>
+                                <td>10</td>
+                                <td>2</td>
                                 <td>1.59</td>
                             </tr>
                             <tr>
@@ -1565,15 +1944,15 @@
                                 <td>1.11</td>
                             </tr>
                             <tr>
-                                <td>2023</td>
+                                <td>2025</td>
                                 <td class="organization-name">Philadelphia Phillies</td>
-                                <td class="levels">Rk / A</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>6.35</td>
-                                <td>5.2</td>
-                                <td>10</td>
-                                <td>2</td>
+                                <td class="levels">A+</td>
+                                <td>3</td>
+                                <td>1</td>
+                                <td>5.59</td>
+                                <td>37.0</td>
+                                <td>30</td>
+                                <td>15</td>
                                 <td>1.59</td>
                             </tr>
                             <tr class="career-row">
@@ -1608,16 +1987,16 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>2023</td>
-                                <td class="organization-name">UNC Charlotte</td>
-                                <td class="levels">D1</td>
-                                <td>8</td>
+                                <td>2021</td>
+                                <td class="organization-name">Parkland College</td>
+                                <td class="levels">JUCO</td>
+                                <td>7</td>
                                 <td>2</td>
-                                <td>4.22</td>
-                                <td>64.0</td>
-                                <td>69</td>
-                                <td>26</td>
-                                <td>1.28</td>
+                                <td>3.19</td>
+                                <td>53.2</td>
+                                <td>75</td>
+                                <td>29</td>
+                                <td>1.30</td>
                             </tr>
                             <tr>
                                 <td>2022</td>
@@ -1632,16 +2011,16 @@
                                 <td>1.50</td>
                             </tr>
                             <tr>
-                                <td>2021</td>
-                                <td class="organization-name">Parkland College</td>
-                                <td class="levels">JUCO</td>
-                                <td>7</td>
+                                <td>2023</td>
+                                <td class="organization-name">UNC Charlotte</td>
+                                <td class="levels">D1</td>
+                                <td>8</td>
                                 <td>2</td>
-                                <td>3.19</td>
-                                <td>53.2</td>
-                                <td>75</td>
-                                <td>29</td>
-                                <td>1.30</td>
+                                <td>4.22</td>
+                                <td>64.0</td>
+                                <td>69</td>
+                                <td>26</td>
+                                <td>1.28</td>
                             </tr>
                             <tr class="career-row">
                                 <td colspan="3">College Career</td>
@@ -2178,6 +2557,40 @@
     </footer>
 
     <script>
+        // Create Submariner bezel markers
+        const bezelMarkersContainer = document.querySelector('.bezel-markers');
+
+        // Add triangle at 12 o'clock on bezel (luminous pip at 0 position)
+        const triangle = document.createElement('div');
+        triangle.classList.add('bezel-triangle');
+        bezelMarkersContainer.appendChild(triangle);
+
+        // Create bezel markers (Submariner style)
+        for (let i = 1; i < 60; i++) {
+            let marker;
+
+            // Special circular markers at 15, 30, 45 minute positions
+            if (i === 15 || i === 30 || i === 45) {
+                marker = document.createElement('div');
+                marker.classList.add('bezel-quarter-marker');
+            }
+            // Individual minute markers for first 15 minutes
+            else if (i <= 15) {
+                marker = document.createElement('div');
+                marker.classList.add('bezel-minute-marker');
+            }
+            // Single markers between quarter positions: one between 15-30, one between 30-45, one between 45-60
+            else if (i === 22 || i === 37 || i === 52) {
+                marker = document.createElement('div');
+                marker.classList.add('bezel-five-marker');
+            }
+
+            if (marker) {
+                marker.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
+                bezelMarkersContainer.appendChild(marker);
+            }
+        }
+
         // Stats card tab switching
         const tabs = document.querySelectorAll('.card-tab');
         const panels = document.querySelectorAll('.stats-panel');
@@ -2267,6 +2680,36 @@
 
         // Start autoplay
         startAutoplay();
+
+        // Touch/Swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const carouselContainer = document.querySelector('.carousel-container');
+
+        carouselContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        carouselContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // minimum distance for swipe
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swiped left - go to next slide
+                    nextSlide();
+                } else {
+                    // Swiped right - go to previous slide
+                    prevSlide();
+                }
+                resetAutoplay();
+            }
+        }
 
         // Substack RSS Feed
         async function loadSubstackFeed() {
