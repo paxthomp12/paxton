@@ -4,7 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paxton Thompson</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230a0f0a' stroke='%23c9a962' stroke-width='3'/%3E%3Cpolygon points='50,20 45,28 55,28' fill='%23c9a962'/%3E%3Crect x='47' y='70' width='6' height='12' fill='%23c9a962'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='sans-serif' font-size='24' font-weight='bold' fill='%23c9a962'%3EPT%3C/text%3E%3C/svg%3E">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional Baseball Player | Wealth Management Intern | Co-Founder of Old Logan Capital">
+    <meta name="author" content="Paxton Thompson">
+
+    <!-- Open Graph / Facebook / iMessage -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://paxthomp12.github.io/paxton/">
+    <meta property="og:title" content="Paxton Thompson">
+    <meta property="og:description" content="Professional Baseball Player | Wealth Management Intern | Co-Founder of Old Logan Capital">
+    <meta property="og:image" content="https://paxthomp12.github.io/paxton/assets/images/pt-logo.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://paxthomp12.github.io/paxton/">
+    <meta name="twitter:title" content="Paxton Thompson">
+    <meta name="twitter:description" content="Professional Baseball Player | Wealth Management Intern | Co-Founder of Old Logan Capital">
+    <meta name="twitter:image" content="https://paxthomp12.github.io/paxton/assets/images/pt-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         * {
@@ -526,6 +546,16 @@
             will-change: border-color;
         }
 
+        .card-link {
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .card-link .card-title {
+            color: #ffffff;
+        }
+
         .card::before {
             content: '';
             position: absolute;
@@ -552,6 +582,7 @@
             font-weight: 400;
             margin-bottom: 0.5rem;
             letter-spacing: 2px;
+            color: #ffffff;
         }
 
         .card-subtitle {
@@ -1191,6 +1222,255 @@
             .timeline-item {
                 flex: 0 0 200px;
             }
+            .quotes-container {
+                gap: 2rem;
+            }
+            .reading-grid {
+                gap: 2rem;
+            }
+        }
+
+        /* Quotes Section */
+        .quotes-container {
+            max-width: 900px;
+            margin: 0 auto;
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+
+        .quotes-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            padding: 100px 0;
+            animation: scrollCredits 60s linear infinite;
+        }
+
+        .quotes-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollCredits {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        .quote-card {
+            background: linear-gradient(135deg, rgba(18, 107, 74, 0.03) 0%, transparent 100%);
+            padding: 3rem;
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--accent);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .quote-card:hover {
+            border-color: var(--border-light);
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .quote-markers {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            opacity: 0.6;
+        }
+
+        .quote-markers .marker-circle {
+            width: 6px;
+            height: 6px;
+        }
+
+        .quote-markers .marker-rectangle {
+            width: 4px;
+            height: 12px;
+        }
+
+        .quote-markers .marker-triangle {
+            border-left-width: 5px;
+            border-right-width: 5px;
+            border-top-width: 9px;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-style: italic;
+            margin: 0 0 1.5rem 0;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* Reading & Learning Section */
+        .reading-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .reading-section {
+            background: linear-gradient(135deg, rgba(18, 107, 74, 0.03) 0%, transparent 100%);
+            padding: 2.5rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        .reading-section:hover {
+            border-color: var(--border-light);
+        }
+
+        .reading-section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 1rem;
+        }
+
+        .substack-description {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .substack-feed {
+            min-height: 300px;
+        }
+
+        .substack-scrollable {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .substack-scrollable::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .substack-scrollable::-webkit-scrollbar-track {
+            background: rgba(201, 169, 98, 0.1);
+            border-radius: 4px;
+        }
+
+        .substack-scrollable::-webkit-scrollbar-thumb {
+            background: rgba(201, 169, 98, 0.3);
+            border-radius: 4px;
+        }
+
+        .substack-scrollable::-webkit-scrollbar-thumb:hover {
+            background: rgba(201, 169, 98, 0.5);
+        }
+
+        .feed-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-light);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .substack-article {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .substack-article:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .substack-article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .substack-article-title a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .substack-article-title a:hover {
+            color: var(--accent);
+        }
+
+        .substack-article-excerpt {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 1200px) {
+            .reading-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .quote-text {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quote-card {
+                padding: 2rem;
+            }
+
+            .quote-text {
+                font-size: 1.25rem;
+            }
+
+            .reading-section {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -1316,6 +1596,7 @@
                             <tr>
                                 <th>Year</th>
                                 <th>School</th>
+                                <th>Level</th>
                                 <th>W</th>
                                 <th>L</th>
                                 <th>ERA</th>
@@ -1329,6 +1610,7 @@
                             <tr>
                                 <td>2023</td>
                                 <td class="organization-name">UNC Charlotte</td>
+                                <td class="levels">D1</td>
                                 <td>8</td>
                                 <td>2</td>
                                 <td>4.22</td>
@@ -1340,6 +1622,7 @@
                             <tr>
                                 <td>2022</td>
                                 <td class="organization-name">UNC Charlotte</td>
+                                <td class="levels">D1</td>
                                 <td>0</td>
                                 <td>2</td>
                                 <td>6.00</td>
@@ -1351,6 +1634,7 @@
                             <tr>
                                 <td>2021</td>
                                 <td class="organization-name">Parkland College</td>
+                                <td class="levels">JUCO</td>
                                 <td>7</td>
                                 <td>2</td>
                                 <td>3.19</td>
@@ -1358,6 +1642,16 @@
                                 <td>75</td>
                                 <td>29</td>
                                 <td>1.30</td>
+                            </tr>
+                            <tr class="career-row">
+                                <td colspan="3">College Career</td>
+                                <td>15</td>
+                                <td>6</td>
+                                <td>3.89</td>
+                                <td>123.2</td>
+                                <td>148</td>
+                                <td>59</td>
+                                <td>1.31</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1466,16 +1760,16 @@
         </div>
 
         <div class="card-grid">
-            <div class="card">
+            <a href="https://paxthomp12.github.io/old-logan-capital/" target="_blank" class="card card-link">
                 <h3 class="card-title">Co-Founder</h3>
                 <p class="card-subtitle">Old Logan Capital</p>
                 <p class="card-desc">Co-founded an investment company focused on strategic market opportunities and long-term value creation. Leading initiatives in market analysis and investment decision-making.</p>
-            </div>
-            <div class="card">
+            </a>
+            <a href="https://www.firmfoundationfw.com/" target="_blank" class="card card-link">
                 <h3 class="card-title">Wealth Management Intern</h3>
                 <p class="card-subtitle">Firm Foundation Family Wealth</p>
                 <p class="card-desc">Gaining hands-on experience in financial planning, client relations, and developing expertise in investment strategies and portfolio management.</p>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -1536,6 +1830,343 @@
             <div class="carousel-indicators"></div>
             <div class="carousel-counter">
                 <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <span class="marker-triangle"></span>
+            <span class="marker-circle"></span>
+            <span class="marker-rectangle"></span>
+            <span class="marker-circle"></span>
+            <span class="marker-triangle"></span>
+        </div>
+    </div>
+
+    <section id="reading">
+        <div class="section-header">
+            <h2>Reading & Learning</h2>
+        </div>
+
+        <div class="reading-grid">
+            <!-- Currently Reading Section -->
+            <div class="reading-section">
+                <h3 class="reading-section-title">Currently Reading</h3>
+                <div class="goodreads-widget">
+                    <style type="text/css" media="screen">
+                        .gr_custom_container_1768341552 {
+                            border: 1px solid rgba(201, 169, 98, 0.2);
+                            border-radius: 4px;
+                            padding: 20px;
+                            background: linear-gradient(135deg, rgba(18, 107, 74, 0.05) 0%, transparent 100%);
+                            color: #f5f3ef;
+                        }
+                        .gr_custom_header_1768341552 {
+                            display: none;
+                        }
+                        .gr_custom_header_1768341552 a {
+                            font-family: 'Bebas Neue', sans-serif;
+                            font-size: 1.2rem;
+                            text-decoration: none;
+                            color: #c9a962;
+                            letter-spacing: 2px;
+                            text-transform: uppercase;
+                        }
+                        .gr_custom_each_container_1768341552 {
+                            width: 100%;
+                            clear: both;
+                            margin-bottom: 15px;
+                            overflow: auto;
+                            padding-bottom: 10px;
+                            border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+                        }
+                        .gr_custom_book_container_1768341552 {
+                            overflow: hidden;
+                            height: 80px;
+                            float: left;
+                            margin-right: 15px;
+                            width: 53px;
+                        }
+                        .gr_custom_book_container_1768341552 img {
+                            border-radius: 2px;
+                        }
+                        .gr_custom_title_1768341552 {
+                            font-size: 0.95rem;
+                            line-height: 1.4;
+                            margin-bottom: 5px;
+                        }
+                        .gr_custom_title_1768341552 a {
+                            color: #f5f3ef;
+                            text-decoration: none;
+                            font-weight: 500;
+                        }
+                        .gr_custom_title_1768341552 a:hover {
+                            color: #c9a962;
+                        }
+                        .gr_custom_author_1768341552 {
+                            font-size: 0.85rem;
+                            color: #8a9a8a;
+                        }
+                        .gr_custom_author_1768341552 a {
+                            color: #8a9a8a;
+                            text-decoration: none;
+                        }
+                        .gr_custom_author_1768341552 a:hover {
+                            color: #c9a962;
+                        }
+                        .gr_custom_container_1768341552 center {
+                            display: none !important;
+                        }
+                    </style>
+                    <div id="gr_custom_widget_1768341552">
+                        <div class="gr_custom_container_1768341552">
+                            <h2 class="gr_custom_header_1768341552">
+                                <a style="text-decoration: none;" rel="nofollow" href="https://www.goodreads.com/review/list/197701602-paxton-thompson?shelf=currently-reading&amp;utm_medium=api&amp;utm_source=custom_widget">Currently Reading</a>
+                            </h2>
+                            <div class="gr_custom_each_container_1768341552">
+                                <div class="gr_custom_book_container_1768341552">
+                                    <a title="Poor Charlie's Almanack: The Wit and Wisdom of Charles T. Munger" rel="nofollow" href="https://www.goodreads.com/review/show/8254316240?utm_medium=api&amp;utm_source=custom_widget"><img alt="Poor Charlie's Almanack: The Wit and Wisdom of Charles T. Munger" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1387744370l/944652._SX50_.jpg" /></a>
+                                </div>
+                                <div class="gr_custom_title_1768341552">
+                                    <a rel="nofollow" href="https://www.goodreads.com/review/show/8254316240?utm_medium=api&amp;utm_source=custom_widget">Poor Charlie's Almanack: The Wit and Wisdom of Charles T. Munger</a>
+                                </div>
+                                <div class="gr_custom_author_1768341552">
+                                    by <a rel="nofollow" href="https://www.goodreads.com/author/show/236437.Charles_T_Munger">Charles T. Munger</a>
+                                </div>
+                            </div>
+                            <div class="gr_custom_each_container_1768341552">
+                                <div class="gr_custom_book_container_1768341552">
+                                    <a title="Richer, Wiser, Happier: How the World's Greatest Investors Win in Markets and Life" rel="nofollow" href="https://www.goodreads.com/review/show/8254316984?utm_medium=api&amp;utm_source=custom_widget"><img alt="Richer, Wiser, Happier: How the World's Greatest Investors Win in Markets and Life" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1616939887l/54303127._SY75_.jpg" /></a>
+                                </div>
+                                <div class="gr_custom_title_1768341552">
+                                    <a rel="nofollow" href="https://www.goodreads.com/review/show/8254316984?utm_medium=api&amp;utm_source=custom_widget">Richer, Wiser, Happier: How the World's Greatest Investors Win in Markets and Life</a>
+                                </div>
+                                <div class="gr_custom_author_1768341552">
+                                    by <a rel="nofollow" href="https://www.goodreads.com/author/show/49089183.William_Green">William Green</a>
+                                </div>
+                            </div>
+                            <div class="gr_custom_each_container_1768341552">
+                                <div class="gr_custom_book_container_1768341552">
+                                    <a title="Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets (Incerto)" rel="nofollow" href="https://www.goodreads.com/review/show/8254318184?utm_medium=api&amp;utm_source=custom_widget"><img alt="Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets" border="0" src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388180506l/38315._SY75_.jpg" /></a>
+                                </div>
+                                <div class="gr_custom_title_1768341552">
+                                    <a rel="nofollow" href="https://www.goodreads.com/review/show/8254318184?utm_medium=api&amp;utm_source=custom_widget">Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets</a>
+                                </div>
+                                <div class="gr_custom_author_1768341552">
+                                    by <a rel="nofollow" href="https://www.goodreads.com/author/show/21559.Nassim_Nicholas_Taleb">Nassim Nicholas Taleb</a>
+                                </div>
+                            </div>
+                            <br style="clear: both"/>
+                        </div>
+                    </div>
+                    <script src="https://www.goodreads.com/review/custom_widget/197701602.Currently%20Reading?cover_position=left&cover_size=small&num_books=5&order=a&shelf=currently-reading&show_author=1&show_cover=1&show_rating=0&show_review=0&show_tags=0&show_title=1&sort=date_added&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=1&widget_id=1768341552&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
+                </div>
+            </div>
+
+            <!-- Read Section -->
+            <div class="reading-section">
+                <h3 class="reading-section-title">Read</h3>
+                <div class="goodreads-widget">
+                    <style type="text/css" media="screen">
+                        .gr_custom_container_1768341553 {
+                            border: 1px solid rgba(201, 169, 98, 0.2);
+                            border-radius: 4px;
+                            padding: 20px;
+                            background: linear-gradient(135deg, rgba(18, 107, 74, 0.05) 0%, transparent 100%);
+                            color: #f5f3ef;
+                            max-height: 500px;
+                            overflow-y: auto;
+                        }
+                        .gr_custom_container_1768341553::-webkit-scrollbar {
+                            width: 8px;
+                        }
+                        .gr_custom_container_1768341553::-webkit-scrollbar-track {
+                            background: rgba(18, 107, 74, 0.1);
+                            border-radius: 4px;
+                        }
+                        .gr_custom_container_1768341553::-webkit-scrollbar-thumb {
+                            background: #c9a962;
+                            border-radius: 4px;
+                        }
+                        .gr_custom_container_1768341553::-webkit-scrollbar-thumb:hover {
+                            background: #b39952;
+                        }
+                        .gr_custom_header_1768341553 {
+                            display: none;
+                        }
+                        .gr_custom_header_1768341553 a {
+                            font-family: 'Bebas Neue', sans-serif;
+                            font-size: 1.2rem;
+                            text-decoration: none;
+                            color: #c9a962;
+                            letter-spacing: 2px;
+                            text-transform: uppercase;
+                        }
+                        .gr_custom_each_container_1768341553 {
+                            width: 100%;
+                            clear: both;
+                            margin-bottom: 15px;
+                            overflow: auto;
+                            padding-bottom: 10px;
+                            border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+                        }
+                        .gr_custom_book_container_1768341553 {
+                            overflow: hidden;
+                            height: 80px;
+                            float: left;
+                            margin-right: 15px;
+                            width: 53px;
+                        }
+                        .gr_custom_book_container_1768341553 img {
+                            border-radius: 2px;
+                        }
+                        .gr_custom_title_1768341553 {
+                            font-size: 0.95rem;
+                            line-height: 1.4;
+                            margin-bottom: 5px;
+                        }
+                        .gr_custom_title_1768341553 a {
+                            color: #f5f3ef;
+                            text-decoration: none;
+                            font-weight: 500;
+                        }
+                        .gr_custom_title_1768341553 a:hover {
+                            color: #c9a962;
+                        }
+                        .gr_custom_author_1768341553 {
+                            font-size: 0.85rem;
+                            color: #8a9a8a;
+                        }
+                        .gr_custom_author_1768341553 a {
+                            color: #8a9a8a;
+                            text-decoration: none;
+                        }
+                        .gr_custom_author_1768341553 a:hover {
+                            color: #c9a962;
+                        }
+                        .gr_custom_container_1768341553 center {
+                            display: none !important;
+                        }
+                    </style>
+                    <div id="gr_custom_widget_1768341553">
+                        <div class="gr_custom_container_1768341553">
+                            <h2 class="gr_custom_header_1768341553">
+                                <a style="text-decoration: none;" rel="nofollow" href="https://www.goodreads.com/review/list/197701602-paxton-thompson?shelf=read&amp;utm_medium=api&amp;utm_source=custom_widget">Read</a>
+                            </h2>
+                            <div class="gr_custom_each_container_1768341553">
+                                <p style="text-align: center; color: #8a9a8a;">Loading books...</p>
+                            </div>
+                            <br style="clear: both"/>
+                        </div>
+                    </div>
+                    <script src="https://www.goodreads.com/review/custom_widget/197701602.Read?cover_position=left&cover_size=small&num_books=10&order=d&shelf=read&show_author=1&show_cover=1&show_rating=0&show_review=0&show_tags=0&show_title=1&sort=date_read&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=1&widget_id=1768341553&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
+                </div>
+            </div>
+
+            <!-- Favorite Substack Reads Section -->
+            <div class="reading-section">
+                <h3 class="reading-section-title">Favorite Substack Reads</h3>
+                <p class="substack-description">My notes + article link</p>
+                <div id="substack-feed" class="substack-feed substack-scrollable">
+                    <div class="feed-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading articles...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <span class="marker-rectangle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-circle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-rectangle"></span>
+        </div>
+    </div>
+
+    <section id="quotes">
+        <div class="section-header">
+            <h2>Words That Resonate</h2>
+        </div>
+
+        <div class="quotes-container">
+            <div class="quotes-scroll">
+                <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "The big money is not in the buying and selling, but in the waiting."
+                </blockquote>
+                <p class="quote-author">— Charlie Munger</p>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-triangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-rectangle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "In investing, what is comfortable is rarely profitable."
+                </blockquote>
+                <p class="quote-author">— Robert Arnott</p>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-circle"></span>
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "Success is not final, failure is not fatal: it is the courage to continue that counts."
+                </blockquote>
+                <p class="quote-author">— Winston Churchill</p>
+            </div>
+
+            <!-- Duplicate quotes for seamless loop -->
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "The big money is not in the buying and selling, but in the waiting."
+                </blockquote>
+                <p class="quote-author">— Charlie Munger</p>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-triangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-rectangle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "In investing, what is comfortable is rarely profitable."
+                </blockquote>
+                <p class="quote-author">— Robert Arnott</p>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-circle"></span>
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "Success is not final, failure is not fatal: it is the courage to continue that counts."
+                </blockquote>
+                <p class="quote-author">— Winston Churchill</p>
+            </div>
             </div>
         </div>
     </section>
@@ -1636,6 +2267,68 @@
 
         // Start autoplay
         startAutoplay();
+
+        // Substack RSS Feed
+        async function loadSubstackFeed() {
+            const feedContainer = document.getElementById('substack-feed');
+            const feedUrl = 'https://paxton29.substack.com/feed';
+
+            try {
+                const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                const response = await fetch(proxyUrl + encodeURIComponent(feedUrl));
+                const xmlText = await response.text();
+
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(xmlText, 'text/xml');
+                const items = xml.querySelectorAll('item');
+
+                if (items.length === 0) {
+                    feedContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No articles found.</p>';
+                    return;
+                }
+
+                feedContainer.innerHTML = '';
+
+                Array.from(items).forEach(item => {
+                    const title = item.querySelector('title')?.textContent || 'Untitled';
+                    const link = item.querySelector('link')?.textContent || '#';
+                    const description = item.querySelector('description')?.textContent || '';
+
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = description;
+                    const fullText = tempDiv.textContent.trim();
+
+                    const firstSentenceMatch = fullText.match(/^[^.!?]*[.!?]/);
+                    const firstSentence = firstSentenceMatch ? firstSentenceMatch[0].trim() : fullText.substring(0, 100) + '...';
+
+                    const articleEl = document.createElement('div');
+                    articleEl.className = 'substack-article';
+                    articleEl.innerHTML = `
+                        <h4 class="substack-article-title">
+                            <a href="${link}" target="_blank" rel="noopener">${title}</a>
+                        </h4>
+                        <p class="substack-article-excerpt">${firstSentence}</p>
+                    `;
+
+                    feedContainer.appendChild(articleEl);
+                });
+
+            } catch (error) {
+                feedContainer.innerHTML = `
+                    <p style="text-align: center; color: var(--text-muted);">
+                        Unable to load articles. Please visit
+                        <a href="https://paxton29.substack.com/tag/favorites"
+                           target="_blank"
+                           style="color: var(--accent); text-decoration: none;">
+                            my Substack
+                        </a>
+                        directly.
+                    </p>
+                `;
+            }
+        }
+
+        loadSubstackFeed();
     </script>
 </body>
 </html>
