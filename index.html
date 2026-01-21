@@ -831,10 +831,18 @@
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s;
+            opacity: 0.4;
         }
 
         .timeline-dot:hover {
             transform: scale(1.5);
+            opacity: 0.7;
+        }
+
+        .timeline-dot.active {
+            opacity: 1;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px var(--accent);
         }
 
         /* Photo Carousel */
@@ -1804,7 +1812,7 @@
             <div class="timeline-track">
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156669273?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2016 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156669273?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2016 High School"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2016</div>
@@ -1814,7 +1822,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156697281?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2017 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156697281?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2017 High School"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2017</div>
@@ -1824,7 +1832,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2020</div>
@@ -1834,7 +1842,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156697261?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2021 Parkland College"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156697261?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2021 Parkland College"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2021</div>
@@ -1844,10 +1852,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <div class="placeholder">
-                            <div class="play-icon"></div>
-                            <span>Add Video</span>
-                        </div>
+                        <iframe src="https://player.vimeo.com/video/1156867881?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2022 Charlotte"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2022</div>
@@ -1857,10 +1862,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <div class="placeholder">
-                            <div class="play-icon"></div>
-                            <span>Add Video</span>
-                        </div>
+                        <iframe src="https://player.vimeo.com/video/1156869653?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2023 Charlotte / Pro Debut"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2023</div>
@@ -2464,63 +2466,113 @@
             }
         }
 
-        // Substack RSS Feed
+        // Substack RSS Feed with multiple fallback proxies and retry logic
         async function loadSubstackFeed() {
             const feedContainer = document.getElementById('substack-feed');
             const feedUrl = 'https://paxton29.substack.com/feed';
 
-            try {
-                const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                const response = await fetch(proxyUrl + encodeURIComponent(feedUrl));
-                const xmlText = await response.text();
+            // Multiple proxy services as fallbacks
+            const proxies = [
+                'https://api.allorigins.win/raw?url=',
+                'https://corsproxy.io/?',
+                'https://api.codetabs.com/v1/proxy?quest='
+            ];
 
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(xmlText, 'text/xml');
-                const items = xml.querySelectorAll('item');
+            // Try to fetch with timeout
+            async function fetchWithTimeout(url, timeout = 8000) {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-                if (items.length === 0) {
-                    feedContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No articles found.</p>';
-                    return;
+                try {
+                    const response = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    return response;
+                } catch (error) {
+                    clearTimeout(timeoutId);
+                    throw error;
                 }
+            }
 
-                feedContainer.innerHTML = '';
+            // Try each proxy until one works
+            for (let i = 0; i < proxies.length; i++) {
+                try {
+                    const proxyUrl = proxies[i] + encodeURIComponent(feedUrl);
+                    const response = await fetchWithTimeout(proxyUrl);
 
-                Array.from(items).forEach(item => {
-                    const title = item.querySelector('title')?.textContent || 'Untitled';
-                    const link = item.querySelector('link')?.textContent || '#';
-                    const description = item.querySelector('description')?.textContent || '';
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
 
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = description;
-                    const fullText = tempDiv.textContent.trim();
+                    const xmlText = await response.text();
 
-                    const firstSentenceMatch = fullText.match(/^[^.!?]*[.!?]/);
-                    const firstSentence = firstSentenceMatch ? firstSentenceMatch[0].trim() : fullText.substring(0, 100) + '...';
+                    // Check if we got valid XML
+                    if (!xmlText || xmlText.trim().length === 0) {
+                        throw new Error('Empty response');
+                    }
 
-                    const articleEl = document.createElement('div');
-                    articleEl.className = 'substack-article';
-                    articleEl.innerHTML = `
-                        <h4 class="substack-article-title">
-                            <a href="${link}" target="_blank" rel="noopener">${title}</a>
-                        </h4>
-                        <p class="substack-article-excerpt">${firstSentence}</p>
-                    `;
+                    const parser = new DOMParser();
+                    const xml = parser.parseFromString(xmlText, 'text/xml');
 
-                    feedContainer.appendChild(articleEl);
-                });
+                    // Check for XML parsing errors
+                    const parserError = xml.querySelector('parsererror');
+                    if (parserError) {
+                        throw new Error('XML parsing error');
+                    }
 
-            } catch (error) {
-                feedContainer.innerHTML = `
-                    <p style="text-align: center; color: var(--text-muted);">
-                        Unable to load articles. Please visit
-                        <a href="https://paxton29.substack.com/tag/favorites"
-                           target="_blank"
-                           style="color: var(--accent); text-decoration: none;">
-                            my Substack
-                        </a>
-                        directly.
-                    </p>
-                `;
+                    const items = xml.querySelectorAll('item');
+
+                    if (items.length === 0) {
+                        throw new Error('No items found in feed');
+                    }
+
+                    // Success! Clear the loading state and display articles
+                    feedContainer.innerHTML = '';
+
+                    Array.from(items).forEach(item => {
+                        const title = item.querySelector('title')?.textContent || 'Untitled';
+                        const link = item.querySelector('link')?.textContent || '#';
+                        const description = item.querySelector('description')?.textContent || '';
+
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = description;
+                        const fullText = tempDiv.textContent.trim();
+
+                        const firstSentenceMatch = fullText.match(/^[^.!?]*[.!?]/);
+                        const firstSentence = firstSentenceMatch ? firstSentenceMatch[0].trim() : fullText.substring(0, 100) + '...';
+
+                        const articleEl = document.createElement('div');
+                        articleEl.className = 'substack-article';
+                        articleEl.innerHTML = `
+                            <h4 class="substack-article-title">
+                                <a href="${link}" target="_blank" rel="noopener">${title}</a>
+                            </h4>
+                            <p class="substack-article-excerpt">${firstSentence}</p>
+                        `;
+
+                        feedContainer.appendChild(articleEl);
+                    });
+
+                    // Successfully loaded, exit the function
+                    return;
+
+                } catch (error) {
+                    console.log(`Proxy ${i + 1} failed:`, error.message);
+                    // Continue to next proxy
+                    if (i === proxies.length - 1) {
+                        // This was the last proxy, show error message
+                        feedContainer.innerHTML = `
+                            <p style="text-align: center; color: var(--text-muted);">
+                                Unable to load articles. Please visit
+                                <a href="https://paxton29.substack.com/tag/favorites"
+                                   target="_blank"
+                                   style="color: var(--accent); text-decoration: none;">
+                                    my Substack
+                                </a>
+                                directly.
+                            </p>
+                        `;
+                    }
+                }
             }
         }
 
@@ -2539,7 +2591,69 @@
                         console.log('Fullscreen request failed:', error);
                     });
                 });
+
+                // When video ends, exit fullscreen for better user experience
+                player.on('ended', function() {
+                    player.exitFullscreen().catch(function(error) {
+                        console.log('Exit fullscreen failed:', error);
+                    });
+                });
             });
+
+            // Interactive timeline dots functionality
+            const timelineTrack = document.querySelector('.timeline-track');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineDots = document.querySelectorAll('.timeline-dot');
+
+            // Make dots clickable to scroll to videos
+            timelineDots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    const targetItem = timelineItems[index];
+                    if (targetItem) {
+                        targetItem.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center'
+                        });
+                    }
+                });
+            });
+
+            // Update active dot based on scroll position
+            function updateActiveDot() {
+                const trackRect = timelineTrack.getBoundingClientRect();
+                const trackCenter = trackRect.left + trackRect.width / 2;
+
+                let closestIndex = 0;
+                let closestDistance = Infinity;
+
+                timelineItems.forEach((item, index) => {
+                    const itemRect = item.getBoundingClientRect();
+                    const itemCenter = itemRect.left + itemRect.width / 2;
+                    const distance = Math.abs(itemCenter - trackCenter);
+
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+
+                // Update active state on dots
+                timelineDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === closestIndex);
+                });
+            }
+
+            // Update on scroll
+            timelineTrack.addEventListener('scroll', updateActiveDot);
+
+            // Initialize first dot as active
+            if (timelineDots.length > 0) {
+                timelineDots[0].classList.add('active');
+            }
+
+            // Update on window resize
+            window.addEventListener('resize', updateActiveDot);
         });
     </script>
 </body>
