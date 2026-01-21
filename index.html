@@ -700,35 +700,81 @@
         }
 
         .timeline-item {
-            flex: 0 0 322px;
+            flex: 0 0 auto;
             scroll-snap-align: center;
         }
 
         .timeline-video {
-            aspect-ratio: 9/16;
-            background: var(--bg);
-            border: 2px solid var(--border-light);
-            border-radius: 8px;
-            overflow: hidden;
             margin-bottom: 1.5rem;
             position: relative;
             cursor: pointer;
-            transition: border-color 0.3s, transform 0.3s;
-            will-change: transform;
-            height: 568px;
+            width: 322px;
+            height: 181px;
         }
 
         .timeline-video iframe {
-            width: 100%;
-            height: 100%;
+            width: 322px;
+            height: 181px;
             display: block;
-            border: none;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
             pointer-events: auto;
+            transition: border-color 0.3s, transform 0.3s;
+            will-change: transform;
         }
 
-        .timeline-video:hover {
+        .timeline-video iframe:hover {
             border-color: var(--accent);
             transform: translateY(-5px);
+        }
+
+        /* Mobile and tablet responsiveness */
+        @media (max-width: 768px) {
+            .timeline-video {
+                width: 90vw;
+                height: calc(90vw * 9 / 16);
+            }
+
+            .timeline-video iframe {
+                width: 90vw;
+                height: calc(90vw * 9 / 16);
+            }
+
+            .timeline-item {
+                flex: 0 0 90vw;
+            }
+
+            .timeline-info {
+                font-size: 0.9rem;
+            }
+
+            .timeline-year {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-video {
+                width: 95vw;
+                height: calc(95vw * 9 / 16);
+            }
+
+            .timeline-video iframe {
+                width: 95vw;
+                height: calc(95vw * 9 / 16);
+            }
+
+            .timeline-item {
+                flex: 0 0 95vw;
+            }
+
+            .timeline-info {
+                font-size: 0.85rem;
+            }
+
+            .timeline-year {
+                font-size: 1.3rem;
+            }
         }
 
         .timeline-video video {
@@ -918,6 +964,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 40%;
+        }
+
+        /* Specific adjustment for photo 8 to show faces better */
+        .carousel-slide:nth-child(8) img {
+            object-position: center 30%;
         }
 
         .carousel-nav {
@@ -1832,6 +1884,16 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
+                        <iframe src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2019 Bradley"></iframe>
+                    </div>
+                    <div class="timeline-info">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-label">Bradley</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-video">
                         <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
                     </div>
                     <div class="timeline-info">
@@ -1962,34 +2024,34 @@
             <div class="carousel-container">
                 <div class="carousel-slides">
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7120.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7120.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7121.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7121.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7123.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7123.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7126.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7126.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7127.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7127.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7128.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7128.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7131.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7131.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7132.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7132.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7134.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7134.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7135.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7135.JPG" alt="Homegrown Baseball Camp">
                     </div>
                 </div>
                 <button class="carousel-nav carousel-prev">‹</button>
