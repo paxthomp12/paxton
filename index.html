@@ -28,6 +28,7 @@
     <meta name="twitter:description" content="Professional Baseball Player | Co-Founder of Old Logan Capital | Wealth Management Intern">
     <meta name="twitter:image" content="https://paxthomp12.github.io/paxton/assets/images/pt-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <style>
         * {
             margin: 0;
@@ -681,10 +682,17 @@
             display: flex;
             gap: 2rem;
             overflow-x: auto;
+            overflow-y: hidden;
             padding: 2rem 0 3rem;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            touch-action: pan-x;
+            cursor: grab;
+        }
+
+        .timeline-track:active {
+            cursor: grabbing;
         }
 
         .timeline-track::-webkit-scrollbar {
@@ -692,21 +700,30 @@
         }
 
         .timeline-item {
-            flex: 0 0 350px;
-            scroll-snap-align: start;
+            flex: 0 0 322px;
+            scroll-snap-align: center;
         }
 
         .timeline-video {
             aspect-ratio: 9/16;
-            background: linear-gradient(135deg, rgba(18, 107, 74, 0.1) 0%, var(--bg-alt) 100%);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
+            background: var(--bg);
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
             overflow: hidden;
             margin-bottom: 1.5rem;
             position: relative;
             cursor: pointer;
             transition: border-color 0.3s, transform 0.3s;
             will-change: transform;
+            height: 568px;
+        }
+
+        .timeline-video iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: none;
+            pointer-events: auto;
         }
 
         .timeline-video:hover {
@@ -1128,7 +1145,10 @@
                 padding: 4rem 2rem;
             }
             .timeline-item {
-                flex: 0 0 280px;
+                flex: 0 0 300px;
+            }
+            .timeline-video {
+                height: 533px;
             }
         }
 
@@ -1261,7 +1281,10 @@
                 font-size: 2rem;
             }
             .timeline-item {
-                flex: 0 0 240px;
+                flex: 0 0 280px;
+            }
+            .timeline-video {
+                height: 497px;
             }
             .timeline-year {
                 font-size: 1.5rem;
@@ -1306,7 +1329,10 @@
                 font-size: 1.25rem;
             }
             .timeline-item {
-                flex: 0 0 200px;
+                flex: 0 0 240px;
+            }
+            .timeline-video {
+                height: 426px;
             }
             .quotes-container {
                 gap: 2rem;
@@ -1558,6 +1584,25 @@
                 padding: 1.5rem;
             }
         }
+
+        /* Hide browser extension injected elements (Adobe PDF, FormSwift, etc.) */
+        [id*="adobe"],
+        [class*="adobe"],
+        [id*="acrobat"],
+        [class*="acrobat"],
+        [id*="formswift"],
+        [class*="formswift"],
+        .fs-edit-link,
+        #fs-edit-button,
+        .formswift-button,
+        div[style*="z-index: 2147483647"],
+        iframe[src*="chrome-extension"],
+        iframe[src*="moz-extension"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
     </style>
 </head>
 <body>
@@ -1578,7 +1623,7 @@
             <div class="hero-buttons">
                 <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
                 <a href="mailto:paxthomp12@gmail.com" class="hero-btn">Email</a>
-                <a href="#" class="hero-btn">Resume</a>
+                <a href="Resume%20updated%2011.19.26.pdf" target="_blank" class="hero-btn">Resume</a>
             </div>
         </div>
         <div class="hero-image">
@@ -1759,10 +1804,37 @@
             <div class="timeline-track">
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <div class="placeholder">
-                            <div class="play-icon"></div>
-                            <span>Add Video</span>
-                        </div>
+                        <iframe src="https://player.vimeo.com/video/1156669273?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2016 High School"></iframe>
+                    </div>
+                    <div class="timeline-info">
+                        <div class="timeline-year">2016</div>
+                        <div class="timeline-label">High School</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-video">
+                        <iframe src="https://player.vimeo.com/video/1156697281?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2017 High School"></iframe>
+                    </div>
+                    <div class="timeline-info">
+                        <div class="timeline-year">2017</div>
+                        <div class="timeline-label">High School</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-video">
+                        <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
+                    </div>
+                    <div class="timeline-info">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-label">University of Mary</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-video">
+                        <iframe src="https://player.vimeo.com/video/1156697261?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2021 Parkland College"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2021</div>
@@ -1825,6 +1897,9 @@
 
             <div class="timeline-line">
                 <div class="timeline-dots">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot"></div>
                     <div class="timeline-dot"></div>
                     <div class="timeline-dot"></div>
                     <div class="timeline-dot"></div>
@@ -2450,6 +2525,22 @@
         }
 
         loadSubstackFeed();
+
+        // Fullscreen video functionality with Vimeo Player API
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineVideos = document.querySelectorAll('.timeline-video iframe');
+
+            timelineVideos.forEach(iframe => {
+                const player = new Vimeo.Player(iframe);
+
+                // When video starts playing, request fullscreen
+                player.on('play', function() {
+                    player.requestFullscreen().catch(function(error) {
+                        console.log('Fullscreen request failed:', error);
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>
