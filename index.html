@@ -683,12 +683,14 @@
             gap: 2rem;
             overflow-x: auto;
             overflow-y: hidden;
-            padding: 2rem 0 3rem;
+            padding: 2rem 2rem 3rem 2rem;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--bg-alt);
             touch-action: pan-x;
             cursor: grab;
+            scroll-padding: 2rem;
         }
 
         .timeline-track:active {
@@ -696,39 +698,110 @@
         }
 
         .timeline-track::-webkit-scrollbar {
-            display: none;
+            height: 8px;
+        }
+
+        .timeline-track::-webkit-scrollbar-track {
+            background: var(--bg-alt);
+            border-radius: 4px;
+        }
+
+        .timeline-track::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .timeline-track::-webkit-scrollbar-thumb:hover {
+            background: var(--lume);
         }
 
         .timeline-item {
-            flex: 0 0 322px;
+            flex: 0 0 auto;
             scroll-snap-align: center;
         }
 
         .timeline-video {
-            aspect-ratio: 9/16;
-            background: var(--bg);
-            border: 2px solid var(--border-light);
-            border-radius: 8px;
-            overflow: hidden;
             margin-bottom: 1.5rem;
             position: relative;
             cursor: pointer;
-            transition: border-color 0.3s, transform 0.3s;
-            will-change: transform;
-            height: 568px;
+            width: 322px;
+            height: 181px;
         }
 
         .timeline-video iframe {
-            width: 100%;
-            height: 100%;
+            width: 322px;
+            height: 181px;
             display: block;
-            border: none;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
             pointer-events: auto;
+            transition: border-color 0.3s, transform 0.3s;
+            will-change: transform;
         }
 
-        .timeline-video:hover {
+        .timeline-video iframe:hover {
             border-color: var(--accent);
             transform: translateY(-5px);
+        }
+
+        /* Mobile and tablet responsiveness */
+        @media (max-width: 768px) {
+            .timeline-video {
+                width: 85vw;
+                height: calc(85vw * 9 / 16);
+            }
+
+            .timeline-video iframe {
+                width: 85vw;
+                height: calc(85vw * 9 / 16);
+            }
+
+            .timeline-item {
+                flex: 0 0 85vw;
+                scroll-snap-align: center;
+            }
+
+            .timeline-track {
+                padding: 2rem calc((100vw - 85vw) / 2) 3rem;
+            }
+
+            .timeline-info {
+                font-size: 0.9rem;
+            }
+
+            .timeline-year {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-video {
+                width: 90vw;
+                height: calc(90vw * 9 / 16);
+            }
+
+            .timeline-video iframe {
+                width: 90vw;
+                height: calc(90vw * 9 / 16);
+            }
+
+            .timeline-item {
+                flex: 0 0 90vw;
+                scroll-snap-align: center;
+            }
+
+            .timeline-track {
+                padding: 2rem calc((100vw - 90vw) / 2) 3rem;
+                gap: 1rem;
+            }
+
+            .timeline-info {
+                font-size: 0.85rem;
+            }
+
+            .timeline-year {
+                font-size: 1.3rem;
+            }
         }
 
         .timeline-video video {
@@ -819,30 +892,83 @@
 
         .timeline-dots {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
             position: relative;
             z-index: 1;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-dots {
+                gap: 1.5rem;
+            }
+
+            .dot-year {
+                font-size: 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-dots {
+                gap: 1rem;
+            }
+
+            .dot-year {
+                font-size: 0.7rem !important;
+            }
         }
 
         .timeline-dot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .timeline-dot::before {
+            content: '';
             width: 12px;
             height: 12px;
             background: var(--accent);
             border-radius: 50%;
-            cursor: pointer;
             transition: all 0.3s;
             opacity: 0.4;
         }
 
-        .timeline-dot:hover {
+        .dot-year {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            opacity: 0.6;
+        }
+
+        .timeline-dot:hover::before {
             transform: scale(1.5);
             opacity: 0.7;
         }
 
-        .timeline-dot.active {
+        .timeline-dot:hover .dot-year {
+            color: var(--accent);
+            opacity: 1;
+        }
+
+        .timeline-dot.active::before {
             opacity: 1;
             transform: scale(1.3);
             box-shadow: 0 0 10px var(--accent);
+        }
+
+        .timeline-dot.active .dot-year {
+            color: var(--accent);
+            opacity: 1;
+            font-weight: 600;
         }
 
         /* Photo Carousel */
@@ -918,6 +1044,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 40%;
+        }
+
+        /* Specific adjustment for photo 8 to show faces better */
+        .carousel-slide:nth-child(8) img {
+            object-position: center 30%;
         }
 
         .carousel-nav {
@@ -1805,8 +1937,8 @@
 
         <div class="evolution-section">
             <div class="evolution-header">
-                <h3>Evolution as a Thrower</h3>
-                <p>Watch my progression through the years - from college to the pros. Scroll through to see how my mechanics and velocity have developed.</p>
+                <h3>Evolution as a Pitcher</h3>
+                <p>Watch my progression through the years</p>
             </div>
 
             <div class="timeline-track">
@@ -1827,6 +1959,26 @@
                     <div class="timeline-info">
                         <div class="timeline-year">2017</div>
                         <div class="timeline-label">High School</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-video">
+                        <iframe src="https://player.vimeo.com/video/1157221519?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2018 High School"></iframe>
+                    </div>
+                    <div class="timeline-info">
+                        <div class="timeline-year">2018</div>
+                        <div class="timeline-label">High School</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-video">
+                        <iframe src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2019 Bradley"></iframe>
+                    </div>
+                    <div class="timeline-info">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-label">Bradley</div>
                     </div>
                 </div>
 
@@ -1866,47 +2018,63 @@
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2023</div>
-                        <div class="timeline-label">Charlotte / Pro Debut</div>
+                        <div class="timeline-label">Charlotte</div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <div class="placeholder">
-                            <div class="play-icon"></div>
-                            <span>Add Video</span>
-                        </div>
+                        <iframe src="https://player.vimeo.com/video/1157234782?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2024 Clearwater / Jersey Shore"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2024</div>
-                        <div class="timeline-label">Clearwater / Jersey Shore</div>
+                        <div class="timeline-label">Phillies</div>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <div class="placeholder">
-                            <div class="play-icon"></div>
-                            <span>Add Video</span>
-                        </div>
+                        <iframe src="https://player.vimeo.com/video/1157234759?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2025 Jersey Shore"></iframe>
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2025</div>
-                        <div class="timeline-label">Jersey Shore</div>
+                        <div class="timeline-label">Phillies</div>
                     </div>
                 </div>
             </div>
 
             <div class="timeline-line">
                 <div class="timeline-dots">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot" data-year="2016">
+                        <span class="dot-year">2016</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2017">
+                        <span class="dot-year">2017</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2018">
+                        <span class="dot-year">2018</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2019">
+                        <span class="dot-year">2019</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2020">
+                        <span class="dot-year">2020</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2021">
+                        <span class="dot-year">2021</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2022">
+                        <span class="dot-year">2022</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2023">
+                        <span class="dot-year">2023</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2024">
+                        <span class="dot-year">2024</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2025">
+                        <span class="dot-year">2025</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1962,34 +2130,34 @@
             <div class="carousel-container">
                 <div class="carousel-slides">
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7120.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7120.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7121.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7121.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7123.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7123.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7126.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7126.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7127.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7127.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7128.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7128.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7131.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7131.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7132.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7132.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7134.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7134.JPG" alt="Homegrown Baseball Camp">
                     </div>
                     <div class="carousel-slide">
-                        <img src="assets/images/IMG_7135.jpeg" alt="Homegrown Baseball Camp">
+                        <img src="assets/images/IMG_7135.JPG" alt="Homegrown Baseball Camp">
                     </div>
                 </div>
                 <button class="carousel-nav carousel-prev">‹</button>
@@ -2270,9 +2438,9 @@
                     <span class="marker-triangle"></span>
                 </div>
                 <blockquote class="quote-text">
-                    "The big money is not in the buying and selling, but in the waiting."
+                    "So remember this principle when something threatens to cause you pain: the thing itself was no misfortune at all; to endure it and prevail is great good fortune."
                 </blockquote>
-                <p class="quote-author">— Charlie Munger</p>
+                <p class="quote-author">— Marcus Aurelius, Meditations</p>
             </div>
 
             <div class="quote-card">
@@ -2282,9 +2450,9 @@
                     <span class="marker-rectangle"></span>
                 </div>
                 <blockquote class="quote-text">
-                    "In investing, what is comfortable is rarely profitable."
+                    "For it is within you, that both your destruction and deliverance lie."
                 </blockquote>
-                <p class="quote-author">— Robert Arnott</p>
+                <p class="quote-author">— Epictetus</p>
             </div>
 
             <div class="quote-card">
@@ -2294,9 +2462,33 @@
                     <span class="marker-circle"></span>
                 </div>
                 <blockquote class="quote-text">
-                    "Success is not final, failure is not fatal: it is the courage to continue that counts."
+                    "To be like the rock that the waves keep crashing over. It stands unmoved and the raging of the sea falls still around it."
                 </blockquote>
-                <p class="quote-author">— Winston Churchill</p>
+                <p class="quote-author">— Marcus Aurelius, Meditations</p>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-triangle"></span>
+                    <span class="marker-circle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "I like people admitting they were complete stupid horses' asses. I know I'll perform better if I <strong>rub my nose in my mistakes</strong>. This is a wonderful trick to learn."
+                </blockquote>
+                <p class="quote-author">— Charlie Munger</p>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-circle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-rectangle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "And so my lesson to all of you is conduct your life so that you can handle the 50% decline with aplomb and grace. Don't try to avoid it. It will come. In fact, I would say if it doesn't come, you're not being aggressive enough."
+                </blockquote>
+                <p class="quote-author">— Charlie Munger</p>
             </div>
 
             <!-- Duplicate quotes for seamless loop -->
@@ -2307,9 +2499,9 @@
                     <span class="marker-triangle"></span>
                 </div>
                 <blockquote class="quote-text">
-                    "The big money is not in the buying and selling, but in the waiting."
+                    "So remember this principle when something threatens to cause you pain: the thing itself was no misfortune at all; to endure it and prevail is great good fortune."
                 </blockquote>
-                <p class="quote-author">— Charlie Munger</p>
+                <p class="quote-author">— Marcus Aurelius, Meditations</p>
             </div>
 
             <div class="quote-card">
@@ -2319,9 +2511,9 @@
                     <span class="marker-rectangle"></span>
                 </div>
                 <blockquote class="quote-text">
-                    "In investing, what is comfortable is rarely profitable."
+                    "For it is within you, that both your destruction and deliverance lie."
                 </blockquote>
-                <p class="quote-author">— Robert Arnott</p>
+                <p class="quote-author">— Epictetus</p>
             </div>
 
             <div class="quote-card">
@@ -2331,11 +2523,36 @@
                     <span class="marker-circle"></span>
                 </div>
                 <blockquote class="quote-text">
-                    "Success is not final, failure is not fatal: it is the courage to continue that counts."
+                    "To be like the rock that the waves keep crashing over. It stands unmoved and the raging of the sea falls still around it."
                 </blockquote>
-                <p class="quote-author">— Winston Churchill</p>
+                <p class="quote-author">— Marcus Aurelius, Meditations</p>
             </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-triangle"></span>
+                    <span class="marker-circle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "I like people admitting they were complete stupid horses' asses. I know I'll perform better if I <strong>rub my nose in my mistakes</strong>. This is a wonderful trick to learn."
+                </blockquote>
+                <p class="quote-author">— Charlie Munger</p>
             </div>
+
+            <div class="quote-card">
+                <div class="quote-markers">
+                    <span class="marker-circle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-rectangle"></span>
+                </div>
+                <blockquote class="quote-text">
+                    "And so my lesson to all of you is conduct your life so that you can handle the 50% decline with aplomb and grace. Don't try to avoid it. It will come. In fact, I would say if it doesn't come, you're not being aggressive enough."
+                </blockquote>
+                <p class="quote-author">— Charlie Munger</p>
+            </div>
+
+                        </div>
         </div>
     </section>
 
