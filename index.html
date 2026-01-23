@@ -155,6 +155,11 @@
             align-items: center;
             z-index: 1000;
             mix-blend-mode: difference;
+            pointer-events: none;
+        }
+
+        nav * {
+            pointer-events: auto;
         }
 
         .logo {
@@ -356,6 +361,7 @@
         /* Section */
         section {
             padding: 8rem 4rem;
+            scroll-margin-top: 120px;
         }
 
         .section-header {
@@ -378,6 +384,8 @@
         .stats-section {
             background: transparent;
             padding: 8rem 4rem;
+            scroll-margin-top: 120px;
+            padding-top: 10rem;
         }
 
         .baseball-card {
@@ -752,6 +760,37 @@
             display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
+        }
+
+        /* Aggressive hiding of Vimeo center overlay button - especially on mobile */
+        .timeline-video iframe {
+            pointer-events: none;
+        }
+
+        /* When playing, allow interaction but hide the pause button */
+        .timeline-video[style*="--playing"] iframe {
+            pointer-events: auto;
+        }
+
+        /* Hide Vimeo's center play/pause button overlay using pseudo-element coverage */
+        .timeline-video[style*="--playing"]::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: transparent;
+            z-index: 999999;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-video[style*="--playing"]::before {
+                width: 100px;
+                height: 100px;
+            }
         }
 
         /* Extra zoom for 2024 and 2025 videos to eliminate black bars */
@@ -1401,20 +1440,22 @@
                 min-height: 100vh;
                 grid-template-columns: 1fr;
                 position: relative;
+                display: flex;
+                flex-direction: column;
             }
             .hero-image {
-                position: absolute;
-                inset: 0;
+                position: relative;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 0;
-                opacity: 0.15;
-                z-index: 0;
+                padding: 2rem 1rem 1rem 1rem;
+                opacity: 1;
+                z-index: 1;
+                order: 1;
             }
             .watch-frame {
-                width: 400px;
-                height: 400px;
+                width: 250px;
+                height: 250px;
                 box-shadow: none;
                 border: 2px solid var(--accent);
             }
@@ -1424,7 +1465,8 @@
             .hero-content {
                 position: relative;
                 z-index: 1;
-                padding: 2rem 1.5rem;
+                padding: 1rem 1.5rem 2rem 1.5rem;
+                order: 2;
                 justify-content: center;
                 text-align: center;
                 align-items: center;
@@ -2041,7 +2083,7 @@
             <div class="timeline-track">
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156669273?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2016 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156669273?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2016 High School"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2052,7 +2094,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156697281?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2017 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156697281?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2017 High School"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2063,7 +2105,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1157221519?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2018 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1157221519?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2018 High School"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2074,7 +2116,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2019 Bradley"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2019 Bradley"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2085,7 +2127,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2096,7 +2138,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156697261?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2021 Parkland College"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156697261?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2021 Parkland College"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2107,7 +2149,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156867881?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2022 Charlotte"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156867881?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2022 Charlotte"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2118,7 +2160,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156869653?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2023 Charlotte / Pro Debut"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156869653?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2023 Charlotte / Pro Debut"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2129,7 +2171,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1157234782?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2024 Clearwater / Jersey Shore"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1157234782?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2024 Clearwater / Jersey Shore"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2140,7 +2182,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1157234759?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2025 Jersey Shore"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1157234759?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2025 Jersey Shore"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2905,16 +2947,30 @@
         // Fullscreen video functionality with Vimeo Player API
         document.addEventListener('DOMContentLoaded', function() {
             const timelineVideoContainers = document.querySelectorAll('.timeline-video');
+            const allPlayers = []; // Store all players to control them
 
             timelineVideoContainers.forEach(container => {
                 const iframe = container.querySelector('iframe');
                 const playTriangle = container.querySelector('.play-triangle');
                 const player = new Vimeo.Player(iframe);
 
+                // Store player reference with its container
+                allPlayers.push({ player, container, playTriangle, iframe });
+
                 // Click handler to play video
                 container.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
+
+                    // Pause all other videos first
+                    allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
+                        if (p !== player) {
+                            p.pause().catch(err => console.log('Pause failed:', err));
+                            c.style.removeProperty('--playing');
+                            if (pt) pt.style.display = '';
+                            i.style.pointerEvents = 'none';
+                        }
+                    });
 
                     // Hide custom play button and overlay
                     container.style.setProperty('--playing', '1');
@@ -2923,20 +2979,32 @@
                     // Enable pointer events on iframe for interaction
                     iframe.style.pointerEvents = 'auto';
 
+                    // Request fullscreen immediately on click for better mobile support
+                    player.requestFullscreen().catch(function(error) {
+                        console.log('Fullscreen request failed:', error);
+                    });
+
+                    // Play the video
                     player.play().catch(function(error) {
                         console.log('Play failed:', error);
                     });
                 });
 
-                // When video starts playing, request fullscreen
+                // When video starts playing
                 player.on('play', function() {
-                    // Hide overlay elements
+                    // Pause all other videos
+                    allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
+                        if (p !== player) {
+                            p.pause().catch(err => console.log('Pause failed:', err));
+                            c.style.removeProperty('--playing');
+                            if (pt) pt.style.display = '';
+                            i.style.pointerEvents = 'none';
+                        }
+                    });
+
+                    // Hide overlay elements for current video
                     container.style.setProperty('--playing', '1');
                     if (playTriangle) playTriangle.style.display = 'none';
-
-                    player.requestFullscreen().catch(function(error) {
-                        console.log('Fullscreen request failed:', error);
-                    });
                 });
 
                 // When video ends, exit fullscreen and reset
