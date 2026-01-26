@@ -3473,15 +3473,10 @@
                     if (playTriangle) playTriangle.style.display = 'none';
                     iframe.style.pointerEvents = 'auto';
 
-                    // Detect if mobile device
-                    const isMobile = window.innerWidth <= 768;
-
-                    // Start playback
+                    // Start playback and request fullscreen
                     player.play().catch(err => console.log('Play failed:', err)).then(() => {
-                        // Only request fullscreen on desktop
-                        if (!isMobile) {
-                            player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
-                        }
+                        // Request fullscreen on all devices
+                        player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
 
                         // Pause other videos after this one starts
                         allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
@@ -3514,12 +3509,9 @@
 
                 // When video ends, exit fullscreen and reset
                 player.on('ended', function() {
-                    const isMobile = window.innerWidth <= 768;
-                    if (!isMobile) {
-                        player.exitFullscreen().catch(function(error) {
-                            console.log('Exit fullscreen failed:', error);
-                        });
-                    }
+                    player.exitFullscreen().catch(function(error) {
+                        console.log('Exit fullscreen failed:', error);
+                    });
                     // Reset everything
                     container.style.removeProperty('--playing');
                     if (playTriangle) playTriangle.style.display = '';
