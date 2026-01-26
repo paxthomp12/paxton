@@ -1,0 +1,78 @@
+    <section id="reading">
+        <div class="section-header">
+            <h2>Reading & Learning</h2>
+        </div>
+
+        <div class="library-container">
+            <div class="shelf-tabs">
+                <button class="shelf-tab active" onclick="switchReadingShelf(0)">Currently Reading</button>
+                <button class="shelf-tab" onclick="switchReadingShelf(1)">Read</button>
+                <button class="shelf-tab" onclick="switchReadingShelf(2)">Want to Read</button>
+            </div>
+
+            <div class="bookshelf">
+                <!-- Currently Reading Shelf -->
+                <div class="shelf-content active" data-shelf="0">
+                    <div class="books-row" id="currently-reading-books"></div>
+                </div>
+
+                <!-- Read Shelf -->
+                <div class="shelf-content" data-shelf="1">
+                    <div class="books-row" id="read-books"></div>
+                </div>
+
+                <!-- Want to Read Shelf -->
+                <div class="shelf-content" data-shelf="2">
+                    <div class="books-row" id="want-to-read-books"></div>
+                </div>
+            </div>
+
+            <!-- Magazine Rack for Substacks -->
+            <div class="magazine-rack">
+                <h3 class="rack-title">Favorite Substack Reads</h3>
+                <div id="substack-feed" class="magazines-container">
+                    <div class="feed-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading articles...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Goodreads Widgets (keep for data) -->
+        <div class="goodreads-widget-hidden">
+            <div class="goodreads-widget">
+                <style type="text/css" media="screen">
+                    .gr_custom_container_1768341552 {
+                        border: 1px solid rgba(201, 169, 98, 0.2);
+                        border-radius: 4px;
+                        padding: 20px;
+                        background: linear-gradient(135deg, rgba(18, 107, 74, 0.05) 0%, transparent 100%);
+                        color: #f5f3ef;
+                    }
+                    .gr_custom_header_1768341552 {
+                        display: none;
+                    }
+                </style>
+                <div id="gr_custom_widget_1768341552"></div>
+                <script src="https://www.goodreads.com/review/custom_widget/197701602.Currently%20Reading?cover_position=left&cover_size=small&num_books=5&order=a&shelf=currently-reading&show_author=1&show_cover=1&show_rating=0&show_review=0&show_tags=0&show_title=1&sort=date_added&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=1&widget_id=1768341552&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
+            </div>
+
+            <div class="goodreads-widget">
+                <style type="text/css" media="screen">
+                    .gr_custom_container_1768341553 {
+                        border: 1px solid rgba(201, 169, 98, 0.2);
+                        border-radius: 4px;
+                        padding: 20px;
+                        background: linear-gradient(135deg, rgba(18, 107, 74, 0.05) 0%, transparent 100%);
+                        color: #f5f3ef;
+                    }
+                    .gr_custom_header_1768341553 {
+                        display: none;
+                    }
+                </style>
+                <div id="gr_custom_widget_1768341553"></div>
+                <script src="https://www.goodreads.com/review/custom_widget/197701602.Read?cover_position=left&cover_size=small&num_books=10&order=d&shelf=read&show_author=1&show_cover=1&show_rating=0&show_review=0&show_tags=0&show_title=1&sort=date_read&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=1&widget_id=1768341553&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Paxton Thompson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0f0a;
+            --bg-alt: #0d120d;
+            --text: #f5f3ef;
+            --text-muted: #8a9a8a;
+            --accent: #c9a962;
+            --green: #126b4a;
+            --green-dark: #0d4a33;
+            --border-subtle: rgba(201, 169, 98, 0.1);
+            --border-light: rgba(201, 169, 98, 0.2);
+            --border-medium: rgba(201, 169, 98, 0.3);
+            --lume: #c9a962;
+        }
+
+        html {
+            background-color: var(--bg);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0a0f0a 0%, #0d1a12 50%, #0a0f0a 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .resume-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+        }
+
+        /* Header */
+        .resume-header {
+            text-align: center;
+            padding: 4rem 0 1rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8rem;
+        }
+
+        .back-button {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+            transform: translateX(-3px);
+        }
+
+        .download-pdf {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            pointer-events: auto;
+        }
+
+        .download-pdf:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: translateY(-2px);
+        }
+
+        /* Hide Adobe Acrobat browser extension popups */
+        .download-pdf + * {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
+        .resume-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+
+
+        /* Sections */
+        .resume-section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 3rem 0;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+        }
+
+        .divider-markers {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .marker-triangle {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 10px solid var(--lume);
+            display: inline-block;
+        }
+
+        .marker-circle {
+            width: 8px;
+            height: 8px;
+            background: var(--lume);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .marker-rectangle {
+            width: 4px;
+            height: 14px;
+            background: var(--lume);
+            display: inline-block;
+        }
+
+        /* Professional Summary */
+        .summary {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text-muted);
+            background: rgba(201, 169, 98, 0.05);
+            padding: 2rem;
+            border-left: 3px solid var(--accent);
+            border-radius: 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Experience Item */
+        .experience-item {
+            margin-bottom: 3.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 2rem;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .experience-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+
+        .experience-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .experience-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-item li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .experience-item li:before {
+            content: "●";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-size: 0.6rem;
+            top: 0.5rem;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 2rem;
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+        }
+
+        .education-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .education-degree {
+            font-size: 1.05rem;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+
+        .education-details {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .education-details li {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .education-details li:before {
+            content: "○";
+            color: var(--accent);
+            position: absolute;
+            left: -1.5rem;
+            font-size: 0.7rem;
+            top: 0.4rem;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background: transparent;
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-tag:hover {
+            background: var(--green);
+            color: var(--text);
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        /* Projects */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .project-link {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .project-link:hover {
+            background: rgba(201, 169, 98, 0.1);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .project-link i {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .resume-container {
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .resume-header h1 {
+                font-size: 3rem;
+                letter-spacing: 2px;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .download-pdf, .back-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .resume-header {
+                padding: 2rem 0;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .experience-title {
+                font-size: 1.5rem;
+            }
+
+            .skills-container {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- Header -->
+        <header class="resume-header">
+            <div class="header-buttons">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Site
+                </a>
+                <a href="Resume%20updated%2011.19.26.pdf" target="_blank" class="download-pdf">
+                    <i class="fas fa-file-pdf"></i> PDF Version
+                </a>
+            </div>
+            <h1>Paxton Thompson</h1>
+        </header>
+
+        <!-- Professional Summary -->
+        <section class="resume-section">
+            <div class="section-divider">
+                <div class="divider-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+            </div>
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="summary">
+                Professional baseball player with the Philadelphia Phillies organization and a strong interest in finance and business. Proven ability to perform under pressure, manage competing priorities, and operate with discipline and accountability in high-performance environments. Experienced in early-stage business development, investment research, and building technical tools and websites from the ground up. Analytical, detail-oriented, and motivated to continue developing skills at the intersection of finance, technology, and strategy.
+            </div>
+        </section>
+
+        <!-- Professional Experience -->
+        <section class="resume-section">
+            <div class="section-divider">
+                <div class="divider-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+            </div>
+            <h2 class="section-title">Professional Experience</h2>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-title">Professional Baseball Player</h3>
+                    <span class="experience-date">August 2023 - Present</span>
+                </div>
+                <p class="experience-subtitle">Philadelphia Phillies</p>
+                <ul>
+                    <li>Pitcher competing at the professional level, performing in high-pressure, results-driven environments.</li>
+                    <li>Demonstrated consistent preparation, accountability, and adaptability while progressing through the minor league system (up to High-A).</li>
+                    <li>Operate within structured performance frameworks, emphasizing continuous improvement, feedback, and execution.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-title">Co-Founder</h3>
+                    <span class="experience-date">November 2024 - Present</span>
+                </div>
+                <p class="experience-subtitle">Old Logan Capital</p>
+                <ul>
+                    <li>Co-founded an early-stage investment concept focused on developing long-term investment strategies and disciplined research processes.</li>
+                    <li>Contributed to conceptualizing investment philosophy, internal research frameworks, and portfolio strategy.</li>
+                    <li>Authored internal investment letters and research summaries to document theses and decision-making processes.</li>
+                    <li>Built and maintained the firm's website and assisted in brand development and digital presence.</li>
+                    <li>Developed custom research tools and workflows using programming and data analysis to support investment evaluation.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-title">Deckhand</h3>
+                    <span class="experience-date">October 2023 - March 2024</span>
+                </div>
+                <p class="experience-subtitle">Suncoast Captains & Crew</p>
+                <ul>
+                    <li>Managed daily operational and logistical tasks supporting multi-million-dollar yacht operations.</li>
+                    <li>Coordinated scheduling, provisioning, and record-keeping while maintaining accuracy and attention to detail.</li>
+                    <li>Worked directly with high-profile clients, balancing professionalism, discretion, and time-sensitive responsibilities.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="resume-section">
+            <div class="section-divider">
+                <div class="divider-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+            </div>
+            <h2 class="section-title">Education</h2>
+
+            <div class="education-item">
+                <h3 class="education-title">University of North Carolina, Charlotte, NC</h3>
+                <p class="education-degree">BSBA, Finance — Belk College of Business</p>
+                <ul class="education-details">
+                    <li>Cum Laude – 3.57 GPA</li>
+                    <li>Academic All-District</li>
+                    <li>Dean's List</li>
+                </ul>
+            </div>
+
+            <div class="education-item">
+                <h3 class="education-title">Parkland College, Champaign, IL</h3>
+                <p class="education-degree">Associates Degree, General Studies</p>
+                <ul class="education-details">
+                    <li>Dean's List</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Athletics Experience -->
+        <section class="resume-section">
+            <div class="section-divider">
+                <div class="divider-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+            </div>
+            <h2 class="section-title">Athletics Experience</h2>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h3 class="experience-title">NCAA Division I Baseball — Charlotte 49ers</h3>
+                    <span class="experience-date">August 2021 - June 2023</span>
+                </div>
+                <ul>
+                    <li>Pitcher on the winningest team in program history, lead team with 8 wins.</li>
+                    <li>Balanced Division I athletics with academics, graduating with honors.</li>
+                    <li>Recognized for leadership, team cohesion, and competitive excellence.</li>
+                    <li>C-USA All-Tournament Team; ranked 9th in program history for strikeouts looking.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="resume-section">
+            <div class="section-divider">
+                <div class="divider-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+            </div>
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-container">
+                <span class="skill-tag">Investment Research & Financial Literacy</span>
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">Website Development & Maintenance</span>
+                <span class="skill-tag">Microsoft Excel & Office Suite</span>
+                <span class="skill-tag">Analytical Thinking</span>
+                <span class="skill-tag">Problem Solving</span>
+                <span class="skill-tag">Time Management</span>
+                <span class="skill-tag">High-Pressure Execution</span>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="resume-section">
+            <div class="section-divider">
+                <div class="divider-markers">
+                    <span class="marker-rectangle"></span>
+                    <span class="marker-circle"></span>
+                    <span class="marker-triangle"></span>
+                </div>
+            </div>
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-list">
+                <a href="index.html" class="project-link">
+                    <i class="fas fa-external-link-alt"></i> Personal Website
+                </a>
+                <a href="https://oldlogancapital.com" target="_blank" class="project-link">
+                    <i class="fas fa-external-link-alt"></i> Old Logan Capital Website
+                </a>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>

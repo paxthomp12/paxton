@@ -1711,73 +1711,276 @@
             margin: 0;
         }
 
-        /* Reading & Learning Section */
-        .reading-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+        /* Reading & Learning Section - Classic Library Design */
+        .library-container {
+            background: linear-gradient(to bottom, var(--bg-card) 0%, #2c1810 100%);
+            padding: 3rem;
+            border-radius: 8px;
+            border: 2px solid #4a2f1f;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .reading-section {
-            background: linear-gradient(135deg, rgba(18, 107, 74, 0.03) 0%, transparent 100%);
-            padding: 2.5rem;
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            transition: border-color 0.3s;
+        .shelf-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #4a2f1f;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .reading-section:hover {
-            border-color: var(--border-light);
-        }
-
-        .reading-section-title {
+        .shelf-tab {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .shelf-tab.active {
+            color: var(--accent);
+            background: linear-gradient(to bottom, rgba(201, 169, 98, 0.1), transparent);
+        }
+
+        .shelf-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .shelf-tab:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(201, 169, 98, 0.05);
+        }
+
+        .bookshelf {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .shelf-content {
+            display: none;
+        }
+
+        .shelf-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .books-row {
+            display: flex;
+            gap: 1rem;
+            padding: 2rem 1rem;
+            background: linear-gradient(to bottom, transparent, rgba(74, 47, 31, 0.2), #2c1810);
+            border-radius: 4px;
+            position: relative;
+            min-height: 280px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .books-row::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(to bottom, #4a2f1f, #2c1810);
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Hide Goodreads widgets but keep them functional */
+        .goodreads-widget-hidden {
+            position: absolute;
+            left: -9999px;
+            visibility: hidden;
+        }
+
+        .book-cover-item {
+            width: 120px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: bottom;
+            flex-shrink: 0;
+        }
+
+        .book-cover-item:hover {
+            transform: translateY(-15px) scale(1.08);
+            z-index: 10;
+        }
+
+        .book-cover-wrapper {
+            width: 100%;
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow:
+                0 4px 8px rgba(0,0,0,0.3),
+                0 6px 20px rgba(0,0,0,0.2);
+            transition: box-shadow 0.4s;
+        }
+
+        .book-cover-item:hover .book-cover-wrapper {
+            box-shadow:
+                0 8px 16px rgba(0,0,0,0.4),
+                0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .book-cover-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 3px;
+        }
+
+        .book-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            max-width: 250px;
+            width: max-content;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 100;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .book-cover-item:hover .book-tooltip {
+            opacity: 1;
+        }
+
+        .tooltip-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        .tooltip-author {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        /* Magazine Rack for Substacks */
+        .magazine-rack {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 2px solid #4a2f1f;
+        }
+
+        .rack-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
             color: var(--accent);
             letter-spacing: 2px;
-            text-transform: uppercase;
             margin-bottom: 2rem;
             text-align: center;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 1rem;
         }
 
-        .substack-description {
-            text-align: center;
+        .magazines-container {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 1rem 0 2rem;
+            perspective: 1000px;
+            scroll-behavior: smooth;
+        }
+
+        .magazines-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .magazines-container::-webkit-scrollbar-track {
+            background: rgba(201, 169, 98, 0.1);
+            border-radius: 5px;
+        }
+
+        .magazines-container::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        .magazines-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+
+        .magazine {
+            background: linear-gradient(135deg, var(--bg-card), #2c1810);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s;
+            transform-style: preserve-3d;
+            position: relative;
+            min-width: 320px;
+            max-width: 320px;
+            flex-shrink: 0;
+        }
+
+        .magazine:hover {
+            transform: rotateY(5deg) translateY(-8px);
+            box-shadow: -8px 8px 24px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+        }
+
+        .magazine-header {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .magazine-excerpt {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .magazine-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
             font-style: italic;
         }
 
         .substack-feed {
-            min-height: 300px;
-        }
-
-        .substack-scrollable {
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar-track {
-            background: rgba(201, 169, 98, 0.1);
-            border-radius: 4px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar-thumb {
-            background: rgba(201, 169, 98, 0.3);
-            border-radius: 4px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar-thumb:hover {
-            background: rgba(201, 169, 98, 0.5);
+            min-height: 200px;
         }
 
         .feed-loading {
@@ -1805,44 +2008,16 @@
         }
 
         .substack-article {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .substack-article:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .substack-article-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.5rem;
-        }
-
-        .substack-article-title a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .substack-article-title a:hover {
-            color: var(--accent);
-        }
-
-        .substack-article-excerpt {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--text-muted);
+            display: none;
         }
 
         @media (max-width: 1200px) {
-            .reading-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .library-container {
+                padding: 2rem;
+            }
+
+            .book-cover-item {
+                width: 100px;
             }
 
             .quote-text {
@@ -1859,8 +2034,22 @@
                 font-size: 1.25rem;
             }
 
-            .reading-section {
+            .library-container {
                 padding: 1.5rem;
+            }
+
+            .shelf-tab {
+                font-size: 1.1rem;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .book-cover-item {
+                width: 90px;
+            }
+
+            .magazine {
+                min-width: 280px;
+                max-width: 280px;
             }
         }
 
@@ -1902,7 +2091,7 @@
             <div class="hero-buttons">
                 <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
                 <a href="mailto:paxthomp12@gmail.com" class="hero-btn">Email</a>
-                <a href="Resume%20updated%2011.19.26.pdf" target="_blank" class="hero-btn">Resume</a>
+                <a href="resume.html" class="hero-btn">Resume</a>
             </div>
         </div>
         <div class="hero-image">
@@ -2549,6 +2738,27 @@
                 </div>
             </div>
 
+            <!-- Want to Read Section -->
+            <div class="reading-section">
+                <h3 class="reading-section-title">Want to Read</h3>
+                <div class="goodreads-widget">
+                    <style type="text/css" media="screen">
+                        .gr_custom_container_1769377032 {
+                            border: 1px solid rgba(201, 169, 98, 0.2);
+                            border-radius: 4px;
+                            padding: 20px;
+                            background: linear-gradient(135deg, rgba(18, 107, 74, 0.05) 0%, transparent 100%);
+                            color: #f5f3ef;
+                        }
+                        .gr_custom_header_1769377032 {
+                            display: none;
+                        }
+                    </style>
+                    <div id="gr_custom_widget_1769377032"></div>
+                    <script src="https://www.goodreads.com/review/custom_widget/197701602.Want%20to%20Read?cover_position=left&cover_size=small&num_books=20&order=a&shelf=to-read&show_author=1&show_cover=1&show_rating=0&show_review=0&show_tags=0&show_title=1&sort=date_added&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=1&widget_id=1769377032&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
+                </div>
+            </div>
+
             <!-- Favorite Substack Reads Section -->
             <div class="reading-section">
                 <h3 class="reading-section-title">Favorite Substack Reads</h3>
@@ -2906,13 +3116,19 @@
                         const firstSentenceMatch = fullText.match(/^[^.!?]*[.!?]/);
                         const firstSentence = firstSentenceMatch ? firstSentenceMatch[0].trim() : fullText.substring(0, 100) + '...';
 
-                        const articleEl = document.createElement('div');
-                        articleEl.className = 'substack-article';
+                        const articleEl = document.createElement('a');
+                        articleEl.href = link;
+                        articleEl.target = '_blank';
+                        articleEl.rel = 'noopener';
+                        articleEl.className = 'magazine';
+                        articleEl.style.textDecoration = 'none';
+                        articleEl.style.color = 'inherit';
                         articleEl.innerHTML = `
-                            <h4 class="substack-article-title">
-                                <a href="${link}" target="_blank" rel="noopener">${title}</a>
-                            </h4>
-                            <p class="substack-article-excerpt">${firstSentence}</p>
+                            <div class="magazine-header">${title}</div>
+                            <div class="magazine-excerpt">${firstSentence}</div>
+                            <div class="magazine-meta">
+                                <span>→</span>
+                            </div>
                         `;
 
                         feedContainer.appendChild(articleEl);
@@ -2962,31 +3178,25 @@
                     e.preventDefault();
                     e.stopPropagation();
 
-                    // Pause all other videos first
-                    allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
-                        if (p !== player) {
-                            p.pause().catch(err => console.log('Pause failed:', err));
-                            c.style.removeProperty('--playing');
-                            if (pt) pt.style.display = '';
-                            i.style.pointerEvents = 'none';
-                        }
-                    });
-
-                    // Hide custom play button and overlay
+                    // Immediately hide custom play button and overlay for instant feedback
                     container.style.setProperty('--playing', '1');
                     if (playTriangle) playTriangle.style.display = 'none';
-
-                    // Enable pointer events on iframe for interaction
                     iframe.style.pointerEvents = 'auto';
 
-                    // Request fullscreen immediately on click for better mobile support
-                    player.requestFullscreen().catch(function(error) {
-                        console.log('Fullscreen request failed:', error);
-                    });
-
-                    // Play the video
-                    player.play().catch(function(error) {
-                        console.log('Play failed:', error);
+                    // Start playback and fullscreen immediately (don't wait)
+                    Promise.all([
+                        player.play().catch(err => console.log('Play failed:', err)),
+                        player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err))
+                    ]).then(() => {
+                        // Only pause other videos after this one starts (async, non-blocking)
+                        allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
+                            if (p !== player) {
+                                p.pause().catch(() => {});
+                                c.style.removeProperty('--playing');
+                                if (pt) pt.style.display = '';
+                                i.style.pointerEvents = 'none';
+                            }
+                        });
                     });
                 });
 
@@ -3089,5 +3299,8 @@
             window.addEventListener('resize', updateActiveDot);
         });
     </script>
+
+    <!-- Classic Library Bookshelf Script -->
+    <script src="reading-bookshelf-v2.js"></script>
 </body>
 </html>
