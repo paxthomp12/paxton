@@ -142,6 +142,7 @@
         /* Ensure smooth blending at the top on iOS */
         html {
             background-color: #0a0f0a;
+            scroll-behavior: smooth;
         }
 
         /* Navigation */
@@ -153,9 +154,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
+            z-index: 999;
             mix-blend-mode: difference;
             pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
+            mix-blend-mode: normal;
+            padding: 1.5rem 4rem;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         nav * {
@@ -239,6 +249,76 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 400;
+        }
+
+        /* Icon Navigation */
+        .mobile-icon-nav {
+            display: flex;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 2rem 4rem;
+            z-index: 1000;
+            gap: 0.75rem;
+            align-items: center;
+            pointer-events: none;
+            width: auto;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        .mobile-icon-nav .nav-icon {
+            pointer-events: auto;
+        }
+
+        .nav-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(10, 15, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+        }
+
+        .nav-icon svg {
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon::after {
+            content: '';
+            display: none;
+        }
+
+        .nav-icon:active,
+        .nav-icon.active {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        .nav-icon:active svg,
+        .nav-icon.active svg {
+            transform: scale(1.1);
+        }
+
+        @media (hover: hover) {
+            .nav-icon:hover {
+                color: var(--accent);
+            }
+
+            .nav-icon:hover svg {
+                transform: translateY(-2px);
+            }
         }
 
         /* Hero */
@@ -1428,34 +1508,57 @@
 
         @media (max-width: 768px) {
             nav {
-                padding: 1.5rem 1.5rem;
+                padding: 1rem 1.25rem;
+            }
+            nav.scrolled {
+                padding: 0.85rem 1.25rem;
+            }
+            .logo {
+                width: 42px;
+                height: 42px;
+                font-size: 0.85rem;
+            }
+            .logo::before {
+                border-left-width: 3px;
+                border-right-width: 3px;
+                border-top-width: 5px;
+            }
+            .logo::after {
+                width: 2.5px;
+                height: 7px;
+            }
+            .mobile-icon-nav {
+                padding: 1rem 1.25rem;
+                gap: 0.5rem;
             }
             nav ul {
                 display: none;
             }
             section {
-                padding: 4rem 1.5rem;
+                padding: 3rem 1.25rem;
             }
             .hero {
-                min-height: 100vh;
+                min-height: auto;
                 grid-template-columns: 1fr;
                 position: relative;
                 display: flex;
                 flex-direction: column;
+                padding-top: 3.5rem;
+                padding-bottom: 1.5rem;
             }
             .hero-image {
                 position: relative;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 2rem 1rem 1rem 1rem;
+                padding: 1rem 1rem 0.25rem 1rem;
                 opacity: 1;
                 z-index: 1;
                 order: 1;
             }
             .watch-frame {
-                width: 250px;
-                height: 250px;
+                width: 160px;
+                height: 160px;
                 box-shadow: none;
                 border: 2px solid var(--accent);
             }
@@ -1465,59 +1568,87 @@
             .hero-content {
                 position: relative;
                 z-index: 1;
-                padding: 1rem 1.5rem 2rem 1.5rem;
+                padding: 0.75rem 1.5rem 1.5rem 1.5rem;
                 order: 2;
                 justify-content: center;
                 text-align: center;
                 align-items: center;
             }
+            .hero-eyebrow {
+                font-size: 0.65rem;
+                margin-bottom: 0.75rem;
+            }
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+                line-height: 1.2;
             }
             .hero-desc {
                 align-items: center;
                 margin: 0 auto;
-            }
-            .hero-desc {
-                font-size: 1rem;
-                align-items: center;
+                font-size: 0.85rem;
+                gap: 0.15rem;
             }
             .hero-buttons {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 0.75rem;
                 width: 100%;
-                align-items: stretch;
+                justify-content: center;
+                margin-top: 1rem;
             }
             .hero-btn {
                 text-align: center;
                 padding: 0.75rem 1.5rem;
+                font-size: 0.75rem;
+                flex: 0 1 auto;
+                min-height: 44px;
             }
             section h2 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+            }
+            .section-header {
+                margin-bottom: 2.5rem;
             }
             .baseball-card {
                 border-left: none;
                 border-right: none;
                 border-radius: 0;
+                background: rgba(18, 107, 74, 0.02);
+            }
+            .baseball-card::before {
+                height: 2px;
+            }
+            .section-divider {
+                padding: 2rem 0;
+                gap: 1rem;
+            }
+            .section-divider::before,
+            .section-divider::after {
+                max-width: 100px;
             }
             .card-header {
-                padding: 1.5rem 1.5rem 0;
+                padding: 1.25rem 1.25rem 0;
             }
             .card-header-left span {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             .card-tabs {
                 width: 100%;
-                padding: 0.4rem;
+                padding: 0.3rem;
+                gap: 0.3rem;
             }
             .card-tab {
                 flex: 1;
-                padding: 0.6rem 0.5rem;
-                font-size: 0.75rem;
+                padding: 0.75rem 0.5rem;
+                font-size: 0.7rem;
+                min-height: 44px;
             }
             .card-body {
-                padding: 1.5rem 0.5rem;
+                padding: 1.25rem 0.5rem;
                 overflow-x: auto;
+            }
+            .stats-section {
+                padding-top: 6rem;
             }
             .stats-table {
                 font-size: 0.7rem;
@@ -1532,10 +1663,10 @@
                 padding-left: 0.75rem;
             }
             .card {
-                padding: 1.5rem;
+                padding: 1.25rem;
             }
             .card-title {
-                font-size: 1.5rem;
+                font-size: 1.35rem;
             }
             .carousel-container {
                 height: 350px;
@@ -1552,72 +1683,181 @@
                 right: 0.5rem;
             }
             .evolution-section {
-                padding: 3rem 1.5rem;
+                padding: 2.5rem 1.25rem;
             }
             .evolution-header h3 {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
             .timeline-item {
-                flex: 0 0 280px;
+                flex: 0 0 260px;
             }
             .timeline-video {
-                width: 280px;
-                height: 280px;
+                width: 260px;
+                height: 260px;
             }
             .timeline-year {
-                font-size: 1.5rem;
+                font-size: 1.35rem;
             }
             .timeline-label {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
             footer {
                 flex-direction: column;
-                gap: 2rem;
+                gap: 1.5rem;
                 text-align: center;
-                padding: 3rem 1.5rem;
+                padding: 2.5rem 1.25rem;
             }
         }
 
         @media (max-width: 480px) {
             .watch-frame {
-                width: 300px;
-                height: 300px;
+                width: 140px;
+                height: 140px;
+            }
+            .hero {
+                padding-top: 3rem;
+                padding-bottom: 1rem;
+            }
+            .hero-image {
+                padding: 0.75rem 1rem 0rem 1rem;
+            }
+            .hero-content {
+                padding: 0.5rem 1.5rem 1rem 1.5rem;
             }
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.6rem;
+                margin-bottom: 0.5rem;
+            }
+            .hero-eyebrow {
+                font-size: 0.6rem;
+                margin-bottom: 0.5rem;
+            }
+            .hero-desc {
+                font-size: 0.8rem;
+                gap: 0.1rem;
             }
             .hero-buttons {
                 width: 100%;
+                flex-direction: column;
+                margin-top: 0.85rem;
+                gap: 0.5rem;
             }
-            .hero-desc {
-                font-size: 0.9rem;
+            .hero-btn {
+                width: 100%;
+                min-height: 48px;
+                font-size: 0.75rem;
+            }
+            section {
+                padding: 2rem 1rem;
             }
             section h2 {
-                font-size: 1.75rem;
+                font-size: 1.4rem;
+            }
+            .section-header {
+                margin-bottom: 1.5rem;
+            }
+            .stats-section {
+                padding-top: 4rem;
             }
             .stats-table {
                 font-size: 0.65rem;
-                min-width: 600px;
+                min-width: 580px;
             }
             .stats-table th,
             .stats-table td {
-                padding: 0.75rem 0.3rem;
+                padding: 0.7rem 0.25rem;
+            }
+            .stats-table th:first-child,
+            .stats-table td:first-child {
+                padding-left: 0.5rem;
+            }
+            .card {
+                padding: 1rem;
             }
             .card-title {
-                font-size: 1.25rem;
+                font-size: 1.15rem;
+            }
+            .card-header {
+                padding: 1rem 1rem 0;
+            }
+            .card-header-left span {
+                font-size: 0.9rem;
+            }
+            .card-body {
+                padding: 1rem 0.5rem;
+            }
+            .carousel-container {
+                height: 300px;
+            }
+            .evolution-section {
+                padding: 2rem 1rem;
+            }
+            .evolution-header h3 {
+                font-size: 1.5rem;
             }
             .timeline-item {
-                flex: 0 0 240px;
+                flex: 0 0 200px;
             }
             .timeline-video {
-                width: 240px;
-                height: 240px;
+                width: 200px;
+                height: 200px;
+            }
+            .timeline-year {
+                font-size: 1.1rem;
+            }
+            .timeline-label {
+                font-size: 0.7rem;
             }
             .quotes-container {
-                gap: 2rem;
+                gap: 1.5rem;
+                height: 500px;
+            }
+            .quote-card {
+                padding: 1.25rem;
+            }
+            .quote-text {
+                font-size: 1rem;
             }
             .reading-grid {
-                gap: 2rem;
+                gap: 1.5rem;
+            }
+            .book-cover-item {
+                width: 70px;
+            }
+            .shelf-tab {
+                font-size: 0.85rem;
+                padding: 0.65rem 1rem;
+                min-height: 44px;
+            }
+            .library-container {
+                padding: 1rem;
+            }
+            footer {
+                padding: 2rem 1rem;
+                gap: 1.25rem;
+            }
+            .footer-logo {
+                font-size: 0.9rem;
+            }
+            nav {
+                padding: 0.85rem 1rem;
+            }
+            .logo {
+                width: 38px;
+                height: 38px;
+            }
+            .mobile-icon-nav {
+                padding: 0.85rem 1rem;
+                gap: 0.4rem;
+            }
+            .nav-icon {
+                width: 40px;
+                height: 40px;
+                padding: 0.4rem;
+            }
+            .nav-icon svg {
+                width: 18px;
+                height: 18px;
             }
         }
 
@@ -1711,73 +1951,276 @@
             margin: 0;
         }
 
-        /* Reading & Learning Section */
-        .reading-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+        /* Reading & Learning Section - Classic Library Design */
+        .library-container {
+            background: linear-gradient(to bottom, var(--bg-card) 0%, #2c1810 100%);
+            padding: 3rem;
+            border-radius: 8px;
+            border: 2px solid #4a2f1f;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .reading-section {
-            background: linear-gradient(135deg, rgba(18, 107, 74, 0.03) 0%, transparent 100%);
-            padding: 2.5rem;
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            transition: border-color 0.3s;
+        .shelf-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #4a2f1f;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .reading-section:hover {
-            border-color: var(--border-light);
-        }
-
-        .reading-section-title {
+        .shelf-tab {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .shelf-tab.active {
+            color: var(--accent);
+            background: linear-gradient(to bottom, rgba(201, 169, 98, 0.1), transparent);
+        }
+
+        .shelf-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .shelf-tab:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(201, 169, 98, 0.05);
+        }
+
+        .bookshelf {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .shelf-content {
+            display: none;
+        }
+
+        .shelf-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .books-row {
+            display: flex;
+            gap: 1rem;
+            padding: 2rem 1rem;
+            background: linear-gradient(to bottom, transparent, rgba(74, 47, 31, 0.2), #2c1810);
+            border-radius: 4px;
+            position: relative;
+            min-height: 280px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .books-row::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(to bottom, #4a2f1f, #2c1810);
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Hide Goodreads widgets but keep them functional */
+        .goodreads-widget-hidden {
+            position: absolute;
+            left: -9999px;
+            visibility: hidden;
+        }
+
+        .book-cover-item {
+            width: 120px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: bottom;
+            flex-shrink: 0;
+        }
+
+        .book-cover-item:hover {
+            transform: translateY(-15px) scale(1.08);
+            z-index: 10;
+        }
+
+        .book-cover-wrapper {
+            width: 100%;
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow:
+                0 4px 8px rgba(0,0,0,0.3),
+                0 6px 20px rgba(0,0,0,0.2);
+            transition: box-shadow 0.4s;
+        }
+
+        .book-cover-item:hover .book-cover-wrapper {
+            box-shadow:
+                0 8px 16px rgba(0,0,0,0.4),
+                0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .book-cover-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 3px;
+        }
+
+        .book-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            max-width: 250px;
+            width: max-content;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 100;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .book-cover-item:hover .book-tooltip {
+            opacity: 1;
+        }
+
+        .tooltip-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        .tooltip-author {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        /* Magazine Rack for Substacks */
+        .magazine-rack {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 2px solid #4a2f1f;
+        }
+
+        .rack-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
             color: var(--accent);
             letter-spacing: 2px;
-            text-transform: uppercase;
             margin-bottom: 2rem;
             text-align: center;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 1rem;
         }
 
-        .substack-description {
-            text-align: center;
+        .magazines-container {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 1rem 0 2rem;
+            perspective: 1000px;
+            scroll-behavior: smooth;
+        }
+
+        .magazines-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .magazines-container::-webkit-scrollbar-track {
+            background: rgba(201, 169, 98, 0.1);
+            border-radius: 5px;
+        }
+
+        .magazines-container::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        .magazines-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dark);
+        }
+
+        .magazine {
+            background: linear-gradient(135deg, var(--bg-card), #2c1810);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s;
+            transform-style: preserve-3d;
+            position: relative;
+            min-width: 320px;
+            max-width: 320px;
+            flex-shrink: 0;
+        }
+
+        .magazine:hover {
+            transform: rotateY(5deg) translateY(-8px);
+            box-shadow: -8px 8px 24px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+        }
+
+        .magazine-header {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .magazine-excerpt {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .magazine-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
             font-style: italic;
         }
 
         .substack-feed {
-            min-height: 300px;
-        }
-
-        .substack-scrollable {
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar-track {
-            background: rgba(201, 169, 98, 0.1);
-            border-radius: 4px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar-thumb {
-            background: rgba(201, 169, 98, 0.3);
-            border-radius: 4px;
-        }
-
-        .substack-scrollable::-webkit-scrollbar-thumb:hover {
-            background: rgba(201, 169, 98, 0.5);
+            min-height: 200px;
         }
 
         .feed-loading {
@@ -1805,44 +2248,16 @@
         }
 
         .substack-article {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .substack-article:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .substack-article-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.5rem;
-        }
-
-        .substack-article-title a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .substack-article-title a:hover {
-            color: var(--accent);
-        }
-
-        .substack-article-excerpt {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--text-muted);
+            display: none;
         }
 
         @media (max-width: 1200px) {
-            .reading-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .library-container {
+                padding: 2rem;
+            }
+
+            .book-cover-item {
+                width: 100px;
             }
 
             .quote-text {
@@ -1852,15 +2267,29 @@
 
         @media (max-width: 768px) {
             .quote-card {
-                padding: 2rem;
+                padding: 1.5rem;
             }
 
             .quote-text {
-                font-size: 1.25rem;
+                font-size: 1.15rem;
             }
 
-            .reading-section {
-                padding: 1.5rem;
+            .library-container {
+                padding: 1.25rem;
+            }
+
+            .shelf-tab {
+                font-size: 1rem;
+                padding: 0.7rem 1.25rem;
+            }
+
+            .book-cover-item {
+                width: 85px;
+            }
+
+            .magazine {
+                min-width: 260px;
+                max-width: 260px;
             }
         }
 
@@ -1891,6 +2320,36 @@
         </a>
     </nav>
 
+    <!-- Mobile Icon Navigation -->
+    <nav class="mobile-icon-nav">
+        <a href="#baseball" class="nav-icon" data-label="Baseball">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 4.5c0 0 1.5 2 1.5 4.5s-1.5 4.5-1.5 4.5"></path>
+                <path d="M16 4.5c0 0-1.5 2-1.5 4.5s1.5 4.5 1.5 4.5"></path>
+                <path d="M8 19.5c0 0 1.5-2 1.5-4.5s-1.5-4.5-1.5-4.5"></path>
+                <path d="M16 19.5c0 0-1.5-2-1.5-4.5s1.5-4.5 1.5-4.5"></path>
+            </svg>
+        </a>
+        <a href="#career" class="nav-icon" data-label="Career">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+        </a>
+        <a href="#philanthropy" class="nav-icon" data-label="Impact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+        </a>
+        <a href="#reading" class="nav-icon" data-label="Reading">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+        </a>
+    </nav>
+
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Paxton<br>Thompson</h1>
@@ -1902,7 +2361,7 @@
             <div class="hero-buttons">
                 <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
                 <a href="mailto:paxthomp12@gmail.com" class="hero-btn">Email</a>
-                <a href="Resume%20updated%2011.19.26.pdf" target="_blank" class="hero-btn">Resume</a>
+                <a href="resume.html" class="hero-btn">Resume</a>
             </div>
         </div>
         <div class="hero-image">
@@ -2074,7 +2533,7 @@
             </div>
         </div>
 
-        <div class="evolution-section">
+        <div class="evolution-section" id="evolution">
             <div class="evolution-header">
                 <h3>Evolution as a Pitcher</h3>
                 <p>Watch my progression through the years</p>
@@ -2083,7 +2542,7 @@
             <div class="timeline-track">
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156669273?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2016 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156669273?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2016 High School"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2094,7 +2553,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156697281?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2017 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156697281?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2017 High School"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2105,7 +2564,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1157221519?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2018 High School"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1157221519?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2018 High School"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2116,7 +2575,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2019 Bradley"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2019 Bradley"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2127,7 +2586,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156705523?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2020 University of Mary"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2138,7 +2597,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156697261?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2021 Parkland College"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156697261?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2021 Parkland College"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2149,7 +2608,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156867881?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2022 Charlotte"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156867881?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2022 Charlotte"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2160,7 +2619,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1156869653?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2023 Charlotte / Pro Debut"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1156869653?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2023 Charlotte / Pro Debut"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2171,7 +2630,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1157234782?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2024 Clearwater / Jersey Shore"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1157234782?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2024 Clearwater / Jersey Shore"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2182,7 +2641,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe src="https://player.vimeo.com/video/1157234759?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen style="width:100%;height:100%;" title="2025 Jersey Shore"></iframe>
+                        <iframe src="https://player.vimeo.com/video/1157234759?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2025 Jersey Shore"></iframe>
                         <div class="play-triangle"></div>
                     </div>
                     <div class="timeline-info">
@@ -2549,6 +3008,27 @@
                 </div>
             </div>
 
+            <!-- Want to Read Section -->
+            <div class="reading-section">
+                <h3 class="reading-section-title">Want to Read</h3>
+                <div class="goodreads-widget">
+                    <style type="text/css" media="screen">
+                        .gr_custom_container_1769377032 {
+                            border: 1px solid rgba(201, 169, 98, 0.2);
+                            border-radius: 4px;
+                            padding: 20px;
+                            background: linear-gradient(135deg, rgba(18, 107, 74, 0.05) 0%, transparent 100%);
+                            color: #f5f3ef;
+                        }
+                        .gr_custom_header_1769377032 {
+                            display: none;
+                        }
+                    </style>
+                    <div id="gr_custom_widget_1769377032"></div>
+                    <script src="https://www.goodreads.com/review/custom_widget/197701602.Want%20to%20Read?cover_position=left&cover_size=small&num_books=20&order=a&shelf=to-read&show_author=1&show_cover=1&show_rating=0&show_review=0&show_tags=0&show_title=1&sort=date_added&widget_bg_color=FFFFFF&widget_bg_transparent=&widget_border_width=1&widget_id=1769377032&widget_text_color=000000&widget_title_size=medium&widget_width=medium" type="text/javascript" charset="utf-8"></script>
+                </div>
+            </div>
+
             <!-- Favorite Substack Reads Section -->
             <div class="reading-section">
                 <h3 class="reading-section-title">Favorite Substack Reads</h3>
@@ -2712,6 +3192,56 @@
     </footer>
 
     <script>
+        // Mobile Icon Navigation Active State
+        const navIcons = document.querySelectorAll('.nav-icon');
+        const sections = document.querySelectorAll('section, .evolution-section');
+
+        function updateActiveNav() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = sectionId;
+                }
+            });
+
+            navIcons.forEach(icon => {
+                icon.classList.remove('active');
+                const href = icon.getAttribute('href').substring(1);
+                if (href === currentSection) {
+                    icon.classList.add('active');
+                }
+            });
+        }
+
+        if (window.innerWidth <= 768) {
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav();
+        }
+
+        // Navigation background on scroll
+        const nav = document.querySelector('nav');
+        const heroSection = document.querySelector('#home');
+
+        function updateNavBackground() {
+            if (heroSection) {
+                const heroBottom = heroSection.offsetHeight;
+                if (window.scrollY > heroBottom - 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateNavBackground);
+        updateNavBackground();
+
         // Stats card tab switching
         const tabs = document.querySelectorAll('.card-tab');
         const panels = document.querySelectorAll('.stats-panel');
@@ -2906,13 +3436,19 @@
                         const firstSentenceMatch = fullText.match(/^[^.!?]*[.!?]/);
                         const firstSentence = firstSentenceMatch ? firstSentenceMatch[0].trim() : fullText.substring(0, 100) + '...';
 
-                        const articleEl = document.createElement('div');
-                        articleEl.className = 'substack-article';
+                        const articleEl = document.createElement('a');
+                        articleEl.href = link;
+                        articleEl.target = '_blank';
+                        articleEl.rel = 'noopener';
+                        articleEl.className = 'magazine';
+                        articleEl.style.textDecoration = 'none';
+                        articleEl.style.color = 'inherit';
                         articleEl.innerHTML = `
-                            <h4 class="substack-article-title">
-                                <a href="${link}" target="_blank" rel="noopener">${title}</a>
-                            </h4>
-                            <p class="substack-article-excerpt">${firstSentence}</p>
+                            <div class="magazine-header">${title}</div>
+                            <div class="magazine-excerpt">${firstSentence}</div>
+                            <div class="magazine-meta">
+                                <span>→</span>
+                            </div>
                         `;
 
                         feedContainer.appendChild(articleEl);
@@ -2957,37 +3493,49 @@
                 // Store player reference with its container
                 allPlayers.push({ player, container, playTriangle, iframe });
 
+                // Function to go fullscreen
+                function goFullscreen() {
+                    player.getFullscreen().then(function(isFullscreen) {
+                        if (!isFullscreen) {
+                            player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
+                        }
+                    }).catch(err => {
+                        // If getFullscreen fails, just try to request fullscreen
+                        player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
+                    });
+                }
+
                 // Click handler to play video
                 container.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
 
-                    // Pause all other videos first
-                    allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
-                        if (p !== player) {
-                            p.pause().catch(err => console.log('Pause failed:', err));
-                            c.style.removeProperty('--playing');
-                            if (pt) pt.style.display = '';
-                            i.style.pointerEvents = 'none';
-                        }
-                    });
-
-                    // Hide custom play button and overlay
+                    // Immediately hide custom play button and overlay for instant feedback
                     container.style.setProperty('--playing', '1');
                     if (playTriangle) playTriangle.style.display = 'none';
-
-                    // Enable pointer events on iframe for interaction
                     iframe.style.pointerEvents = 'auto';
 
-                    // Request fullscreen immediately on click for better mobile support
-                    player.requestFullscreen().catch(function(error) {
-                        console.log('Fullscreen request failed:', error);
-                    });
+                    // Start playback
+                    player.play().catch(err => console.log('Play failed:', err)).then(() => {
+                        // Request fullscreen
+                        goFullscreen();
 
-                    // Play the video
-                    player.play().catch(function(error) {
-                        console.log('Play failed:', error);
+                        // Pause other videos after this one starts
+                        allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
+                            if (p !== player) {
+                                p.pause().catch(() => {});
+                                c.style.removeProperty('--playing');
+                                if (pt) pt.style.display = '';
+                                i.style.pointerEvents = 'none';
+                            }
+                        });
                     });
+                });
+
+                // Add click handler to iframe to ensure fullscreen on any tap
+                iframe.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    goFullscreen();
                 });
 
                 // When video starts playing
@@ -3005,6 +3553,9 @@
                     // Hide overlay elements for current video
                     container.style.setProperty('--playing', '1');
                     if (playTriangle) playTriangle.style.display = 'none';
+
+                    // Ensure fullscreen is requested when video starts playing
+                    goFullscreen();
                 });
 
                 // When video ends, exit fullscreen and reset
@@ -3089,5 +3640,8 @@
             window.addEventListener('resize', updateActiveDot);
         });
     </script>
+
+    <!-- Classic Library Bookshelf Script -->
+    <script src="reading-bookshelf-v2.js"></script>
 </body>
 </html>
