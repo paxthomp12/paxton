@@ -3463,18 +3463,6 @@
                 // Store player reference with its container
                 allPlayers.push({ player, container, playTriangle, iframe });
 
-                // Function to go fullscreen
-                function goFullscreen() {
-                    player.getFullscreen().then(function(isFullscreen) {
-                        if (!isFullscreen) {
-                            player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
-                        }
-                    }).catch(err => {
-                        // If getFullscreen fails, just try to request fullscreen
-                        player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
-                    });
-                }
-
                 // Click handler to play video
                 container.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -3485,12 +3473,13 @@
                     if (playTriangle) playTriangle.style.display = 'none';
                     iframe.style.pointerEvents = 'auto';
 
-                    // Start playback
-                    player.play().catch(err => console.log('Play failed:', err)).then(() => {
-                        // Request fullscreen
-                        goFullscreen();
+                    // CRITICAL: Call play AND fullscreen synchronously from the click event
+                    // Mobile browsers require fullscreen to be triggered directly from user interaction
+                    const playPromise = player.play().catch(err => console.log('Play failed:', err));
+                    const fullscreenPromise = player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
 
-                        // Pause other videos after this one starts
+                    // After starting playback, pause other videos (non-blocking)
+                    playPromise.then(() => {
                         allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
                             if (p !== player) {
                                 p.pause().catch(() => {});
@@ -3505,7 +3494,8 @@
                 // Add click handler to iframe to ensure fullscreen on any tap
                 iframe.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    goFullscreen();
+                    // Request fullscreen directly from click event
+                    player.requestFullscreen().catch(err => console.log('Fullscreen from iframe failed:', err));
                 });
 
                 // When video starts playing
@@ -3523,9 +3513,6 @@
                     // Hide overlay elements for current video
                     container.style.setProperty('--playing', '1');
                     if (playTriangle) playTriangle.style.display = 'none';
-
-                    // Ensure fullscreen is requested when video starts playing
-                    goFullscreen();
                 });
 
                 // When video ends, exit fullscreen and reset
