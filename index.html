@@ -3463,6 +3463,18 @@
                 // Store player reference with its container
                 allPlayers.push({ player, container, playTriangle, iframe });
 
+                // Function to go fullscreen
+                function goFullscreen() {
+                    player.getFullscreen().then(function(isFullscreen) {
+                        if (!isFullscreen) {
+                            player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
+                        }
+                    }).catch(err => {
+                        // If getFullscreen fails, just try to request fullscreen
+                        player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
+                    });
+                }
+
                 // Click handler to play video
                 container.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -3473,10 +3485,10 @@
                     if (playTriangle) playTriangle.style.display = 'none';
                     iframe.style.pointerEvents = 'auto';
 
-                    // Start playback and request fullscreen
+                    // Start playback
                     player.play().catch(err => console.log('Play failed:', err)).then(() => {
-                        // Request fullscreen on all devices
-                        player.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
+                        // Request fullscreen
+                        goFullscreen();
 
                         // Pause other videos after this one starts
                         allPlayers.forEach(({ player: p, container: c, playTriangle: pt, iframe: i }) => {
@@ -3488,6 +3500,12 @@
                             }
                         });
                     });
+                });
+
+                // Add click handler to iframe to ensure fullscreen on any tap
+                iframe.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    goFullscreen();
                 });
 
                 // When video starts playing
@@ -3505,6 +3523,9 @@
                     // Hide overlay elements for current video
                     container.style.setProperty('--playing', '1');
                     if (playTriangle) playTriangle.style.display = 'none';
+
+                    // Ensure fullscreen is requested when video starts playing
+                    goFullscreen();
                 });
 
                 // When video ends, exit fullscreen and reset
