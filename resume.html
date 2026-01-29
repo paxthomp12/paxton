@@ -36,6 +36,7 @@
             -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -50,112 +51,392 @@
             overscroll-behavior-y: contain;
         }
 
-        .resume-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 6rem 2rem 4rem;
-        }
-
-        /* Header */
-        .resume-header {
-            text-align: center;
-            padding: 4rem 0 1rem;
-            margin-bottom: 0.5rem;
-            position: relative;
-        }
-
-        .header-buttons {
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8rem;
-        }
-
-        .back-button {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            color: var(--text);
-            text-decoration: none;
-            border: 1px solid var(--border-light);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            z-index: 999;
+            mix-blend-mode: difference;
+            pointer-events: none;
             transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .back-button:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-            transform: translateX(-3px);
+        nav.scrolled {
+            background: rgba(10, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
+            mix-blend-mode: normal;
+            padding: 1.5rem 4rem;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .download-pdf {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            color: var(--accent);
-            text-decoration: none;
-            border: 1px solid var(--accent);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        nav * {
             pointer-events: auto;
         }
 
-        .download-pdf:hover {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .back-arrow:hover {
+            transform: translateX(-3px);
+            color: var(--text);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid var(--accent);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
             background: var(--accent);
+        }
+
+        .logo:hover {
+            background: var(--accent);
+        }
+
+        .logo:hover::before {
+            border-top-color: var(--bg);
+        }
+
+        .logo:hover::after {
+            background: var(--bg);
+        }
+
+        .logo:hover .logo-text {
             color: var(--bg);
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        /* Icon Navigation */
+        .mobile-icon-nav {
+            display: flex;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 2rem 4rem;
+            z-index: 1000;
+            gap: 0.75rem;
+            align-items: center;
+            pointer-events: none;
+            width: auto;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        .mobile-icon-nav .nav-icon {
+            pointer-events: auto;
+        }
+
+        .nav-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(10, 15, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+        }
+
+        .nav-icon svg {
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            filter: brightness(0) saturate(100%) invert(60%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%);
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon.fffw-icon img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) saturate(100%) invert(60%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(110%) drop-shadow(0 0 0.5px currentColor);
+        }
+
+        .nav-icon.phillies-icon img {
+            width: 26px;
+            height: 26px;
+        }
+
+        .nav-icon.clt-icon img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-icon.phillies-icon:hover img {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(85%);
             transform: translateY(-2px);
         }
 
-        /* Hide Adobe Acrobat browser extension popups */
-        .download-pdf + * {
-            display: none !important;
-            visibility: hidden !important;
+        .nav-icon.phillies-icon:active img,
+        .nav-icon.phillies-icon.active img {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(85%);
+            transform: scale(1.1);
         }
 
-        .resume-header h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 400;
-            letter-spacing: 4px;
+        .nav-icon.clt-icon:hover img {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(85%);
+            transform: translateY(-2px);
+        }
+
+        .nav-icon.clt-icon:active img,
+        .nav-icon.clt-icon.active img {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(85%);
+            transform: scale(1.1);
+        }
+
+        .nav-icon:active,
+        .nav-icon.active {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        .nav-icon:active svg,
+        .nav-icon.active svg {
+            transform: scale(1.1);
+        }
+
+        .nav-icon:active img,
+        .nav-icon.active img {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(85%);
+            transform: scale(1.1);
+        }
+
+        .nav-icon.fffw-icon:active img,
+        .nav-icon.fffw-icon.active img {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(110%) drop-shadow(0 0 0.5px currentColor);
+            transform: scale(1.1);
+        }
+
+        @media (hover: hover) {
+            .nav-icon:hover {
+                color: var(--accent);
+            }
+
+            .nav-icon:hover svg {
+                transform: translateY(-2px);
+            }
+
+            .nav-icon:hover img {
+                filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(85%);
+                transform: translateY(-2px);
+            }
+
+            .nav-icon.fffw-icon:hover img {
+                filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(110%) drop-shadow(0 0 0.5px currentColor);
+                transform: translateY(-2px);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
             margin-bottom: 2rem;
-            color: var(--text);
-            text-transform: uppercase;
         }
 
+        .hero-desc {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .hero-btn {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+        }
+
+        .watch-frame {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                0 0 0 8px var(--bg),
+                0 0 0 10px var(--border-light),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .watch-frame::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--accent) 0deg 30deg,
+                var(--border-medium) 30deg 60deg,
+                var(--accent) 60deg 90deg,
+                var(--border-medium) 90deg 120deg,
+                var(--accent) 120deg 150deg,
+                var(--border-medium) 150deg 180deg,
+                var(--accent) 180deg 210deg,
+                var(--border-medium) 210deg 240deg,
+                var(--accent) 240deg 270deg,
+                var(--border-medium) 270deg 300deg,
+                var(--accent) 300deg 330deg,
+                var(--border-medium) 330deg 360deg
+            );
+            z-index: -1;
+        }
+
+        .watch-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
 
         /* Sections */
-        .resume-section {
-            margin-bottom: 5rem;
+        section {
+            padding: 4rem 4rem;
+            scroll-margin-top: 120px;
         }
 
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            font-weight: 400;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 3rem;
+        .hero {
+            margin-bottom: -4rem;
         }
 
-        /* Section Divider */
+        .resume-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .resume-container section:first-of-type {
+            padding-top: 2rem;
+            padding-bottom: 0;
+        }
+
+        #education-section,
+        #athletics-section {
+            padding-bottom: 0;
+        }
+
+        /* Submariner Section Divider */
         .section-divider {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1.5rem;
-            padding: 3rem 0;
+            padding: 2rem 0;
         }
 
         .section-divider::before,
@@ -197,37 +478,25 @@
             display: inline-block;
         }
 
-        /* Professional Summary */
-        .summary {
-            font-size: 1.1rem;
-            line-height: 1.9;
-            color: var(--text-muted);
-            background: rgba(201, 169, 98, 0.05);
-            padding: 2rem;
-            border-left: 3px solid var(--accent);
-            border-radius: 0;
-            max-width: 900px;
-            margin: 0 auto;
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
         }
 
         /* Experience Item */
         .experience-item {
-            margin-bottom: 3.5rem;
+            margin-bottom: 2rem;
             border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 2rem;
+            padding-bottom: 1.5rem;
         }
 
         .experience-item:last-child {
             border-bottom: none;
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.75rem;
-            flex-wrap: wrap;
-            gap: 1rem;
         }
 
         .experience-title {
@@ -237,6 +506,7 @@
             letter-spacing: 1.5px;
             color: var(--text);
             text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
         .experience-date {
@@ -244,6 +514,8 @@
             font-size: 0.9rem;
             font-style: italic;
             letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         .experience-subtitle {
@@ -277,9 +549,9 @@
 
         /* Education */
         .education-item {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 2rem;
+            padding-bottom: 1.5rem;
         }
 
         .education-item:last-child {
@@ -386,47 +658,122 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .resume-container {
-                padding: 3rem 1.25rem 2rem;
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                margin-bottom: -3rem;
             }
 
-            .resume-header h1 {
+            .hero-image {
+                order: -1;
+                padding: 2rem;
+            }
+
+            .watch-frame {
+                width: 400px;
+                height: 400px;
+            }
+
+            .hero-content {
+                padding: 2rem;
+                text-align: center;
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 1.25rem;
+            }
+
+            nav.scrolled {
+                padding: 1rem 1.25rem;
+            }
+
+            .mobile-icon-nav {
+                padding: 1rem 1.25rem;
+                gap: 0.5rem;
+            }
+
+            .logo {
+                width: 38px;
+                height: 38px;
+            }
+
+            .nav-icon {
+                width: 40px;
+                height: 40px;
+                padding: 0.4rem;
+            }
+
+            .nav-icon svg,
+            .nav-icon img {
+                width: 18px;
+                height: 18px;
+            }
+
+            .hero h1 {
                 font-size: 2.5rem;
-                letter-spacing: 1.5px;
-                margin-bottom: 1.5rem;
+            }
+
+            .hero-desc {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .hero-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .watch-frame {
+                width: 280px;
+                height: 280px;
+            }
+
+            section {
+                padding: 3rem 1.25rem;
+            }
+
+            .hero {
+                margin-bottom: -2rem;
+            }
+
+            .resume-container {
+                padding: 0 1.25rem 2rem;
+            }
+
+            .resume-container section:first-of-type {
+                padding-top: 1.5rem;
+                padding-bottom: 0;
+            }
+
+            #education-section,
+            #athletics-section {
+                padding-bottom: 0;
             }
 
             .section-title {
                 font-size: 1.75rem;
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
                 letter-spacing: 2px;
             }
 
-            .header-buttons {
-                flex-direction: column;
-                gap: 0.75rem;
-                margin-bottom: 4rem;
-            }
-
-            .download-pdf, .back-button {
-                width: 100%;
-                justify-content: center;
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
-                min-height: 42px;
-            }
-
-            .resume-header {
-                padding: 1.5rem 0 0.5rem;
-            }
-
-            .resume-section {
-                margin-bottom: 3rem;
-            }
-
             .section-divider {
-                padding: 1.5rem 0;
+                padding: 1rem 0;
                 gap: 1rem;
             }
 
@@ -440,23 +787,9 @@
                 transform: scale(0.8);
             }
 
-            .summary {
-                font-size: 1rem;
-                line-height: 1.75;
-                padding: 1.5rem 1.25rem;
-                border-left-width: 2px;
-            }
-
             .experience-item {
-                margin-bottom: 2.5rem;
-                padding-bottom: 1.5rem;
-            }
-
-            .experience-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.35rem;
-                margin-bottom: 0.5rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
             }
 
             .experience-title {
@@ -481,8 +814,8 @@
             }
 
             .education-item {
-                margin-bottom: 2rem;
-                padding-bottom: 1.5rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
             }
 
             .education-title {
@@ -516,22 +849,80 @@
     </style>
 </head>
 <body>
-    <div class="resume-container">
-        <!-- Header -->
-        <header class="resume-header">
-            <div class="header-buttons">
-                <a href="index.html" class="back-button">
-                    <i class="fas fa-arrow-left"></i> Back to Site
-                </a>
-                <a href="Resume for Website.pdf" target="_blank" class="download-pdf">
-                    <i class="fas fa-file-pdf"></i> PDF Version
-                </a>
-            </div>
-            <h1>Paxton Thompson</h1>
-        </header>
+    <!-- Navigation with PT Logo and Back Arrow -->
+    <nav>
+        <div class="logo-container">
+            <a href="index.html" class="back-arrow">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <a href="#" class="logo">
+                <span class="logo-text">PT</span>
+            </a>
+        </div>
+    </nav>
 
+    <!-- Icon Navigation for Experience Sections -->
+    <nav class="mobile-icon-nav">
+        <a href="#phillies" class="nav-icon phillies-icon" data-label="Phillies">
+            <img src="assets/images/Phillies Icon.png" alt="Phillies">
+        </a>
+        <a href="#olc" class="nav-icon" data-label="Old Logan">
+            <img src="assets/images/OLC Icon.png" alt="Old Logan Capital">
+        </a>
+        <a href="#fffw" class="nav-icon fffw-icon" data-label="FFFW">
+            <img src="assets/images/FFFW Icon.png" alt="Firm Foundation">
+        </a>
+        <a href="#deckhand" class="nav-icon" data-label="Deckhand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path>
+                <path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9 1.25 5.5 3.22 7.2"></path>
+                <path d="M5 10V6c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v4"></path>
+                <path d="M9 4v2"></path>
+                <path d="M15 4v2"></path>
+            </svg>
+        </a>
+        <a href="#education" class="nav-icon" data-label="Education">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+        </a>
+        <a href="#athletics" class="nav-icon clt-icon" data-label="Athletics">
+            <img src="assets/images/CLT Icon.png" alt="Charlotte 49ers">
+        </a>
+        <a href="#skills" class="nav-icon" data-label="Skills">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+        </a>
+    </nav>
+
+    <!-- Hero Section (from main page) -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Paxton<br>Thompson</h1>
+            <p class="hero-desc">
+                <span>Professional Baseball Player</span>
+                <span>Co-Founder of Old Logan Capital</span>
+                <span>Wealth Management Intern</span>
+            </p>
+            <div class="hero-buttons">
+                <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
+                <a href="mailto:paxthomp12@gmail.com" class="hero-btn">Email</a>
+                <a href="Resume for Website.pdf" download class="hero-btn">PDF Resume</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="watch-frame">
+                <img src="assets/images/IMwn8OwXQKiE5qk-pV4ihA (1).jpg" alt="Paxton Thompson">
+            </div>
+        </div>
+    </section>
+
+    <div class="resume-container">
         <!-- Experience -->
-        <section class="resume-section">
+        <section id="experience">
             <div class="section-divider">
                 <div class="divider-markers">
                     <span class="marker-rectangle"></span>
@@ -540,12 +931,11 @@
                 </div>
             </div>
             <h2 class="section-title">Experience</h2>
+        </section>
 
-            <div class="experience-item">
-                <div class="experience-header">
-                    <h3 class="experience-title">Professional Baseball Player</h3>
-                    <span class="experience-date">August 2023 - Present</span>
-                </div>
+        <div id="phillies" class="experience-item">
+                <h3 class="experience-title">Professional Baseball Player</h3>
+                <span class="experience-date">August 2023 - Present</span>
                 <p class="experience-subtitle">Philadelphia Phillies</p>
                 <ul>
                     <li>Pitcher competing at the professional level, performing in high-pressure, results-driven environments.</li>
@@ -554,11 +944,9 @@
                 </ul>
             </div>
 
-            <div class="experience-item">
-                <div class="experience-header">
-                    <h3 class="experience-title">Co-Founder</h3>
-                    <span class="experience-date">November 2024 - Present</span>
-                </div>
+        <div id="olc" class="experience-item">
+                <h3 class="experience-title">Co-Founder</h3>
+                <span class="experience-date">November 2024 - Present</span>
                 <p class="experience-subtitle">Old Logan Capital</p>
                 <ul>
                     <li>Co-founded an early-stage investment concept focused on developing long-term investment strategies and disciplined research processes.</li>
@@ -569,11 +957,9 @@
                 </ul>
             </div>
 
-            <div class="experience-item">
-                <div class="experience-header">
-                    <h3 class="experience-title">Wealth Management Intern</h3>
-                    <span class="experience-date">December 2024 - February 2026</span>
-                </div>
+        <div id="fffw" class="experience-item">
+                <h3 class="experience-title">Wealth Management Intern</h3>
+                <span class="experience-date">December 2024 - February 2026</span>
                 <p class="experience-subtitle">Firm Foundation Family Wealth (Remote)</p>
                 <ul>
                     <li>Support advisors across investment management and financial planning functions, with a focus on analytical reporting and operational execution.</li>
@@ -587,11 +973,9 @@
                 </ul>
             </div>
 
-            <div class="experience-item">
-                <div class="experience-header">
-                    <h3 class="experience-title">Deckhand</h3>
-                    <span class="experience-date">October 2023 - March 2024</span>
-                </div>
+        <div id="deckhand" class="experience-item">
+                <h3 class="experience-title">Deckhand</h3>
+                <span class="experience-date">October 2023 - March 2024</span>
                 <p class="experience-subtitle">Suncoast Captains & Crew</p>
                 <ul>
                     <li>Managed daily operational and logistical tasks supporting multi-million-dollar yacht operations.</li>
@@ -602,7 +986,7 @@
         </section>
 
         <!-- Education -->
-        <section class="resume-section">
+        <section id="education-section">
             <div class="section-divider">
                 <div class="divider-markers">
                     <span class="marker-rectangle"></span>
@@ -611,28 +995,29 @@
                 </div>
             </div>
             <h2 class="section-title">Education</h2>
+        </section>
 
-            <div class="education-item">
-                <h3 class="education-title">University of North Carolina, Charlotte, NC</h3>
-                <p class="education-degree">BSBA, Finance — Belk College of Business</p>
-                <ul class="education-details">
+        <div id="education" class="experience-item">
+                <h3 class="experience-title">University of North Carolina, Charlotte, NC</h3>
+                <span class="experience-date">Graduated 2023</span>
+                <p class="experience-subtitle">BSBA, Finance — Belk College of Business</p>
+                <ul>
                     <li>Cum Laude – 3.57 GPA</li>
                     <li>Academic All-District</li>
                     <li>Dean's List</li>
                 </ul>
             </div>
 
-            <div class="education-item">
-                <h3 class="education-title">Parkland College, Champaign, IL</h3>
-                <p class="education-degree">Associates Degree, General Studies</p>
-                <ul class="education-details">
+        <div class="experience-item">
+                <h3 class="experience-title">Parkland College, Champaign, IL</h3>
+                <p class="experience-subtitle">Associates Degree, General Studies</p>
+                <ul>
                     <li>Dean's List</li>
                 </ul>
             </div>
-        </section>
 
         <!-- Athletics Experience -->
-        <section class="resume-section">
+        <section id="athletics-section">
             <div class="section-divider">
                 <div class="divider-markers">
                     <span class="marker-rectangle"></span>
@@ -640,13 +1025,12 @@
                     <span class="marker-triangle"></span>
                 </div>
             </div>
-            <h2 class="section-title">Athletics Experience</h2>
+            <h2 class="section-title">Athletics</h2>
+        </section>
 
-            <div class="experience-item">
-                <div class="experience-header">
-                    <h3 class="experience-title">NCAA Division I Baseball — Charlotte 49ers</h3>
-                    <span class="experience-date">August 2021 - June 2023</span>
-                </div>
+        <div id="athletics" class="experience-item">
+                <h3 class="experience-title">NCAA Division I Baseball — Charlotte 49ers</h3>
+                <span class="experience-date">August 2021 - June 2023</span>
                 <ul>
                     <li>Pitcher on the winningest team in program history, lead team with 8 wins.</li>
                     <li>Balanced Division I athletics with academics, graduating with honors.</li>
@@ -654,18 +1038,10 @@
                     <li>C-USA All-Tournament Team; ranked 9th in program history for strikeouts looking.</li>
                 </ul>
             </div>
-        </section>
 
-        <!-- Skills -->
-        <section class="resume-section">
-            <div class="section-divider">
-                <div class="divider-markers">
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-triangle"></span>
-                </div>
-            </div>
-            <h2 class="section-title">Skills</h2>
+        <!-- Skills & Projects -->
+        <div id="skills" class="experience-item">
+            <h3 class="experience-title">Skills</h3>
             <div class="skills-container">
                 <span class="skill-tag">Investment Research & Financial Literacy</span>
                 <span class="skill-tag">Java</span>
@@ -678,18 +1054,11 @@
                 <span class="skill-tag">Time Management</span>
                 <span class="skill-tag">High-Pressure Execution</span>
             </div>
-        </section>
+        </div>
 
         <!-- Projects -->
-        <section class="resume-section">
-            <div class="section-divider">
-                <div class="divider-markers">
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-triangle"></span>
-                </div>
-            </div>
-            <h2 class="section-title">Projects</h2>
+        <div id="projects" class="experience-item">
+            <h3 class="experience-title">Projects</h3>
             <div class="projects-list">
                 <a href="index.html" class="project-link">
                     <i class="fas fa-external-link-alt"></i> Personal Website
@@ -698,8 +1067,68 @@
                     <i class="fas fa-external-link-alt"></i> Old Logan Capital Website
                 </a>
             </div>
-        </section>
-
+        </div>
     </div>
+
+    <script>
+        // Icon Navigation Active State
+        const navIcons = document.querySelectorAll('.nav-icon');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveNav() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 200;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navIcons.forEach(icon => {
+                icon.classList.remove('active');
+                const iconHref = icon.getAttribute('href');
+
+                // Keep skills icon active for both skills and projects sections
+                if (iconHref === '#skills' && (currentSection === 'skills' || currentSection === 'projects')) {
+                    icon.classList.add('active');
+                } else if (iconHref === '#' + currentSection) {
+                    icon.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        window.addEventListener('load', updateActiveNav);
+
+        // Smooth scrolling for icon navigation
+        navIcons.forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                const href = icon.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Add scrolled class to nav on scroll (after hero section)
+        const nav = document.querySelector('nav');
+        const hero = document.querySelector('.hero');
+
+        window.addEventListener('scroll', () => {
+            const heroHeight = hero.offsetHeight;
+            if (window.scrollY > heroHeight - 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
