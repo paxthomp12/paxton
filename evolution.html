@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Evolution | Paxton Thompson</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230a0f0a' stroke='%23c9a962' stroke-width='3'/%3E%3Cpolygon points='50,20 45,28 55,28' fill='%23c9a962'/%3E%3Crect x='47' y='70' width='6' height='12' fill='%23c9a962'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='sans-serif' font-size='24' font-weight='bold' fill='%23c9a962'%3EPT%3C/text%3E%3C/svg%3E">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0f0a;
+            --bg-alt: #0d120d;
+            --text: #f5f3ef;
+            --text-muted: #8a9a8a;
+            --accent: #c9a962;
+            --green: #126b4a;
+            --border-subtle: rgba(201, 169, 98, 0.1);
+            --border-light: rgba(201, 169, 98, 0.2);
+            --border-medium: rgba(201, 169, 98, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0a0f0a 0%, #0d1a12 50%, #0a0f0a 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        html {
+            background-color: #0a0f0a;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+            background: rgba(10, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: var(--bg);
+        }
+
+        .logo span {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 17px;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section - More Compact */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Compact Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .video-card {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .video-card:hover {
+            border-color: var(--border-medium);
+            transform: translateY(-3px);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: rgba(201, 169, 98, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Stats Table */
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stats-table-wrapper {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .stats-table th {
+            background: rgba(201, 169, 98, 0.1);
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .stats-table td {
+            padding: 0.75rem 0.5rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .trackman-placeholder {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Bullet Points */
+        .bullet-points {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .bullet-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bullet-points li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text);
+        }
+
+        .bullet-points li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* Who I Get Out Grid - Small Squares */
+        .strikeout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .strikeout-card {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .strikeout-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .strikeout-video {
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(201, 169, 98, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
+        .strikeout-card iframe {
+            width: 100%;
+            aspect-ratio: 1;
+            display: block;
+        }
+
+        .strikeout-name {
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* DEXA Stats */
+        .dexa-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .dexa-card {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .dexa-value {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .dexa-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .dexa-change {
+            color: var(--green);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.5rem 0;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        }
+
+        .divider-markers {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .marker-circle {
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            /* Hero - More Compact */
+            .hero {
+                min-height: 50vh;
+                padding: 3rem 1.5rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.75rem, 8vw, 2.5rem);
+                margin-bottom: 0.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: clamp(0.9rem, 3vw, 1.1rem);
+                margin-bottom: 0.5rem;
+            }
+
+            /* Sections - Reduced Padding */
+            section {
+                padding: 2rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Navigation */
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.75rem;
+            }
+
+            /* Stats Container - Stack Vertically */
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+
+            .stats-table-wrapper {
+                padding: 1rem;
+            }
+
+            .stats-table {
+                font-size: 0.75rem;
+            }
+
+            .stats-table th,
+            .stats-table td {
+                padding: 0.5rem 0.25rem;
+            }
+
+            /* Video Grid */
+            .video-grid {
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+
+            /* Bullet Points - Smaller */
+            .bullet-points {
+                padding: 1rem 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .bullet-points li {
+                font-size: 0.85rem;
+                padding: 0.4rem 0;
+            }
+
+            /* Strikeout Grid - Smaller on Mobile */
+            .strikeout-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 0.75rem;
+                margin: 1.5rem 0;
+            }
+
+            .strikeout-name {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            /* DEXA Stats - Compact */
+            .dexa-stats {
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .dexa-card {
+                padding: 1rem;
+            }
+
+            .dexa-value {
+                font-size: 1.5rem;
+                margin: 0.25rem 0;
+            }
+
+            .dexa-label {
+                font-size: 0.8rem;
+            }
+
+            .dexa-change {
+                font-size: 0.85rem;
+                margin-top: 0.25rem;
+            }
+
+            /* Arsenal Images - Responsive */
+            section img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* Dividers - Smaller */
+            .section-divider {
+                padding: 1rem 0;
+            }
+
+            .marker-circle {
+                width: 4px;
+                height: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <span>PT</span>
+        </a>
+        <a href="index.html" class="nav-link">← BACK TO HOME</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Professional Evolution</h1>
+        <p class="subtitle">2026 Ready</p>
+    </section>
+
+    <!-- 2026 DRIVELINE SECTION -->
+    <section>
+        <h2 class="section-title">2026 Offseason - Driveline Baseball</h2>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">DRIVELINE VIDEO 1</div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">DRIVELINE VIDEO 2</div>
+            </div>
+        </div>
+
+        <div class="trackman-placeholder">
+            <strong>Trackman Data Placeholder - Coming Soon</strong>
+        </div>
+
+        <div class="bullet-points">
+            <ul>
+                <li>No more searching, data backed. Wanted to embrace myself and the thrower I was which lead me to training at Driveline Baseball in Tampa, Florida</li>
+                <li>Velocity gains: 92-93 mph (up 2-3 mph from 2025 season)</li>
+                <li>Pitch shapes are consistent and better than they've ever been</li>
+                <li>Body recomposition: 204 lbs → 197 lbs while maintaining lean muscle</li>
+                <li>Significant strength and power improvements across all metrics</li>
+                <li>Best version of myself entering 2026</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+        </div>
+    </div>
+
+    <!-- 2024 SEASON SECTION -->
+    <section>
+        <h2 class="section-title">2024 Season</h2>
+        <p class="section-subtitle">A+ and A Ball Performance</p>
+
+        <div class="stats-container">
+            <div class="stats-table-wrapper">
+                <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem;">Season Statistics</h3>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>W-L</th>
+                            <th>ERA</th>
+                            <th>IP</th>
+                            <th>SO</th>
+                            <th>BB</th>
+                            <th>WHIP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A / A+</td>
+                            <td>3-2</td>
+                            <td>2.73</td>
+                            <td>49.1</td>
+                            <td>53</td>
+                            <td>15</td>
+                            <td>1.11</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="stats-table-wrapper">
+                <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem;">2024 Trackman Arsenal</h3>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Pitch</th>
+                            <th>Avg Velo</th>
+                            <th>Max Velo</th>
+                            <th>HB</th>
+                            <th>IVB</th>
+                            <th>Rel-Z</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FF</td>
+                            <td>91.0</td>
+                            <td>93.2</td>
+                            <td>12.9</td>
+                            <td>14.9</td>
+                            <td>61</td>
+                        </tr>
+                        <tr>
+                            <td>CT</td>
+                            <td>87.1</td>
+                            <td>89.8</td>
+                            <td>1.4</td>
+                            <td>6.7</td>
+                            <td>60</td>
+                        </tr>
+                        <tr>
+                            <td>SW</td>
+                            <td>82.0</td>
+                            <td>85.9</td>
+                            <td>-12.7</td>
+                            <td>-1.6</td>
+                            <td>61</td>
+                        </tr>
+                        <tr>
+                            <td>CH</td>
+                            <td>81.6</td>
+                            <td>84.0</td>
+                            <td>8.8</td>
+                            <td>2.3</td>
+                            <td>60</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="background: rgba(201, 169, 98, 0.05); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+            <img src="2024 Arsenal.png" alt="2024 Arsenal Summary - Pitch Movement and Release Point" style="width: 100%; height: auto; display: block;">
+        </div>
+
+        <div class="bullet-points">
+            <ul>
+                <li><strong>K-Rate: 28%</strong> - Showed ability to miss bats</li>
+                <li><strong>BB-Rate: 8%</strong> - Excellent command</li>
+                <li><strong>Strike Rate: 64%</strong> - Consistently attacking the zone</li>
+                <li>Promoted to A+ mid-season and continued success</li>
+                <li>Four-pitch mix with command of all offerings</li>
+                <li>Embraced low release height and embraced riding the FB, where my success lies</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+        </div>
+    </div>
+
+    <!-- 2025 SEASON SECTION -->
+    <section>
+        <h2 class="section-title">2025 Season</h2>
+        <p class="section-subtitle">A+ Performance before Injury</p>
+
+        <div class="stats-container">
+            <div class="stats-table-wrapper">
+                <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem;">Season Statistics</h3>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>W-L</th>
+                            <th>ERA</th>
+                            <th>IP</th>
+                            <th>SO</th>
+                            <th>BB</th>
+                            <th>WHIP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A+</td>
+                            <td>3-1</td>
+                            <td>5.59</td>
+                            <td>37.0</td>
+                            <td>30</td>
+                            <td>15</td>
+                            <td>1.59</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="stats-table-wrapper">
+                <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem;">2025 Trackman Arsenal</h3>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Pitch</th>
+                            <th>Avg Velo</th>
+                            <th>Max Velo</th>
+                            <th>HB</th>
+                            <th>IVB</th>
+                            <th>Rel-Z</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FF</td>
+                            <td>89.9</td>
+                            <td>92.0</td>
+                            <td>11.9</td>
+                            <td>15.1</td>
+                            <td>63</td>
+                        </tr>
+                        <tr>
+                            <td>CT</td>
+                            <td>85.9</td>
+                            <td>89.1</td>
+                            <td>0.7</td>
+                            <td>4.7</td>
+                            <td>62</td>
+                        </tr>
+                        <tr>
+                            <td>SW</td>
+                            <td>81.2</td>
+                            <td>85.4</td>
+                            <td>-12.1</td>
+                            <td>-1.0</td>
+                            <td>62</td>
+                        </tr>
+                        <tr>
+                            <td>CH</td>
+                            <td>81.2</td>
+                            <td>85.5</td>
+                            <td>9.6</td>
+                            <td>1.5</td>
+                            <td>61</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="background: rgba(201, 169, 98, 0.05); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+            <img src="2025 Arsenal.png" alt="2025 Arsenal Summary - Pitch Movement and Release Point" style="width: 100%; height: auto; display: block;">
+        </div>
+
+        <div class="bullet-points">
+            <ul>
+                <li>Changed mechanics in offseason seeking velocity gains</li>
+                <li><strong>Velo decreased to 89.9 mph</strong> (down 1.1 mph from 2024)</li>
+                <li><strong>K-Rate dropped to 18%</strong> (down 10% from 2024)</li>
+                <li>Release height got higher, in search of velocity</li>
+                <li>Worse shapes, worst version of self and lead shoulder injury</li>
+                <li>IL to end my season in 2025</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+        </div>
+    </div>
+
+    <!-- WHO I GET OUT SECTION -->
+    <section>
+        <h2 class="section-title">Who I Get Out</h2>
+        <p class="section-subtitle">Big leaguers and top prospects</p>
+
+        <div class="strikeout-grid">
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648283?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Braves big leaguers</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648302?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Mets top 30 2</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648360?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Cardinals top 30</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648349?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Nats top 30</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648340?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Reds top 30</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648330?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Rays top 30</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648320?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Pirates top 30</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648313?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Phillies Top 30 prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648291?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Mets top 30</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe src="https://player.vimeo.com/video/1160648286?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="strikeout-name">Blue jays 30</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+        </div>
+    </div>
+
+    <!-- DRIVELINE STRENGTH PROGRESSION -->
+    <section>
+        <h2 class="section-title">Strength & Power Progression</h2>
+        <p class="section-subtitle">August 2025 to January 2026</p>
+
+        <div class="dexa-stats">
+            <div class="dexa-card">
+                <div class="dexa-label">Peak Force</div>
+                <div class="dexa-value">3427 N</div>
+                <div class="dexa-change">3347 → 3427 (+2.4%)</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">Relative Strength</div>
+                <div class="dexa-value">3.9</div>
+                <div class="dexa-change">3.68 → 3.9 (+6%)</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">CMJ Jump Height</div>
+                <div class="dexa-value">49.61 cm</div>
+                <div class="dexa-change">44.91 → 49.61 (+10.5%)</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">CMJ Peak Power</div>
+                <div class="dexa-value">5637 W</div>
+                <div class="dexa-change">5484 → 5637 (+2.8%)</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">Reactive Strength</div>
+                <div class="dexa-value">3.11</div>
+                <div class="dexa-change">2.5 → 3.11 (+24%)</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">Plyo Push</div>
+                <div class="dexa-value">1201 N</div>
+                <div class="dexa-change">1131 → 1201 (+6.2%)</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+        </div>
+    </div>
+
+    <!-- DEXA SCAN RESULTS -->
+    <section>
+        <h2 class="section-title">Body Composition</h2>
+        <p class="section-subtitle">Successful body recomposition - lost fat, maintained lean muscle</p>
+
+        <div class="dexa-stats">
+            <div class="dexa-card">
+                <div class="dexa-label">Body Weight</div>
+                <div class="dexa-value">195 lbs</div>
+                <div class="dexa-change">-7.1 lbs from 8/30</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">Fat Loss</div>
+                <div class="dexa-value">6.9 lbs</div>
+                <div class="dexa-change">44.8 → 37.9 lbs</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">Body Fat %</div>
+                <div class="dexa-value">20%</div>
+                <div class="dexa-change">-3% from 8/30</div>
+            </div>
+            <div class="dexa-card">
+                <div class="dexa-label">Lean Muscle</div>
+                <div class="dexa-value">149 lbs</div>
+                <div class="dexa-change">0 lbs lost - Maintained!</div>
+            </div>
+        </div>
+
+        <div class="bullet-points">
+            <ul>
+                <li>Successful body recomposition achieved through focused nutrition and training</li>
+                <li>Lost body fat while maintaining all lean muscle mass</li>
+                <li>More explosive and athletic at lower body weight</li>
+                <li>Improved strength-to-weight ratio enhances pitching performance</li>
+                <li>Continued work planned to optimize body composition further</li>
+            </ul>
+        </div>
+    </section>
+
+</body>
+</html>
