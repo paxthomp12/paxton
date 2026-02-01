@@ -8,6 +8,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230a0f0a' stroke='%23c9a962' stroke-width='3'/%3E%3Cpolygon points='50,20 45,28 55,28' fill='%23c9a962'/%3E%3Crect x='47' y='70' width='6' height='12' fill='%23c9a962'/%3E%3Ctext x='50' y='60' text-anchor='middle' font-family='sans-serif' font-size='24' font-weight='bold' fill='%23c9a962'%3EPT%3C/text%3E%3C/svg%3E">
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script src="https://player.vimeo.com/api/player.js"></script>
 
     <style>
         * {
@@ -60,21 +61,64 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border: 2px solid var(--accent);
             border-radius: 50%;
             text-decoration: none;
             transition: all 0.3s;
             cursor: pointer;
+            position: relative;
             background: var(--bg);
         }
 
-        .logo span {
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid var(--accent);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: var(--accent);
+        }
+
+        .logo:hover {
+            background: var(--accent);
+        }
+
+        .logo:hover::before {
+            border-top-color: var(--bg);
+        }
+
+        .logo:hover::after {
+            background: var(--bg);
+        }
+
+        .logo:hover .logo-text {
+            color: var(--bg);
+        }
+
+        .logo-text {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 17px;
             color: var(--accent);
             letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
         }
 
         .nav-link {
@@ -287,6 +331,75 @@
             width: 100%;
             aspect-ratio: 1;
             display: block;
+            border-radius: 6px;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Performance optimizations */
+        .strikeout-card {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .strikeout-grid {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Hide Vimeo controls overlay on hover */
+        .strikeout-card {
+            position: relative;
+        }
+
+        /* Custom minimal controls overlay */
+        .custom-controls {
+            position: absolute;
+            bottom: 58px;
+            left: 8px;
+            right: 8px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+            justify-content: center;
+        }
+
+        .strikeout-card:hover .custom-controls {
+            opacity: 1;
+        }
+
+        /* Mobile optimizations */
+        @media (hover: none) {
+            .custom-controls {
+                opacity: 1;
+            }
+        }
+
+        .control-btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            background: rgba(201, 169, 98, 0.2);
+            border-color: var(--accent);
+        }
+
+        .control-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent);
         }
 
         .strikeout-name {
@@ -439,11 +552,16 @@
             .bullet-points li {
                 font-size: 0.85rem;
                 padding: 0.4rem 0;
+                padding-left: 1.5rem;
+            }
+
+            .bullet-points li::before {
+                left: 0;
             }
 
             /* Strikeout Grid - Smaller on Mobile */
             .strikeout-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
                 gap: 0.75rem;
                 margin: 1.5rem 0;
             }
@@ -451,6 +569,23 @@
             .strikeout-name {
                 padding: 0.5rem;
                 font-size: 0.75rem;
+            }
+
+            /* Mobile control optimizations */
+            .custom-controls {
+                bottom: 50px;
+                opacity: 1;
+            }
+
+            .control-btn {
+                width: 32px;
+                height: 32px;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .control-btn svg {
+                width: 16px;
+                height: 16px;
             }
 
             /* DEXA Stats - Compact */
@@ -499,16 +634,111 @@
     <!-- Navigation -->
     <nav>
         <a href="index.html" class="logo">
-            <span>PT</span>
+            <span class="logo-text">PT</span>
         </a>
         <a href="index.html" class="nav-link">← BACK TO HOME</a>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Professional Evolution</h1>
-        <p class="subtitle">2026 Ready</p>
+    <!-- S/M K's SECTION - NOW FIRST -->
+    <section style="padding-top: 6rem;">
+        <h2 class="section-title">S/M K's - Full At Bats</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem; font-style: italic;">*2025 Top Prospects Lists</p>
+
+        <div class="strikeout-grid">
+            <div class="strikeout-card">
+                <iframe id="video-1" src="https://player.vimeo.com/video/1160648283?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                    <button class="control-btn fullscreen-btn" data-video="1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                </div>
+                <div class="strikeout-name">Marcell Ozuna & Jared Kelenic</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-2" src="https://player.vimeo.com/video/1160648286?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Blue Jays 3rd Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-3" src="https://player.vimeo.com/video/1160648291?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Mets 5th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-4" src="https://player.vimeo.com/video/1160648349?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Nationals 10th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-5" src="https://player.vimeo.com/video/1160648302?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Mets 13th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-6" src="https://player.vimeo.com/video/1160648313?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Phillies 15th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-7" src="https://player.vimeo.com/video/1160648320?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Pirates 20th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-8" src="https://player.vimeo.com/video/1160648340?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Reds 20th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-9" src="https://player.vimeo.com/video/1160648330?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Rays 22nd Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-10" src="https://player.vimeo.com/video/1160648360?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Cardinals 26th Prospect</div>
+            </div>
+        </div>
     </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+        </div>
+    </div>
 
     <!-- 2026 DRIVELINE SECTION -->
     <section>
@@ -529,11 +759,11 @@
 
         <div class="bullet-points">
             <ul>
-                <li>No more searching, data backed. Wanted to embrace myself and the thrower I was which lead me to training at Driveline Baseball in Tampa, Florida</li>
+                <li>No more searching, data backed. Wanted to embrace myself & the thrower I was which lead me to training at Driveline Baseball in Tampa, Florida</li>
                 <li>Velocity gains: 92-93 mph (up 2-3 mph from 2025 season)</li>
-                <li>Pitch shapes are consistent and better than they've ever been</li>
+                <li>Pitch shapes are consistent & better than they've ever been</li>
                 <li>Body recomposition: 204 lbs → 197 lbs while maintaining lean muscle</li>
-                <li>Significant strength and power improvements across all metrics</li>
+                <li>Significant strength & power improvements across all metrics</li>
                 <li>Best version of myself entering 2026</li>
             </ul>
         </div>
@@ -550,7 +780,6 @@
     <!-- 2024 SEASON SECTION -->
     <section>
         <h2 class="section-title">2024 Season</h2>
-        <p class="section-subtitle">A+ and A Ball Performance</p>
 
         <div class="stats-container">
             <div class="stats-table-wrapper">
@@ -633,7 +862,7 @@
         </div>
 
         <div style="background: rgba(201, 169, 98, 0.05); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
-            <img src="2024 Arsenal.png" alt="2024 Arsenal Summary - Pitch Movement and Release Point" style="width: 100%; height: auto; display: block;">
+            <img src="2024 Arsenal.png" alt="2024 Arsenal Summary - Pitch Movement &Release Point" style="width: 100%; height: auto; display: block;">
         </div>
 
         <div class="bullet-points">
@@ -641,9 +870,9 @@
                 <li><strong>K-Rate: 28%</strong> - Showed ability to miss bats</li>
                 <li><strong>BB-Rate: 8%</strong> - Excellent command</li>
                 <li><strong>Strike Rate: 64%</strong> - Consistently attacking the zone</li>
-                <li>Promoted to A+ mid-season and continued success</li>
+                <li>Promoted to A+ mid-season & continued success</li>
                 <li>Four-pitch mix with command of all offerings</li>
-                <li>Embraced low release height and embraced riding the FB, where my success lies</li>
+                <li>Embraced low release height & embraced riding the FB, where my success lies</li>
             </ul>
         </div>
     </section>
@@ -659,7 +888,6 @@
     <!-- 2025 SEASON SECTION -->
     <section>
         <h2 class="section-title">2025 Season</h2>
-        <p class="section-subtitle">A+ Performance before Injury</p>
 
         <div class="stats-container">
             <div class="stats-table-wrapper">
@@ -742,90 +970,29 @@
         </div>
 
         <div style="background: rgba(201, 169, 98, 0.05); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
-            <img src="2025 Arsenal.png" alt="2025 Arsenal Summary - Pitch Movement and Release Point" style="width: 100%; height: auto; display: block;">
+            <img src="2025 Arsenal.png" alt="2025 Arsenal Summary - Pitch Movement &Release Point" style="width: 100%; height: auto; display: block;">
         </div>
 
         <div class="bullet-points">
             <ul>
-                <li>Changed mechanics in offseason seeking velocity gains</li>
+                <li>Changed mechanics in effort to increase velocity
+                    <ul style="margin-top: 0.5rem;">
+                        <li style="font-size: 0.9em; color: var(--text-muted);">Org wanted me to throw harder & I went about it the wrong way</li>
+                    </ul>
+                </li>
                 <li><strong>Velo decreased to 89.9 mph</strong> (down 1.1 mph from 2024)</li>
                 <li><strong>K-Rate dropped to 18%</strong> (down 10% from 2024)</li>
                 <li>Release height got higher, in search of velocity</li>
-                <li>Worse shapes, worst version of self and lead shoulder injury</li>
-                <li>IL to end my season in 2025</li>
+                <li>Worse shapes, worst version of myself</li>
+                <li>Lead to Shoulder injury (shoulder impingement) & ended my season early in 2025</li>
             </ul>
         </div>
     </section>
 
-    <div class="section-divider">
-        <div class="divider-markers">
-            <div class="marker-circle"></div>
-            <div class="marker-circle"></div>
-            <div class="marker-circle"></div>
-        </div>
-    </div>
-
-    <!-- WHO I GET OUT SECTION -->
-    <section>
-        <h2 class="section-title">Who I Get Out</h2>
-        <p class="section-subtitle">Big leaguers and top prospects</p>
-
-        <div class="strikeout-grid">
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648283?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Braves big leaguers</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648302?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Mets top 30 2</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648360?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Cardinals top 30</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648349?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Nats top 30</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648340?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Reds top 30</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648330?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Rays top 30</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648320?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Pirates top 30</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648313?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Phillies Top 30 prospect</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648291?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Mets top 30</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe src="https://player.vimeo.com/video/1160648286?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" class="strikeout-video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="strikeout-name">Blue jays 30</div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider">
-        <div class="divider-markers">
-            <div class="marker-circle"></div>
-            <div class="marker-circle"></div>
-            <div class="marker-circle"></div>
-        </div>
-    </div>
-
     <!-- DRIVELINE STRENGTH PROGRESSION -->
     <section>
-        <h2 class="section-title">Strength & Power Progression</h2>
-        <p class="section-subtitle">August 2025 to January 2026</p>
+        <h2 class="section-title">Strength & Power Progression at Driveline Baseball</h2>
+        <p class="section-subtitle">Offseason 2026</p>
 
         <div class="dexa-stats">
             <div class="dexa-card">
@@ -861,25 +1028,12 @@
         </div>
     </section>
 
-    <div class="section-divider">
-        <div class="divider-markers">
-            <div class="marker-circle"></div>
-            <div class="marker-circle"></div>
-            <div class="marker-circle"></div>
-        </div>
-    </div>
-
     <!-- DEXA SCAN RESULTS -->
     <section>
-        <h2 class="section-title">Body Composition</h2>
-        <p class="section-subtitle">Successful body recomposition - lost fat, maintained lean muscle</p>
+        <h2 class="section-title">Body Recomposition</h2>
+        <p class="section-subtitle">Offseason 2026</p>
 
         <div class="dexa-stats">
-            <div class="dexa-card">
-                <div class="dexa-label">Body Weight</div>
-                <div class="dexa-value">195 lbs</div>
-                <div class="dexa-change">-7.1 lbs from 8/30</div>
-            </div>
             <div class="dexa-card">
                 <div class="dexa-label">Fat Loss</div>
                 <div class="dexa-value">6.9 lbs</div>
@@ -893,20 +1047,125 @@
             <div class="dexa-card">
                 <div class="dexa-label">Lean Muscle</div>
                 <div class="dexa-value">149 lbs</div>
-                <div class="dexa-change">0 lbs lost - Maintained!</div>
+                <div class="dexa-change">Maintained through offseason</div>
             </div>
         </div>
 
         <div class="bullet-points">
             <ul>
-                <li>Successful body recomposition achieved through focused nutrition and training</li>
-                <li>Lost body fat while maintaining all lean muscle mass</li>
-                <li>More explosive and athletic at lower body weight</li>
-                <li>Improved strength-to-weight ratio enhances pitching performance</li>
-                <li>Continued work planned to optimize body composition further</li>
+                <li>Strength & power numbers increased across the board</li>
+                <li>Successful body recomposition achieved through focused nutrition & training</li>
+                <li>More explosive & athletic than I've been before</li>
+                <li>Continued work planned to optimize my nutrition & prioritize performance</li>
             </ul>
         </div>
     </section>
+
+    <script>
+        // Initialize Vimeo players with lazy loading
+        const players = {};
+        let currentPlayingId = null;
+
+        // Initialize players on demand for better performance
+        function initPlayer(id) {
+            if (!players[id]) {
+                const iframe = document.getElementById(`video-${id}`);
+                if (iframe) {
+                    players[id] = new Vimeo.Player(iframe);
+
+                    // Setup event listeners
+                    const playBtn = document.querySelector(`.play-btn[data-video="${id}"]`);
+
+                    players[id].on('play', () => {
+                        // Pause other videos when one starts playing
+                        if (currentPlayingId && currentPlayingId !== id) {
+                            players[currentPlayingId].pause().catch(() => {});
+                        }
+                        currentPlayingId = id;
+                        playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+                    });
+
+                    players[id].on('pause', () => {
+                        playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+                    });
+
+                    players[id].on('ended', () => {
+                        playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+                        currentPlayingId = null;
+                    });
+                }
+            }
+            return players[id];
+        }
+
+        // Play/Pause button functionality
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const videoId = btn.getAttribute('data-video');
+                const player = initPlayer(videoId);
+
+                if (player) {
+                    try {
+                        const paused = await player.getPaused();
+                        if (paused) {
+                            await player.play();
+                        } else {
+                            await player.pause();
+                        }
+                    } catch (error) {
+                        console.log('Playback control error:', error);
+                    }
+                }
+            }, { passive: false });
+        });
+
+        // Fullscreen button functionality
+        document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const videoId = btn.getAttribute('data-video');
+                const player = initPlayer(videoId);
+
+                if (player) {
+                    try {
+                        await player.requestFullscreen();
+                    } catch (error) {
+                        console.log('Fullscreen error:', error);
+                    }
+                }
+            }, { passive: false });
+        });
+
+        // Intersection Observer for lazy initialization
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const videoId = entry.target.id.replace('video-', '');
+                        initPlayer(videoId);
+                    }
+                });
+            }, {
+                rootMargin: '50px'
+            });
+
+            // Observe all video iframes
+            for (let i = 1; i <= 10; i++) {
+                const iframe = document.getElementById(`video-${i}`);
+                if (iframe) {
+                    observer.observe(iframe);
+                }
+            }
+        } else {
+            // Fallback: Initialize first 3 videos immediately
+            for (let i = 1; i <= 3; i++) {
+                initPlayer(i);
+            }
+        }
+    </script>
 
 </body>
 </html>
