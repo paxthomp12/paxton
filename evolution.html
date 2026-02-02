@@ -602,20 +602,16 @@
                 left: 0;
             }
 
-            /* Strikeout Grid - 4 columns on Mobile */
+            /* Strikeout Grid - 3 columns on Mobile */
             .strikeout-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 0.5rem;
                 margin: 1.5rem 0;
             }
 
-            /* Center last 2 items together */
-            .strikeout-card:nth-child(9) {
-                grid-column: 2 / 3;
-            }
-
+            /* Center last video */
             .strikeout-card:nth-child(10) {
-                grid-column: 3 / 4;
+                grid-column: 2 / 3;
             }
 
             .strikeout-name {
