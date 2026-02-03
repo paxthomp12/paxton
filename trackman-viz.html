@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paxton Thompson - Trackman Movement Plot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #c9b037;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .pitch-table {
+            width: 100%;
+            margin-bottom: 40px;
+            border-collapse: collapse;
+            background-color: #1a1a1a;
+        }
+
+        .pitch-table th {
+            background-color: #2a2a2a;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.85em;
+            color: #888;
+            border-bottom: 1px solid #333;
+        }
+
+        .pitch-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+        }
+
+        .pitch-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .pitch-4seam { background-color: #4A90E2; color: white; }
+        .pitch-cutter { background-color: #9B59B6; color: white; }
+        .pitch-changeup { background-color: #FF6B35; color: white; }
+        .pitch-sweeper { background-color: #1ABC9C; color: white; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 700px;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .circle-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 80px);
+            height: calc(100% - 80px);
+            max-width: 600px;
+            max-height: 600px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .axis-label {
+            position: absolute;
+            color: #666;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .axis-label.top {
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .axis-label.bottom {
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .axis-label.left {
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .axis-label.right {
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            border: 1px solid #c9b037;
+            min-width: 200px;
+        }
+
+        #tooltip .tooltip-pitch {
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #444;
+        }
+
+        #tooltip .tooltip-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 4px 0;
+        }
+
+        #tooltip .tooltip-label {
+            color: #888;
+        }
+
+        #tooltip .tooltip-value {
+            color: #c9b037;
+            font-weight: bold;
+        }
+
+        .info-text {
+            text-align: center;
+            color: #666;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PAXTON THOMPSON - PITCH MOVEMENT ANALYSIS</h1>
+
+        <table class="pitch-table" id="pitchTable">
+            <thead>
+                <tr>
+                    <th>PITCH</th>
+                    <th>VELO</th>
+                    <th>MAX</th>
+                    <th>SPIN</th>
+                    <th>IVB</th>
+                    <th>HB</th>
+                    <th>TILT</th>
+                    <th>REL_HT</th>
+                    <th>REL_SD</th>
+                    <th>VAA</th>
+                    <th>HAA</th>
+                </tr>
+            </thead>
+            <tbody id="pitchTableBody">
+                <tr><td colspan="11" class="loading">Loading data...</td></tr>
+            </tbody>
+        </table>
+
+        <div class="chart-container">
+            <canvas id="movementChart"></canvas>
+            <div class="circle-overlay">
+                <div class="axis-label top">+24</div>
+                <div class="axis-label bottom">-24</div>
+                <div class="axis-label left">-24</div>
+                <div class="axis-label right">+24</div>
+            </div>
+            <div style="position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #555; font-size: 11px; pointer-events: none; z-index: 15;">12</div>
+            <div style="position: absolute; bottom: 25%; left: 50%; transform: translateX(-50%); color: #555; font-size: 11px; pointer-events: none; z-index: 15;">-12</div>
+            <div style="position: absolute; top: 50%; left: 25%; transform: translateY(-50%); color: #555; font-size: 11px; pointer-events: none; z-index: 15;">-12</div>
+            <div style="position: absolute; top: 50%; right: 25%; transform: translateY(-50%); color: #555; font-size: 11px; pointer-events: none; z-index: 15;">12</div>
+        </div>
+
+        <div id="tooltip"></div>
+
+        <p class="info-text">Hover over each pitch to see detailed metrics</p>
+    </div>
+
+    <script>
+        // Classify pitch type based on velocity and movement
+        function classifyPitch(velo, ivb, hb, spinRate) {
+            velo = parseFloat(velo);
+            ivb = parseFloat(ivb);
+            hb = parseFloat(hb);
+            spinRate = parseFloat(spinRate);
+
+            // Remove 81.7 with HB 12.7
+            if (Math.abs(velo - 81.7) < 0.2 && Math.abs(hb - 12.7) < 0.5) {
+                return 'EXCLUDE';
+            }
+
+            // Changeup: 81.4 mph with HB around 14.4
+            if (Math.abs(velo - 81.4) < 0.5 && hb > 13) {
+                return 'Changeup';
+            }
+
+            // Sweeper: typically 74-80 mph, negative HB (moving away from RHH)
+            if (velo < 82 && hb < -5) {
+                return 'Sweeper';
+            }
+
+            // Cutter: 80-86 mph, moderate movement
+            if (velo >= 82 && velo < 88 && Math.abs(hb) < 10) {
+                return 'Cutter';
+            }
+
+            // All fastballs (sinkers and 4-seams) are 4-Seam
+            if (velo >= 88) {
+                return '4-Seam';
+            }
+
+            // Default
+            if (velo >= 82) return 'Cutter';
+            return 'Sweeper';
+        }
+
+        // Add slight clustering to make visualization cleaner
+        function clusterPitch(pitch, pitchType, allPitches) {
+            const samePitches = allPitches.filter(p => p.type === pitchType);
+            if (samePitches.length === 0) return pitch;
+
+            const avgHB = samePitches.reduce((sum, p) => sum + p.hb, 0) / samePitches.length;
+            const avgIVB = samePitches.reduce((sum, p) => sum + p.ivb, 0) / samePitches.length;
+
+            // Apply slight clustering (20% toward average)
+            const clusterFactor = 0.15;
+            pitch.hb = pitch.hb + (avgHB - pitch.hb) * clusterFactor;
+            pitch.ivb = pitch.ivb + (avgIVB - pitch.ivb) * clusterFactor;
+
+            return pitch;
+        }
+
+        // Parse CSV more carefully
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+
+        // Load and parse CSV
+        fetch('paxton-mocap.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                const lines = csvText.trim().split('\n');
+                const headers = parseCSVLine(lines[0]);
+
+                // Find column indices
+                const indices = {
+                    relSpeed: headers.indexOf('RelSpeed'),
+                    spinRate: headers.indexOf('SpinRate'),
+                    ivb: headers.indexOf('InducedVertBreak'),
+                    hb: headers.indexOf('HorzBreak'),
+                    tilt: headers.indexOf('Tilt'),
+                    relHeight: headers.indexOf('RelHeight'),
+                    relSide: headers.indexOf('RelSide'),
+                    vaa: headers.indexOf('VertApprAngle'),
+                    haa: headers.indexOf('HorzApprAngle'),
+                    pitchNo: headers.indexOf('PitchNo')
+                };
+
+                // Process data
+                const pitchData = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const values = parseCSVLine(lines[i]);
+
+                    const velocity = parseFloat(values[indices.relSpeed]);
+                    const spinRate = parseFloat(values[indices.spinRate]);
+                    const ivb = parseFloat(values[indices.ivb]);
+                    const hb = parseFloat(values[indices.hb]);
+                    const relHeight = parseFloat(values[indices.relHeight]);
+                    const vaa = parseFloat(values[indices.vaa]);
+
+                    // Only include pitches with valid velocity, IVB, and HB
+                    if (!isNaN(velocity) && !isNaN(ivb) && !isNaN(hb)) {
+                        const pitch = {
+                            pitchNo: values[indices.pitchNo],
+                            velocity: velocity,
+                            spinRate: spinRate,
+                            ivb: ivb,
+                            hb: hb,
+                            tilt: values[indices.tilt],
+                            relHeight: relHeight,
+                            relSide: parseFloat(values[indices.relSide]),
+                            vaa: vaa,
+                            haa: parseFloat(values[indices.haa])
+                        };
+
+                        pitch.type = classifyPitch(velocity, ivb, hb, spinRate);
+
+                        // Exclude pitches marked for removal
+                        if (pitch.type !== 'EXCLUDE') {
+                            pitchData.push(pitch);
+                        }
+                    }
+                }
+
+                // Apply clustering
+                pitchData.forEach(pitch => {
+                    clusterPitch(pitch, pitch.type, pitchData);
+                });
+
+                console.log('Loaded pitches:', pitchData.length);
+
+                // Calculate averages by pitch type
+                const pitchTypes = ['4-Seam', 'Cutter', 'Changeup', 'Sweeper'];
+                const pitchColors = {
+                    '4-Seam': '#4A90E2',
+                    'Cutter': '#9B59B6',
+                    'Changeup': '#FF6B35',
+                    'Sweeper': '#1ABC9C'
+                };
+
+                const pitchStats = {};
+                pitchTypes.forEach(type => {
+                    const pitches = pitchData.filter(p => p.type === type);
+                    if (pitches.length > 0) {
+                        pitchStats[type] = {
+                            count: pitches.length,
+                            avgVelo: pitches.reduce((sum, p) => sum + p.velocity, 0) / pitches.length,
+                            maxVelo: Math.max(...pitches.map(p => p.velocity)),
+                            avgSpin: pitches.reduce((sum, p) => sum + (isNaN(p.spinRate) ? 0 : p.spinRate), 0) / pitches.length,
+                            avgIVB: pitches.reduce((sum, p) => sum + p.ivb, 0) / pitches.length,
+                            avgHB: pitches.reduce((sum, p) => sum + p.hb, 0) / pitches.length,
+                            avgRelHt: pitches.reduce((sum, p) => sum + (isNaN(p.relHeight) ? 0 : p.relHeight), 0) / pitches.length,
+                            avgRelSd: pitches.reduce((sum, p) => sum + (isNaN(p.relSide) ? 0 : p.relSide), 0) / pitches.length,
+                            avgVAA: pitches.reduce((sum, p) => sum + (isNaN(p.vaa) ? 0 : p.vaa), 0) / pitches.length,
+                            avgHAA: pitches.reduce((sum, p) => sum + (isNaN(p.haa) ? 0 : p.haa), 0) / pitches.length,
+                            tilt: pitches[0].tilt
+                        };
+                    }
+                });
+
+                // Populate table
+                const tableBody = document.getElementById('pitchTableBody');
+                tableBody.innerHTML = '';
+                pitchTypes.forEach(type => {
+                    if (pitchStats[type]) {
+                        const stats = pitchStats[type];
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><span class="pitch-type pitch-${type.toLowerCase().replace('-', '')}">${type}</span></td>
+                            <td>${stats.avgVelo.toFixed(1)}</td>
+                            <td>${stats.maxVelo.toFixed(1)}</td>
+                            <td>${Math.round(stats.avgSpin)}</td>
+                            <td>${stats.avgIVB.toFixed(1)}</td>
+                            <td>${stats.avgHB.toFixed(1)}</td>
+                            <td>${stats.tilt || 'N/A'}</td>
+                            <td>${stats.avgRelHt.toFixed(1)}</td>
+                            <td>${stats.avgRelSd.toFixed(1)}</td>
+                            <td>${stats.avgVAA.toFixed(1)}</td>
+                            <td>${stats.avgHAA.toFixed(1)}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    }
+                });
+
+                // Create movement chart
+                const ctx = document.getElementById('movementChart').getContext('2d');
+
+                // Plugin to draw circle boundary
+                const circlePlugin = {
+                    id: 'circleBackground',
+                    beforeDatasetsDraw: (chart) => {
+                        const { ctx, chartArea: { left, right, top, bottom, width, height } } = chart;
+                        const centerX = (left + right) / 2;
+                        const centerY = (top + bottom) / 2;
+                        const radius = Math.min(width, height) / 2;
+
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                        ctx.strokeStyle = '#555';
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                };
+
+                const datasets = pitchTypes.map(type => {
+                    const pitches = pitchData.filter(p => p.type === type);
+                    return {
+                        label: type,
+                        data: pitches.map(p => ({ x: p.hb, y: p.ivb, pitch: p })),
+                        backgroundColor: pitchColors[type],
+                        borderColor: pitchColors[type],
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    };
+                });
+
+                const chart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: { datasets },
+                    plugins: [circlePlugin],
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 1,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    color: '#e0e0e0',
+                                    font: { size: 14 }
+                                }
+                            },
+                            tooltip: {
+                                enabled: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'center',
+                                title: {
+                                    display: false
+                                },
+                                min: -25,
+                                max: 25,
+                                grid: {
+                                    display: true,
+                                    drawBorder: false,
+                                    color: (context) => {
+                                        if (context.tick.value === 0) {
+                                            return '#555';
+                                        }
+                                        return 'transparent';
+                                    },
+                                    lineWidth: 1
+                                },
+                                ticks: {
+                                    display: false
+                                },
+                                border: {
+                                    display: false
+                                }
+                            },
+                            y: {
+                                type: 'linear',
+                                position: 'center',
+                                title: {
+                                    display: false
+                                },
+                                min: -25,
+                                max: 25,
+                                grid: {
+                                    display: true,
+                                    drawBorder: false,
+                                    color: (context) => {
+                                        if (context.tick.value === 0) {
+                                            return '#555';
+                                        }
+                                        return 'transparent';
+                                    },
+                                    lineWidth: 1
+                                },
+                                ticks: {
+                                    display: false
+                                },
+                                border: {
+                                    display: false
+                                }
+                            }
+                        },
+                        onHover: (event, activeElements) => {
+                            const tooltip = document.getElementById('tooltip');
+
+                            if (activeElements.length > 0) {
+                                const dataPoint = activeElements[0];
+                                const pitch = datasets[dataPoint.datasetIndex].data[dataPoint.index].pitch;
+
+                                tooltip.style.display = 'block';
+                                tooltip.style.left = event.native.pageX + 15 + 'px';
+                                tooltip.style.top = event.native.pageY - 15 + 'px';
+
+                                tooltip.innerHTML = `
+                                    <div class="tooltip-pitch" style="color: ${pitchColors[pitch.type]}">${pitch.type}</div>
+                                    <div class="tooltip-row">
+                                        <span class="tooltip-label">Velocity:</span>
+                                        <span class="tooltip-value">${pitch.velocity.toFixed(1)} mph</span>
+                                    </div>
+                                    <div class="tooltip-row">
+                                        <span class="tooltip-label">HB:</span>
+                                        <span class="tooltip-value">${pitch.hb.toFixed(1)}"</span>
+                                    </div>
+                                    <div class="tooltip-row">
+                                        <span class="tooltip-label">IVB:</span>
+                                        <span class="tooltip-value">${pitch.ivb.toFixed(1)}"</span>
+                                    </div>
+                                    <div class="tooltip-row">
+                                        <span class="tooltip-label">VAA:</span>
+                                        <span class="tooltip-value">${pitch.vaa.toFixed(1)}°</span>
+                                    </div>
+                                    <div class="tooltip-row">
+                                        <span class="tooltip-label">Release Height:</span>
+                                        <span class="tooltip-value">${pitch.relHeight.toFixed(1)} ft</span>
+                                    </div>
+                                `;
+                            } else {
+                                tooltip.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+
+                // Hide tooltip when mouse leaves canvas
+                document.getElementById('movementChart').addEventListener('mouseleave', () => {
+                    document.getElementById('tooltip').style.display = 'none';
+                });
+            })
+            .catch(error => {
+                console.error('Error loading CSV:', error);
+                document.getElementById('pitchTableBody').innerHTML = '<tr><td colspan="11" style="color: #ff6b6b;">Error loading data</td></tr>';
+            });
+    </script>
+</body>
+</html>

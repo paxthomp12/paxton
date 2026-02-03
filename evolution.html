@@ -260,17 +260,143 @@
             border-bottom: 1px solid var(--border-subtle);
         }
 
-        .trackman-placeholder {
+        .trackman-container {
             background: rgba(201, 169, 98, 0.05);
             border: 1px solid var(--border-light);
             border-radius: 8px;
             padding: 2rem;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
             align-items: center;
-            justify-content: center;
-            min-height: 200px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
+        }
+
+        .trackman-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .trackman-table th {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #888;
+            border-bottom: 1px solid var(--border-light);
+            text-transform: uppercase;
+        }
+
+        .trackman-table td {
+            padding: 1rem 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+        }
+
+        .trackman-pitch-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .pitch-4seam { background-color: #4A90E2; color: white; }
+        .pitch-cutter { background-color: #9B59B6; color: white; }
+        .pitch-changeup { background-color: #FF6B35; color: white; }
+        .pitch-sweeper { background-color: #1ABC9C; color: white; }
+
+        .trackman-chart-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .trackman-circle-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 60px);
+            height: calc(100% - 60px);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .trackman-axis-label {
+            position: absolute;
+            color: #666;
+            font-size: 11px;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .trackman-axis-label.top {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .trackman-axis-label.bottom {
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .trackman-axis-label.left {
+            left: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .trackman-axis-label.right {
+            right: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #trackmanTooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.95);
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            border: 1px solid var(--accent);
+            min-width: 180px;
+        }
+
+        #trackmanTooltip .tooltip-pitch {
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #444;
+        }
+
+        #trackmanTooltip .tooltip-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 4px 0;
+        }
+
+        #trackmanTooltip .tooltip-label {
+            color: #888;
+        }
+
+        #trackmanTooltip .tooltip-value {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .trackman-container {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Bullet Points */
@@ -836,9 +962,88 @@
             </div>
         </div>
 
-        <div class="trackman-placeholder">
-            <strong>Trackman Data Placeholder - Coming Soon</strong>
+        <div class="trackman-container">
+            <div>
+                <h3 style="color: var(--accent); margin-bottom: 1.5rem; font-size: 1.1rem; text-align: center;">Pitch Arsenal</h3>
+                <table class="trackman-table">
+                    <thead>
+                        <tr>
+                            <th>Pitch</th>
+                            <th>Velo</th>
+                            <th>Max</th>
+                            <th>Spin</th>
+                            <th>IVB</th>
+                            <th>HB</th>
+                            <th>Tilt</th>
+                            <th>REL_H</th>
+                            <th>VAA</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trackmanTableBody">
+                        <tr>
+                            <td><span class="trackman-pitch-type pitch-4seam">4-Seam</span></td>
+                            <td>92.0</td>
+                            <td>93.3</td>
+                            <td>2560</td>
+                            <td>18.4</td>
+                            <td>14.6</td>
+                            <td>1:00</td>
+                            <td>4.9</td>
+                            <td>-3.7</td>
+                        </tr>
+                        <tr>
+                            <td><span class="trackman-pitch-type pitch-cutter">Cutter</span></td>
+                            <td>85.5</td>
+                            <td>85.9</td>
+                            <td>2171</td>
+                            <td>12.0</td>
+                            <td>2.1</td>
+                            <td>12:30</td>
+                            <td>4.8</td>
+                            <td>-4.3</td>
+                        </tr>
+                        <tr>
+                            <td><span class="trackman-pitch-type pitch-changeup">Changeup</span></td>
+                            <td>81.4</td>
+                            <td>81.4</td>
+                            <td>1156</td>
+                            <td>4.8</td>
+                            <td>18.3</td>
+                            <td>2:30</td>
+                            <td>4.8</td>
+                            <td>-8.6</td>
+                        </tr>
+                        <tr>
+                            <td><span class="trackman-pitch-type pitch-sweeper">Sweeper</span></td>
+                            <td>78.2</td>
+                            <td>80.0</td>
+                            <td>2441</td>
+                            <td>-1.4</td>
+                            <td>-15.9</td>
+                            <td>9:00</td>
+                            <td>4.9</td>
+                            <td>-6.8</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="trackman-chart-wrapper">
+                <canvas id="trackmanChart"></canvas>
+                <div class="trackman-circle-overlay">
+                    <div class="trackman-axis-label top">+24</div>
+                    <div class="trackman-axis-label bottom">-24</div>
+                    <div class="trackman-axis-label left">-24</div>
+                    <div class="trackman-axis-label right">+24</div>
+                </div>
+                <div style="position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">12</div>
+                <div style="position: absolute; bottom: 25%; left: 50%; transform: translateX(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">-12</div>
+                <div style="position: absolute; top: 50%; left: 25%; transform: translateY(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">-12</div>
+                <div style="position: absolute; top: 50%; right: 25%; transform: translateY(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">12</div>
+            </div>
         </div>
+
+        <div id="trackmanTooltip"></div>
 
         <div class="bullet-points">
             <ul>
@@ -1260,6 +1465,193 @@
                 initPlayer(i);
             }
         }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="paxton-mocap.csv"></script>
+    <script>
+        // Trackman Chart Initialization
+        (function() {
+            const pitchData = [
+                // 4-Seam fastballs
+                {type: '4-Seam', velocity: 91.0, hb: 12.2, ivb: 20.2, vaa: -2.5, relHeight: 4.9, spinRate: 2453, tilt: '1:00'},
+                {type: '4-Seam', velocity: 91.3, hb: 14.9, ivb: 20.1, vaa: -1.3, relHeight: 5.0, spinRate: 2541, tilt: '1:15'},
+                {type: '4-Seam', velocity: 93.3, hb: 18.4, ivb: 15.7, vaa: -2.3, relHeight: 4.8, spinRate: 2656, tilt: '1:45'},
+                {type: '4-Seam', velocity: 90.8, hb: 14.1, ivb: 19.5, vaa: -3.1, relHeight: 5.1, spinRate: 2550, tilt: '1:15'},
+                {type: '4-Seam', velocity: 91.6, hb: 13.4, ivb: 22.6, vaa: -2.4, relHeight: 5.0, spinRate: 2606, tilt: '1:00'},
+                {type: '4-Seam', velocity: 92.7, hb: 13.6, ivb: 16.3, vaa: -4.2, relHeight: 5.0, spinRate: 2576, tilt: '1:15'},
+                {type: '4-Seam', velocity: 93.0, hb: 16.3, ivb: 16.2, vaa: -5.2, relHeight: 4.9, spinRate: 2596, tilt: '1:30'},
+                {type: '4-Seam', velocity: 92.1, hb: 11.6, ivb: 15.4, vaa: -3.0, relHeight: 4.9, spinRate: 2372, tilt: '1:15'},
+                {type: '4-Seam', velocity: 92.8, hb: 18.0, ivb: 17.9, vaa: -5.6, relHeight: 4.9, spinRate: 2619, tilt: '1:30'},
+                {type: '4-Seam', velocity: 92.8, hb: 18.5, ivb: 17.4, vaa: -5.1, relHeight: 4.8, spinRate: 2598, tilt: '1:30'},
+                {type: '4-Seam', velocity: 92.2, hb: 9.2, ivb: 20.0, vaa: -4.2, relHeight: 4.8, spinRate: 2605, tilt: '12:45'},
+                {type: '4-Seam', velocity: 92.1, hb: 15.1, ivb: 21.4, vaa: -4.5, relHeight: 4.9, spinRate: 2523, tilt: '1:15'},
+                {type: '4-Seam', velocity: 90.0, hb: 14.2, ivb: 16.8, vaa: -5.4, relHeight: 4.9, spinRate: 2580, tilt: '1:15'},
+                // Cutters
+                {type: 'Cutter', velocity: 85.5, hb: 2.1, ivb: 12.0, vaa: -4.3, relHeight: 4.8, spinRate: 2171, tilt: '12:30'},
+                {type: 'Cutter', velocity: 85.9, hb: 2.1, ivb: 12.0, vaa: -4.3, relHeight: 4.8, spinRate: 2171, tilt: '12:30'},
+                // Changeup
+                {type: 'Changeup', velocity: 81.4, hb: 18.3, ivb: 4.8, vaa: -8.6, relHeight: 4.8, spinRate: 1156, tilt: '2:30'},
+                // Sweepers
+                {type: 'Sweeper', velocity: 78.3, hb: -18.9, ivb: -5.4, vaa: -9.5, relHeight: 4.9, spinRate: 2559, tilt: '8:30'},
+                {type: 'Sweeper', velocity: 79.1, hb: -16.4, ivb: -0.7, vaa: -8.2, relHeight: 5.0, spinRate: 2435, tilt: '9:00'},
+                {type: 'Sweeper', velocity: 80.0, hb: -13.1, ivb: 6.3, vaa: -4.3, relHeight: 5.0, spinRate: 2445, tilt: '9:45'},
+                {type: 'Sweeper', velocity: 75.6, hb: -15.2, ivb: -5.7, vaa: -4.7, relHeight: 4.9, spinRate: 2323, tilt: '8:15'},
+                {type: 'Sweeper', velocity: 76.3, hb: -6.0, ivb: 16.7, vaa: -2.5, relHeight: 4.9, spinRate: 2826, tilt: '11:15'}
+            ];
+
+            // Apply clustering
+            const pitchTypes = ['4-Seam', 'Cutter', 'Changeup', 'Sweeper'];
+            const pitchColors = {
+                '4-Seam': '#4A90E2',
+                'Cutter': '#9B59B6',
+                'Changeup': '#FF6B35',
+                'Sweeper': '#1ABC9C'
+            };
+
+            function clusterPitch(pitch) {
+                const samePitches = pitchData.filter(p => p.type === pitch.type);
+                const avgHB = samePitches.reduce((sum, p) => sum + p.hb, 0) / samePitches.length;
+                const avgIVB = samePitches.reduce((sum, p) => sum + p.ivb, 0) / samePitches.length;
+                const clusterFactor = 0.15;
+                return {
+                    ...pitch,
+                    hb: pitch.hb + (avgHB - pitch.hb) * clusterFactor,
+                    ivb: pitch.ivb + (avgIVB - pitch.ivb) * clusterFactor
+                };
+            }
+
+            const clusteredData = pitchData.map(clusterPitch);
+
+            const ctx = document.getElementById('trackmanChart').getContext('2d');
+
+            const circlePlugin = {
+                id: 'circleBackground',
+                beforeDatasetsDraw: (chart) => {
+                    const { ctx, chartArea: { left, right, top, bottom, width, height } } = chart;
+                    const centerX = (left + right) / 2;
+                    const centerY = (top + bottom) / 2;
+                    const radius = Math.min(width, height) / 2;
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.strokeStyle = '#555';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            };
+
+            const datasets = pitchTypes.map(type => {
+                const pitches = clusteredData.filter(p => p.type === type);
+                return {
+                    label: type,
+                    data: pitches.map(p => ({ x: p.hb, y: p.ivb, pitch: p })),
+                    backgroundColor: pitchColors[type],
+                    borderColor: pitchColors[type],
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                };
+            });
+
+            const chart = new Chart(ctx, {
+                type: 'scatter',
+                data: { datasets },
+                plugins: [circlePlugin],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 1,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#e0e0e0',
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            title: { display: false },
+                            min: -25,
+                            max: 25,
+                            grid: {
+                                display: true,
+                                drawBorder: false,
+                                color: (context) => context.tick.value === 0 ? '#555' : 'transparent',
+                                lineWidth: 1
+                            },
+                            ticks: { display: false },
+                            border: { display: false }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            title: { display: false },
+                            min: -25,
+                            max: 25,
+                            grid: {
+                                display: true,
+                                drawBorder: false,
+                                color: (context) => context.tick.value === 0 ? '#555' : 'transparent',
+                                lineWidth: 1
+                            },
+                            ticks: { display: false },
+                            border: { display: false }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        const tooltip = document.getElementById('trackmanTooltip');
+                        if (activeElements.length > 0) {
+                            const dataPoint = activeElements[0];
+                            const pitch = datasets[dataPoint.datasetIndex].data[dataPoint.index].pitch;
+
+                            tooltip.style.display = 'block';
+                            tooltip.style.left = event.native.pageX + 15 + 'px';
+                            tooltip.style.top = event.native.pageY - 15 + 'px';
+
+                            tooltip.innerHTML = `
+                                <div class="tooltip-pitch" style="color: ${pitchColors[pitch.type]}">${pitch.type}</div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">Velocity:</span>
+                                    <span class="tooltip-value">${pitch.velocity.toFixed(1)} mph</span>
+                                </div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">HB:</span>
+                                    <span class="tooltip-value">${pitch.hb.toFixed(1)}"</span>
+                                </div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">IVB:</span>
+                                    <span class="tooltip-value">${pitch.ivb.toFixed(1)}"</span>
+                                </div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">VAA:</span>
+                                    <span class="tooltip-value">${pitch.vaa.toFixed(1)}°</span>
+                                </div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">Release Height:</span>
+                                    <span class="tooltip-value">${pitch.relHeight.toFixed(1)} ft</span>
+                                </div>
+                            `;
+                        } else {
+                            tooltip.style.display = 'none';
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('trackmanChart').addEventListener('mouseleave', () => {
+                document.getElementById('trackmanTooltip').style.display = 'none';
+            });
+        })();
     </script>
 
 </body>
