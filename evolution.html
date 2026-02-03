@@ -173,7 +173,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2.5rem 1.5rem;
-            overflow-x: hidden;
+            overflow-x: visible;
         }
 
         .section-title {
@@ -288,7 +288,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             align-items: center;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .trackman-table-wrapper {
@@ -337,7 +337,7 @@
             max-width: 400px;
             height: 400px;
             margin: 0 auto;
-            padding: 30px 40px;
+            padding: 30px 60px 30px 40px;
             box-sizing: border-box;
         }
 
@@ -379,7 +379,7 @@
         }
 
         .trackman-axis-label.right {
-            right: -35px;
+            right: -30px;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -1160,7 +1160,6 @@
             <div class="trackman-chart-wrapper">
                 <canvas id="trackmanChart"></canvas>
                 <div class="trackman-circle-overlay">
-                    <div class="trackman-axis-label top">+24</div>
                     <div class="trackman-axis-label bottom">-24</div>
                     <div class="trackman-axis-label left">-24</div>
                     <div class="trackman-axis-label right">+24</div>
@@ -1660,6 +1659,7 @@
 
             const ctx = document.getElementById('trackmanChart').getContext('2d');
 
+            // Plugin to draw circle and axis lines
             const circlePlugin = {
                 id: 'circleBackground',
                 beforeDatasetsDraw: (chart) => {
@@ -1669,12 +1669,36 @@
                     const radius = Math.min(width, height) / 2;
 
                     ctx.save();
+
+                    // Draw axis lines clipped to circle
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.clip();
+
+                    // Draw horizontal axis line
+                    ctx.beginPath();
+                    ctx.moveTo(left, centerY);
+                    ctx.lineTo(right, centerY);
+                    ctx.strokeStyle = '#555';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Draw vertical axis line
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, top);
+                    ctx.lineTo(centerX, bottom);
+                    ctx.strokeStyle = '#555';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    ctx.restore();
+
+                    // Draw circle border
                     ctx.beginPath();
                     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
                     ctx.strokeStyle = '#555';
                     ctx.lineWidth = 2;
                     ctx.stroke();
-                    ctx.restore();
                 }
             };
 
@@ -1698,6 +1722,11 @@
                     responsive: true,
                     maintainAspectRatio: true,
                     aspectRatio: 1,
+                    layout: {
+                        padding: {
+                            right: 15
+                        }
+                    },
                     plugins: {
                         legend: {
                             display: true,
