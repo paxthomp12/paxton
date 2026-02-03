@@ -205,11 +205,29 @@
             border-radius: 8px;
             overflow: hidden;
             transition: all 0.3s;
+            position: relative;
         }
 
         .video-card:hover {
             border-color: var(--border-medium);
             transform: translateY(-3px);
+        }
+
+        .video-card .custom-controls {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+            justify-content: center;
+        }
+
+        .video-card:hover .custom-controls {
+            opacity: 1;
         }
 
         .video-placeholder {
@@ -269,6 +287,11 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             align-items: center;
+        }
+
+        .trackman-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .trackman-table {
@@ -396,6 +419,27 @@
         @media (max-width: 768px) {
             .trackman-container {
                 grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .trackman-table-wrapper {
+                max-width: 100%;
+            }
+
+            .trackman-table {
+                font-size: 0.65rem;
+                min-width: 100%;
+            }
+
+            .trackman-table th,
+            .trackman-table td {
+                padding: 0.4rem 0.25rem;
+                white-space: nowrap;
+            }
+
+            .trackman-pitch-type {
+                font-size: 0.65rem;
+                padding: 4px 6px;
             }
         }
 
@@ -625,6 +669,14 @@
             opacity: 0.7;
         }
 
+        /* References Box */
+        .references-box {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 0.75rem 0.65rem;
+        }
+
         @media (max-width: 768px) {
             /* Hero - More Compact */
             .hero {
@@ -742,8 +794,12 @@
             }
 
             /* Mobile control optimizations */
-            .custom-controls {
+            .strikeout-card .custom-controls {
                 bottom: 85px;
+                opacity: 1;
+            }
+
+            .video-card .custom-controls {
                 opacity: 1;
             }
 
@@ -807,6 +863,23 @@
             .marker-circle {
                 width: 3px;
                 height: 3px;
+            }
+
+            /* References Box - Stack on Mobile */
+            div[style*="grid-template-columns: 1fr 160px"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            .references-box {
+                padding: 0.75rem;
+            }
+
+            .references-box h4 {
+                font-size: 0.85rem !important;
+            }
+
+            .references-box ul {
+                font-size: 0.7rem !important;
             }
         }
     </style>
@@ -915,29 +988,39 @@
         <!-- MY UNIQUENESS & STORY -->
         <h2 class="section-title" style="margin-top: 3rem;">My Uniqueness & Story</h2>
 
-        <div class="bullet-points">
-            <ul>
-                <li><strong>Unique release height of 5.0 feet</strong> - Bryan Woo & Joe Ryan territory</li>
-                <li><strong>Elite flatness with -4° VAA and under</strong> at top of zone</li>
-                <li><strong>2024: Proven track record when I embrace myself</strong>
-                    <ul style="margin-top: 0.5rem;">
-                        <li style="font-size: 0.9em; color: var(--text-muted);">2.73 ERA, 28% K-Rate, 8% BB-Rate - Success came from embracing my low release height & riding the fastball</li>
-                    </ul>
-                </li>
-                <li><strong>2025: Searching for velocity the wrong way</strong>
-                    <ul style="margin-top: 0.5rem;">
-                        <li style="font-size: 0.9em; color: var(--text-muted);">Release height climbed to 5.3 feet trying to figure it out on my own</li>
-                        <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing slower, worse shapes, worse version of myself</li>
-                    </ul>
-                </li>
-                <li><strong>2026: Embracing who I am at Driveline Baseball</strong>
-                    <ul style="margin-top: 0.5rem;">
-                        <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing harder, riding the fastball better than before, better shapes</li>
-                        <li style="font-size: 0.9em; color: var(--text-muted);">I'm a better professional for what I went through & now embracing myself more than ever</li>
-                    </ul>
-                </li>
-                <li><strong>My work at Driveline shown below</strong></li>
-            </ul>
+        <div style="display: grid; grid-template-columns: 1fr 160px; gap: 1.5rem; align-items: start;">
+            <div class="bullet-points">
+                <ul>
+                    <li><strong>Unique release height of 5.0 feet</strong> - Bryan Woo & Joe Ryan territory</li>
+                    <li><strong>Elite flatness with -4° VAA and under</strong> at top of zone</li>
+                    <li><strong>2024: Proven track record when I embrace myself</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li style="font-size: 0.9em; color: var(--text-muted);">2.73 ERA, 28% K-Rate, 8% BB-Rate - Success came from embracing my low release height & riding the fastball</li>
+                        </ul>
+                    </li>
+                    <li><strong>2025: Searching for velocity the wrong way</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li style="font-size: 0.9em; color: var(--text-muted);">Release height climbed to 5.3 feet trying to figure it out on my own</li>
+                            <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing slower, worse shapes, worse version of myself</li>
+                        </ul>
+                    </li>
+                    <li><strong>2026: Embracing who I am at Driveline Baseball</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing harder, riding the fastball better than before, better shapes</li>
+                            <li style="font-size: 0.9em; color: var(--text-muted);">I'm a better professional for what I went through & now embracing myself more than ever</li>
+                        </ul>
+                    </li>
+                    <li><strong>My work at Driveline shown below</strong></li>
+                </ul>
+            </div>
+
+            <div class="references-box">
+                <h4 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 0.5rem; text-align: center; font-weight: 600;">References</h4>
+                <ul style="list-style: none; padding: 0; font-size: 0.7rem; color: var(--text-muted); line-height: 1.5;">
+                    <li style="margin-bottom: 0.4rem;">Aaron Barrett<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">2019 World Series Champ</span></li>
+                    <li style="margin-bottom: 0.4rem;">Casey Jacobson<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">Cubs Assistant Pitching Coach</span></li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -954,8 +1037,15 @@
         <h2 class="section-title">2026 Offseason - Driveline Baseball</h2>
 
         <div class="video-grid">
-            <div class="video-card">
-                <div class="video-placeholder">DRIVELINE VIDEO 1</div>
+            <div class="video-card" style="position: relative;">
+                <div style="position: relative;">
+                    <iframe id="video-driveline-1" src="https://player.vimeo.com/video/1161460501?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" style="width: 100%; aspect-ratio: 16/9; display: block;" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <div class="custom-controls">
+                        <button class="control-btn play-btn" data-video="driveline-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                        <button class="control-btn fullscreen-btn" data-video="driveline-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                    </div>
+                </div>
+                <div style="padding: 0.75rem; text-align: center; font-size: 0.9rem; color: var(--text); font-weight: 500;">Bullpen Work</div>
             </div>
             <div class="video-card">
                 <div class="video-placeholder">DRIVELINE VIDEO 2</div>
@@ -964,68 +1054,74 @@
 
         <div class="trackman-container">
             <div>
-                <h3 style="color: var(--accent); margin-bottom: 1.5rem; font-size: 1.1rem; text-align: center;">Pitch Arsenal</h3>
-                <table class="trackman-table">
-                    <thead>
-                        <tr>
-                            <th>Pitch</th>
-                            <th>Velo</th>
-                            <th>Max</th>
-                            <th>Spin</th>
-                            <th>IVB</th>
-                            <th>HB</th>
-                            <th>Tilt</th>
-                            <th>REL_H</th>
-                            <th>VAA</th>
-                        </tr>
-                    </thead>
-                    <tbody id="trackmanTableBody">
-                        <tr>
-                            <td><span class="trackman-pitch-type pitch-4seam">4-Seam</span></td>
-                            <td>92.0</td>
-                            <td>93.3</td>
-                            <td>2560</td>
-                            <td>18.4</td>
-                            <td>14.6</td>
-                            <td>1:00</td>
-                            <td>4.9</td>
-                            <td>-3.7</td>
-                        </tr>
-                        <tr>
-                            <td><span class="trackman-pitch-type pitch-cutter">Cutter</span></td>
-                            <td>85.5</td>
-                            <td>85.9</td>
-                            <td>2171</td>
-                            <td>12.0</td>
-                            <td>2.1</td>
-                            <td>12:30</td>
-                            <td>4.8</td>
-                            <td>-4.3</td>
-                        </tr>
-                        <tr>
-                            <td><span class="trackman-pitch-type pitch-changeup">Changeup</span></td>
-                            <td>81.4</td>
-                            <td>81.4</td>
-                            <td>1156</td>
-                            <td>4.8</td>
-                            <td>18.3</td>
-                            <td>2:30</td>
-                            <td>4.8</td>
-                            <td>-8.6</td>
-                        </tr>
-                        <tr>
-                            <td><span class="trackman-pitch-type pitch-sweeper">Sweeper</span></td>
-                            <td>78.2</td>
-                            <td>80.0</td>
-                            <td>2441</td>
-                            <td>-1.4</td>
-                            <td>-15.9</td>
-                            <td>9:00</td>
-                            <td>4.9</td>
-                            <td>-6.8</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; text-align: center;">Pitch Arsenal</h3>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">
+                    Raw data from bullpens and live at bats at Driveline Tampa.<br>
+                    <a href="paxton-mocap.csv" style="color: var(--accent); text-decoration: underline;" download>Raw data can be found here</a>
+                </p>
+                <div class="trackman-table-wrapper">
+                    <table class="trackman-table">
+                        <thead>
+                            <tr>
+                                <th>Pitch</th>
+                                <th>Velo</th>
+                                <th>Max</th>
+                                <th>Spin</th>
+                                <th>IVB</th>
+                                <th>HB</th>
+                                <th>Tilt</th>
+                                <th>REL_H</th>
+                                <th>VAA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trackmanTableBody">
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-4seam">4-Seam</span></td>
+                                <td>92.0</td>
+                                <td>93.3</td>
+                                <td>2560</td>
+                                <td>18.4</td>
+                                <td>14.6</td>
+                                <td>1:00</td>
+                                <td>4.9</td>
+                                <td>-3.7</td>
+                            </tr>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-cutter">Cutter</span></td>
+                                <td>85.5</td>
+                                <td>85.9</td>
+                                <td>2171</td>
+                                <td>12.0</td>
+                                <td>2.1</td>
+                                <td>12:30</td>
+                                <td>4.8</td>
+                                <td>-4.3</td>
+                            </tr>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-changeup">Changeup</span></td>
+                                <td>81.4</td>
+                                <td>81.4</td>
+                                <td>1156</td>
+                                <td>4.8</td>
+                                <td>18.3</td>
+                                <td>2:30</td>
+                                <td>4.8</td>
+                                <td>-8.6</td>
+                            </tr>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-sweeper">Sweeper</span></td>
+                                <td>78.2</td>
+                                <td>80.0</td>
+                                <td>2441</td>
+                                <td>-1.4</td>
+                                <td>-15.9</td>
+                                <td>9:00</td>
+                                <td>4.9</td>
+                                <td>-6.8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="trackman-chart-wrapper">
@@ -1459,6 +1555,12 @@
                     observer.observe(iframe);
                 }
             }
+
+            // Observe driveline videos
+            const drivelineVideo1 = document.getElementById('video-driveline-1');
+            if (drivelineVideo1) {
+                observer.observe(drivelineVideo1);
+            }
         } else {
             // Fallback: Initialize first 3 videos immediately
             for (let i = 1; i <= 3; i++) {
@@ -1490,14 +1592,14 @@
                 // Cutters
                 {type: 'Cutter', velocity: 85.5, hb: 2.1, ivb: 12.0, vaa: -4.3, relHeight: 4.8, spinRate: 2171, tilt: '12:30'},
                 {type: 'Cutter', velocity: 85.9, hb: 2.1, ivb: 12.0, vaa: -4.3, relHeight: 4.8, spinRate: 2171, tilt: '12:30'},
+                {type: 'Cutter', velocity: 85.1, hb: 0.8, ivb: 12.6, vaa: -4.2, relHeight: 4.8, spinRate: 2270, tilt: '12:00'},
                 // Changeup
                 {type: 'Changeup', velocity: 81.4, hb: 18.3, ivb: 4.8, vaa: -8.6, relHeight: 4.8, spinRate: 1156, tilt: '2:30'},
                 // Sweepers
                 {type: 'Sweeper', velocity: 78.3, hb: -18.9, ivb: -5.4, vaa: -9.5, relHeight: 4.9, spinRate: 2559, tilt: '8:30'},
                 {type: 'Sweeper', velocity: 79.1, hb: -16.4, ivb: -0.7, vaa: -8.2, relHeight: 5.0, spinRate: 2435, tilt: '9:00'},
                 {type: 'Sweeper', velocity: 80.0, hb: -13.1, ivb: 6.3, vaa: -4.3, relHeight: 5.0, spinRate: 2445, tilt: '9:45'},
-                {type: 'Sweeper', velocity: 75.6, hb: -15.2, ivb: -5.7, vaa: -4.7, relHeight: 4.9, spinRate: 2323, tilt: '8:15'},
-                {type: 'Sweeper', velocity: 76.3, hb: -6.0, ivb: 16.7, vaa: -2.5, relHeight: 4.9, spinRate: 2826, tilt: '11:15'}
+                {type: 'Sweeper', velocity: 75.6, hb: -15.2, ivb: -5.7, vaa: -4.7, relHeight: 4.9, spinRate: 2323, tilt: '8:15'}
             ];
 
             // Apply clustering
