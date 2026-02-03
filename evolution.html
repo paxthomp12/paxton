@@ -173,6 +173,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2.5rem 1.5rem;
+            overflow-x: hidden;
         }
 
         .section-title {
@@ -287,6 +288,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             align-items: center;
+            overflow: hidden;
         }
 
         .trackman-table-wrapper {
@@ -335,6 +337,8 @@
             max-width: 400px;
             height: 400px;
             margin: 0 auto;
+            padding: 30px 40px;
+            box-sizing: border-box;
         }
 
         .trackman-circle-overlay {
@@ -419,27 +423,54 @@
         @media (max-width: 768px) {
             .trackman-container {
                 grid-template-columns: 1fr;
-                padding: 1rem;
+                padding: 0.75rem;
+                overflow: hidden;
             }
 
             .trackman-table-wrapper {
                 max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 -0.75rem;
+                padding: 0 0.75rem;
             }
 
             .trackman-table {
-                font-size: 0.65rem;
-                min-width: 100%;
+                font-size: 0.55rem;
+                width: 100%;
+                min-width: auto;
             }
 
             .trackman-table th,
             .trackman-table td {
-                padding: 0.4rem 0.25rem;
+                padding: 0.3rem 0.15rem;
                 white-space: nowrap;
             }
 
             .trackman-pitch-type {
-                font-size: 0.65rem;
-                padding: 4px 6px;
+                font-size: 0.55rem;
+                padding: 2px 4px;
+            }
+
+            .trackman-chart-wrapper {
+                max-width: 100%;
+                height: auto;
+                aspect-ratio: 1;
+                padding: 25px 35px;
+            }
+
+            .trackman-container h3 {
+                font-size: 0.9rem !important;
+                padding: 0 0.5rem;
+            }
+
+            .trackman-container p {
+                font-size: 0.7rem !important;
+                padding: 0 0.5rem;
+            }
+
+            .trackman-container > div {
+                overflow-x: hidden;
             }
         }
 
@@ -697,6 +728,8 @@
             /* Sections - More Compact */
             section {
                 padding: 1rem 0.75rem;
+                overflow-x: hidden;
+                max-width: 100vw;
             }
 
             /* First section less top padding */
