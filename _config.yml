@@ -1,0 +1,9 @@
+permalink: pretty
+include:
+  - _pages
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: none
