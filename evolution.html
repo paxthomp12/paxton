@@ -1053,6 +1053,7 @@
                     <li style="margin-bottom: 0.4rem;">Preston Mattingly<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">Assistant GM Phillies</span></li>
                     <li style="margin-bottom: 0.4rem;">Aaron Barrett<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">Manager of Clearwater Threshers (Phillies Low A)</span><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">2019 World Series Champion</span></li>
                     <li style="margin-bottom: 0.4rem;">Casey Jacobson<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">Cubs Assistant Pitching Coach</span></li>
+                    <li style="margin-bottom: 0.4rem;">Matt Kress<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">Driveline Pitching Coordinator</span></li>
                 </ul>
             </div>
         </div>
@@ -1090,8 +1091,8 @@
             <div>
                 <h3 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; text-align: center;">Pitch Arsenal</h3>
                 <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">
-                    Raw data from bullpens and live at bats at Driveline Tampa.<br>
-                    <a href="paxton-mocap.csv" style="color: var(--accent); text-decoration: underline;" download>Raw data can be found here</a>
+                    Combined data from bullpens and live at bats at Driveline Tampa.<br>
+                    <a href="paxton-mocap.csv" style="color: var(--accent); text-decoration: underline;" download>Bullpen data</a> | <a href="paxton-liveab.csv" style="color: var(--accent); text-decoration: underline;" download>Live AB data</a>
                 </p>
                 <div class="trackman-table-wrapper">
                     <table class="trackman-table">
@@ -1111,8 +1112,8 @@
                         <tbody id="trackmanTableBody">
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-4seam">4-Seam</span></td>
-                                <td>92.0</td>
-                                <td>93.3</td>
+                                <td>92.5</td>
+                                <td>93.2</td>
                                 <td>2560</td>
                                 <td>18.4</td>
                                 <td>14.6</td>
@@ -1122,36 +1123,36 @@
                             </tr>
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-cutter">Cutter</span></td>
-                                <td>85.5</td>
-                                <td>85.9</td>
-                                <td>2171</td>
-                                <td>12.0</td>
-                                <td>2.1</td>
+                                <td>87.8</td>
+                                <td>88.9</td>
+                                <td>2050</td>
+                                <td>8.2</td>
+                                <td>3.0</td>
                                 <td>12:30</td>
                                 <td>4.8</td>
-                                <td>-4.3</td>
+                                <td>-5.3</td>
                             </tr>
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-changeup">Changeup</span></td>
-                                <td>81.4</td>
-                                <td>81.4</td>
-                                <td>1156</td>
-                                <td>4.8</td>
-                                <td>18.3</td>
+                                <td>83.0</td>
+                                <td>84.0</td>
+                                <td>1140</td>
+                                <td>2.5</td>
+                                <td>13.5</td>
                                 <td>2:30</td>
-                                <td>4.8</td>
-                                <td>-8.6</td>
+                                <td>4.7</td>
+                                <td>-7.5</td>
                             </tr>
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-sweeper">Sweeper</span></td>
-                                <td>78.2</td>
-                                <td>80.0</td>
-                                <td>2441</td>
-                                <td>-1.4</td>
-                                <td>-15.9</td>
+                                <td>80.6</td>
+                                <td>82.8</td>
+                                <td>2380</td>
+                                <td>-0.2</td>
+                                <td>-14.0</td>
                                 <td>9:00</td>
                                 <td>4.9</td>
-                                <td>-6.8</td>
+                                <td>-6.9</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1177,10 +1178,14 @@
         <div class="bullet-points">
             <ul>
                 <li>No more searching, data backed. Wanted to embrace myself & the thrower I was which lead me to training at Driveline Baseball in Tampa, Florida</li>
-                <li>Velocity gains: 92-93 mph Indoors (up 2-3 mph from 2025 season)</li>
+                <li>Velocity gains: 92.5 avg, 93.2 max mph Indoors (up 2-3 mph from 2025 season)
+                    <ul>
+                        <li>Lowest release height (4.9ft) & highest IVB (18.4 IVB) of my career. The byproduct of embracing who I am.</li>
+                    </ul>
+                </li>
                 <li>Pitch shapes are consistent & better than they've ever been
                     <ul>
-                        <li>FB Avg 18 VB, SW Avg -16 HB, CH Avg 0 VB</li>
+                        <li>FB Avg 18.4 IVB, SW Avg -14.0 HB, CH Avg 2.5 IVB</li>
                     </ul>
                 </li>
                 <li>Body recomposition: 204 lbs → 197 lbs while maintaining lean muscle</li>
@@ -1608,31 +1613,60 @@
         // Trackman Chart Initialization
         (function() {
             const pitchData = [
-                // 4-Seam fastballs
-                {type: '4-Seam', velocity: 91.0, hb: 12.2, ivb: 20.2, vaa: -2.5, relHeight: 4.9, spinRate: 2453, tilt: '1:00'},
-                {type: '4-Seam', velocity: 91.3, hb: 14.9, ivb: 20.1, vaa: -1.3, relHeight: 5.0, spinRate: 2541, tilt: '1:15'},
-                {type: '4-Seam', velocity: 93.3, hb: 18.4, ivb: 15.7, vaa: -2.3, relHeight: 4.8, spinRate: 2656, tilt: '1:45'},
-                {type: '4-Seam', velocity: 90.8, hb: 14.1, ivb: 19.5, vaa: -3.1, relHeight: 5.1, spinRate: 2550, tilt: '1:15'},
-                {type: '4-Seam', velocity: 91.6, hb: 13.4, ivb: 22.6, vaa: -2.4, relHeight: 5.0, spinRate: 2606, tilt: '1:00'},
-                {type: '4-Seam', velocity: 92.7, hb: 13.6, ivb: 16.3, vaa: -4.2, relHeight: 5.0, spinRate: 2576, tilt: '1:15'},
-                {type: '4-Seam', velocity: 93.0, hb: 16.3, ivb: 16.2, vaa: -5.2, relHeight: 4.9, spinRate: 2596, tilt: '1:30'},
-                {type: '4-Seam', velocity: 92.1, hb: 11.6, ivb: 15.4, vaa: -3.0, relHeight: 4.9, spinRate: 2372, tilt: '1:15'},
-                {type: '4-Seam', velocity: 92.8, hb: 18.0, ivb: 17.9, vaa: -5.6, relHeight: 4.9, spinRate: 2619, tilt: '1:30'},
-                {type: '4-Seam', velocity: 92.8, hb: 18.5, ivb: 17.4, vaa: -5.1, relHeight: 4.8, spinRate: 2598, tilt: '1:30'},
-                {type: '4-Seam', velocity: 92.2, hb: 9.2, ivb: 20.0, vaa: -4.2, relHeight: 4.8, spinRate: 2605, tilt: '12:45'},
-                {type: '4-Seam', velocity: 92.1, hb: 15.1, ivb: 21.4, vaa: -4.5, relHeight: 4.9, spinRate: 2523, tilt: '1:15'},
-                {type: '4-Seam', velocity: 90.0, hb: 14.2, ivb: 16.8, vaa: -5.4, relHeight: 4.9, spinRate: 2580, tilt: '1:15'},
-                // Cutters
-                {type: 'Cutter', velocity: 85.5, hb: 2.1, ivb: 12.0, vaa: -4.3, relHeight: 4.8, spinRate: 2171, tilt: '12:30'},
-                {type: 'Cutter', velocity: 85.9, hb: 2.1, ivb: 12.0, vaa: -4.3, relHeight: 4.8, spinRate: 2171, tilt: '12:30'},
-                {type: 'Cutter', velocity: 85.1, hb: 0.8, ivb: 12.6, vaa: -4.2, relHeight: 4.8, spinRate: 2270, tilt: '12:00'},
-                // Changeup
-                {type: 'Changeup', velocity: 81.4, hb: 18.3, ivb: 4.8, vaa: -8.6, relHeight: 4.8, spinRate: 1156, tilt: '2:30'},
-                // Sweepers
-                {type: 'Sweeper', velocity: 78.3, hb: -18.9, ivb: -5.4, vaa: -9.5, relHeight: 4.9, spinRate: 2559, tilt: '8:30'},
-                {type: 'Sweeper', velocity: 79.1, hb: -16.4, ivb: -0.7, vaa: -8.2, relHeight: 5.0, spinRate: 2435, tilt: '9:00'},
-                {type: 'Sweeper', velocity: 80.0, hb: -13.1, ivb: 6.3, vaa: -4.3, relHeight: 5.0, spinRate: 2445, tilt: '9:45'},
-                {type: 'Sweeper', velocity: 75.6, hb: -15.2, ivb: -5.7, vaa: -4.7, relHeight: 4.9, spinRate: 2323, tilt: '8:15'}
+                // 4-Seam fastballs from mocap
+                {type: '4-Seam', velocity: 91.04, hb: 12.20, ivb: 20.24, vaa: -2.48, relHeight: 4.93, spinRate: 2453, tilt: '1:00'},
+                {type: '4-Seam', velocity: 91.32, hb: 14.87, ivb: 20.13, vaa: -1.25, relHeight: 5.03, spinRate: 2541, tilt: '1:15'},
+                {type: '4-Seam', velocity: 93.27, hb: 18.42, ivb: 15.70, vaa: -2.27, relHeight: 4.84, spinRate: 2656, tilt: '1:45'},
+                {type: '4-Seam', velocity: 90.80, hb: 14.05, ivb: 19.47, vaa: -3.14, relHeight: 5.09, spinRate: 2550, tilt: '1:15'},
+                {type: '4-Seam', velocity: 91.59, hb: 13.42, ivb: 22.58, vaa: -2.40, relHeight: 5.04, spinRate: 2606, tilt: '1:00'},
+                {type: '4-Seam', velocity: 92.66, hb: 13.64, ivb: 16.27, vaa: -4.22, relHeight: 5.00, spinRate: 2576, tilt: '1:15'},
+                {type: '4-Seam', velocity: 93.00, hb: 16.30, ivb: 16.22, vaa: -5.19, relHeight: 4.90, spinRate: 2596, tilt: '1:30'},
+                {type: '4-Seam', velocity: 92.12, hb: 11.65, ivb: 15.41, vaa: -3.04, relHeight: 4.90, spinRate: 2372, tilt: '1:15'},
+                {type: '4-Seam', velocity: 92.75, hb: 17.98, ivb: 17.85, vaa: -5.60, relHeight: 4.86, spinRate: 2619, tilt: '1:30'},
+                {type: '4-Seam', velocity: 92.78, hb: 18.53, ivb: 17.44, vaa: -5.07, relHeight: 4.79, spinRate: 2598, tilt: '1:30'},
+                {type: '4-Seam', velocity: 92.19, hb: 9.19, ivb: 20.02, vaa: -4.16, relHeight: 4.82, spinRate: 2605, tilt: '12:45'},
+                {type: '4-Seam', velocity: 92.10, hb: 15.13, ivb: 21.37, vaa: -4.51, relHeight: 4.90, spinRate: 2523, tilt: '1:15'},
+                {type: '4-Seam', velocity: 90.02, hb: 14.19, ivb: 16.77, vaa: -5.36, relHeight: 4.89, spinRate: 2580, tilt: '1:15'},
+                // 4-Seam fastballs from liveab
+                {type: '4-Seam', velocity: 92.71, hb: 8.99, ivb: 17.68, vaa: -1.14, relHeight: 4.97, spinRate: 2534, tilt: '1:00'},
+                {type: '4-Seam', velocity: 93.17, hb: 13.77, ivb: 17.88, vaa: -3.99, relHeight: 4.95, spinRate: 2553, tilt: '1:15'},
+                {type: '4-Seam', velocity: 91.98, hb: 14.12, ivb: 17.06, vaa: -1.84, relHeight: 4.90, spinRate: 2530, tilt: '1:15'},
+                {type: '4-Seam', velocity: 93.12, hb: 12.74, ivb: 16.95, vaa: -4.11, relHeight: 4.89, spinRate: 2490, tilt: '1:15'},
+                {type: '4-Seam', velocity: 91.63, hb: 9.72, ivb: 20.94, vaa: -3.41, relHeight: 4.93, spinRate: 2492, tilt: '12:45'},
+                {type: '4-Seam', velocity: 92.24, hb: 13.21, ivb: 19.83, vaa: -3.23, relHeight: 4.88, spinRate: 2549, tilt: '1:00'},
+                // Cutters from mocap
+                {type: 'Cutter', velocity: 85.85, hb: 3.38, ivb: 11.32, vaa: -4.37, relHeight: 4.82, spinRate: 2071, tilt: '12:30'},
+                {type: 'Cutter', velocity: 85.09, hb: 0.81, ivb: 12.63, vaa: -4.19, relHeight: 4.78, spinRate: 2270, tilt: '12:00'},
+                // Cutters from liveab
+                {type: 'Cutter', velocity: 88.64, hb: 1.67, ivb: 7.37, vaa: -4.37, relHeight: 4.95, spinRate: 2042, tilt: '12:30'},
+                {type: 'Cutter', velocity: 87.67, hb: 1.05, ivb: 7.64, vaa: -4.69, relHeight: 4.86, spinRate: 2148, tilt: '12:15'},
+                {type: 'Cutter', velocity: 88.89, hb: 4.20, ivb: 7.60, vaa: -5.63, relHeight: 4.88, spinRate: 2046, tilt: '1:00'},
+                {type: 'Cutter', velocity: 87.45, hb: -1.07, ivb: 5.52, vaa: -7.00, relHeight: 4.69, spinRate: 1972, tilt: '11:45'},
+                {type: 'Cutter', velocity: 88.45, hb: 4.00, ivb: 8.00, vaa: -7.00, relHeight: 4.82, spinRate: 2251, tilt: '1:00'},
+                {type: 'Cutter', velocity: 88.42, hb: 3.63, ivb: 7.25, vaa: -5.70, relHeight: 4.81, spinRate: 1859, tilt: '1:00'},
+                {type: 'Cutter', velocity: 88.36, hb: 4.95, ivb: 9.68, vaa: -6.52, relHeight: 4.72, spinRate: 2043, tilt: '1:00'},
+                {type: 'Cutter', velocity: 88.56, hb: 3.69, ivb: 8.91, vaa: -7.05, relHeight: 4.73, spinRate: 1910, tilt: '12:45'},
+                {type: 'Cutter', velocity: 88.08, hb: 2.30, ivb: 8.39, vaa: -6.68, relHeight: 4.70, spinRate: 1964, tilt: '12:30'},
+                {type: 'Cutter', velocity: 88.59, hb: 2.21, ivb: 3.89, vaa: -7.98, relHeight: 4.70, spinRate: 2160, tilt: '1:00'},
+                // Changeups from mocap
+                {type: 'Changeup', velocity: 81.41, hb: 18.33, ivb: 4.77, vaa: -8.01, relHeight: 4.76, spinRate: 1156, tilt: '2:30'},
+                // Changeups from liveab
+                {type: 'Changeup', velocity: 83.98, hb: 12.61, ivb: 1.94, vaa: -6.29, relHeight: 4.69, spinRate: 1096, tilt: '2:45'},
+                {type: 'Changeup', velocity: 83.63, hb: 9.56, ivb: 0.73, vaa: -6.35, relHeight: 4.75, spinRate: 1112, tilt: '2:45'},
+                // Sweepers from mocap
+                {type: 'Sweeper', velocity: 79.10, hb: -16.40, ivb: -0.68, vaa: -8.17, relHeight: 4.95, spinRate: 2435, tilt: '9:00'},
+                {type: 'Sweeper', velocity: 79.96, hb: -13.09, ivb: 6.32, vaa: -4.26, relHeight: 4.99, spinRate: 2445, tilt: '9:45'},
+                {type: 'Sweeper', velocity: 75.61, hb: -15.19, ivb: -5.68, vaa: -4.70, relHeight: 4.87, spinRate: 2323, tilt: '8:15'},
+                {type: 'Sweeper', velocity: 78.25, hb: -18.93, ivb: -5.45, vaa: -9.50, relHeight: 4.85, spinRate: 2560, tilt: '8:30'},
+                // Sweepers from liveab
+                {type: 'Sweeper', velocity: 82.32, hb: -11.95, ivb: -1.87, vaa: -8.92, relHeight: 4.86, spinRate: 2438, tilt: '8:45'},
+                {type: 'Sweeper', velocity: 82.84, hb: -13.17, ivb: 1.85, vaa: -7.66, relHeight: 4.81, spinRate: 2248, tilt: '9:15'},
+                {type: 'Sweeper', velocity: 81.73, hb: -13.50, ivb: 1.53, vaa: -6.11, relHeight: 4.80, spinRate: 2307, tilt: '9:15'},
+                {type: 'Sweeper', velocity: 79.77, hb: -13.35, ivb: -2.03, vaa: -7.81, relHeight: 4.78, spinRate: 2312, tilt: '8:45'},
+                {type: 'Sweeper', velocity: 82.35, hb: -17.05, ivb: -4.03, vaa: -8.40, relHeight: 4.82, spinRate: 2525, tilt: '8:30'},
+                {type: 'Sweeper', velocity: 81.29, hb: -14.10, ivb: 2.41, vaa: -5.83, relHeight: 4.78, spinRate: 2269, tilt: '9:15'},
+                {type: 'Sweeper', velocity: 82.25, hb: -10.14, ivb: 7.86, vaa: -3.78, relHeight: 4.87, spinRate: 2400, tilt: '9:00'},
+                {type: 'Sweeper', velocity: 81.26, hb: -11.49, ivb: -2.25, vaa: -8.83, relHeight: 4.75, spinRate: 2434, tilt: '8:45'}
             ];
 
             // Apply clustering
