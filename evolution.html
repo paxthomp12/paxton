@@ -1048,7 +1048,8 @@
             </div>
 
             <div class="references-box">
-                <h4 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 0.5rem; text-align: center; font-weight: 600;">References</h4>
+                <h4 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 0.25rem; text-align: center; font-weight: 600;">References</h4>
+                <p style="color: var(--text-muted); font-size: 0.65rem; text-align: center; margin-bottom: 0.5rem; font-style: italic;">All references are confirmed open to a call or conversation</p>
                 <ul style="list-style: none; padding: 0; font-size: 0.7rem; color: var(--text-muted); line-height: 1.5;">
                     <li style="margin-bottom: 0.4rem;">Preston Mattingly<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">Assistant GM Phillies</span></li>
                     <li style="margin-bottom: 0.4rem;">Aaron Barrett<br><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">Manager of Clearwater Threshers (Phillies Low A)</span><span style="font-size: 0.65rem; padding-left: 0.75rem; display: block;">2019 World Series Champion</span></li>
@@ -1074,16 +1075,23 @@
         <div class="video-grid">
             <div class="video-card" style="position: relative;">
                 <div style="position: relative;">
-                    <iframe id="video-driveline-1" src="https://player.vimeo.com/video/1161460501?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" style="width: 100%; aspect-ratio: 16/9; display: block;" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id="video-driveline-1" src="https://player.vimeo.com/video/1161951910?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" style="width: 100%; aspect-ratio: 16/9; display: block;" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                     <div class="custom-controls">
                         <button class="control-btn play-btn" data-video="driveline-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
                         <button class="control-btn fullscreen-btn" data-video="driveline-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
                     </div>
                 </div>
-                <div style="padding: 0.75rem; text-align: center; font-size: 0.9rem; color: var(--text); font-weight: 500;">Bullpen Work</div>
+                <div style="padding: 0.75rem; text-align: center; font-size: 0.9rem; color: var(--text); font-weight: 500;">Live ABs 2/4</div>
             </div>
-            <div class="video-card">
-                <div class="video-placeholder">DRIVELINE VIDEO 2</div>
+            <div class="video-card" style="position: relative;">
+                <div style="position: relative;">
+                    <iframe id="video-driveline-2" src="https://player.vimeo.com/video/1161460501?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" style="width: 100%; aspect-ratio: 16/9; display: block;" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <div class="custom-controls">
+                        <button class="control-btn play-btn" data-video="driveline-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                        <button class="control-btn fullscreen-btn" data-video="driveline-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                    </div>
+                </div>
+                <div style="padding: 0.75rem; text-align: center; font-size: 0.9rem; color: var(--text); font-weight: 500;">Bullpen Work</div>
             </div>
         </div>
 
@@ -1598,6 +1606,10 @@
             const drivelineVideo1 = document.getElementById('video-driveline-1');
             if (drivelineVideo1) {
                 observer.observe(drivelineVideo1);
+            }
+            const drivelineVideo2 = document.getElementById('video-driveline-2');
+            if (drivelineVideo2) {
+                observer.observe(drivelineVideo2);
             }
         } else {
             // Fallback: Initialize first 3 videos immediately
