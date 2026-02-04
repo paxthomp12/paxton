@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paxton Thompson - Professional Evolution Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: white;
+        }
+
+        .page {
+            width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            padding: 0.75in;
+            page-break-after: always;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Cover Page */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 10in;
+            border: 3px solid #c9a962;
+            padding: 2in 1in;
+        }
+
+        .cover h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48pt;
+            font-weight: 900;
+            color: #0a0f0a;
+            margin-bottom: 0.5in;
+            line-height: 1.1;
+        }
+
+        .cover .subtitle {
+            font-size: 24pt;
+            color: #c9a962;
+            font-weight: 600;
+            margin-bottom: 1in;
+        }
+
+        .cover .tagline {
+            font-size: 14pt;
+            color: #666;
+            max-width: 5in;
+            line-height: 1.8;
+            margin-bottom: 1.5in;
+        }
+
+        .cover .date {
+            font-size: 12pt;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Regular Content */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32pt;
+            color: #0a0f0a;
+            margin-bottom: 0.3in;
+            border-bottom: 2px solid #c9a962;
+            padding-bottom: 0.1in;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24pt;
+            color: #0a0f0a;
+            margin-top: 0.3in;
+            margin-bottom: 0.2in;
+        }
+
+        h3 {
+            font-size: 16pt;
+            color: #c9a962;
+            margin-top: 0.25in;
+            margin-bottom: 0.1in;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 0.15in;
+            text-align: justify;
+            font-size: 11pt;
+        }
+
+        .executive-summary {
+            background: #f8f8f8;
+            border-left: 4px solid #c9a962;
+            padding: 0.3in;
+            margin: 0.3in 0;
+        }
+
+        .executive-summary h3 {
+            margin-top: 0;
+        }
+
+        /* Data Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.3in 0;
+            font-size: 10pt;
+        }
+
+        th {
+            background: #0a0f0a;
+            color: white;
+            padding: 0.12in;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 9pt;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 0.1in 0.12in;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .metric-value {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .positive {
+            color: #0d4a33;
+        }
+
+        .negative {
+            color: #c93a3a;
+        }
+
+        .neutral {
+            color: #1a1a1a;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.2in;
+            margin: 0.3in 0;
+        }
+
+        .stat-box {
+            border: 1px solid #ddd;
+            padding: 0.15in;
+            text-align: center;
+        }
+
+        .stat-box .label {
+            font-size: 9pt;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.05in;
+        }
+
+        .stat-box .value {
+            font-size: 20pt;
+            font-weight: 700;
+            color: #0a0f0a;
+        }
+
+        .stat-box .change {
+            font-size: 10pt;
+            margin-top: 0.05in;
+        }
+
+        /* Highlighted Box */
+        .highlight-box {
+            background: #fff8e7;
+            border: 2px solid #c9a962;
+            padding: 0.25in;
+            margin: 0.3in 0;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: #0a0f0a;
+        }
+
+        /* Video Section */
+        .video-item {
+            margin-bottom: 0.2in;
+            padding-left: 0.2in;
+            border-left: 3px solid #c9a962;
+        }
+
+        .video-item h4 {
+            color: #0a0f0a;
+            margin-bottom: 0.05in;
+        }
+
+        .video-item p {
+            color: #666;
+            font-size: 10pt;
+            text-align: left;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 0.5in;
+            padding-top: 0.2in;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #999;
+            font-size: 9pt;
+        }
+
+        .contact-info {
+            background: #0a0f0a;
+            color: white;
+            padding: 0.3in;
+            margin: 0.3in 0;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: #c9a962;
+            margin-bottom: 0.15in;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.1in;
+            text-align: center;
+        }
+
+        .contact-info a {
+            color: #c9a962;
+            text-decoration: none;
+        }
+
+        ul {
+            margin: 0.15in 0 0.15in 0.3in;
+        }
+
+        li {
+            margin-bottom: 0.08in;
+            font-size: 11pt;
+        }
+
+        @media print {
+            .page {
+                page-break-after: always;
+                margin: 0;
+                padding: 0.75in;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- COVER PAGE -->
+    <div class="page cover">
+        <h1>Professional<br>Evolution</h1>
+        <div class="subtitle">Paxton Thompson</div>
+        <div class="tagline">
+            The journey from success to struggle to becoming the best version of myself—backed by data.
+        </div>
+        <div class="date">January 2026</div>
+    </div>
+
+    <!-- PAGE 1: EXECUTIVE SUMMARY -->
+    <div class="page">
+        <h1>Executive Summary</h1>
+
+        <div class="executive-summary">
+            <h3>The Story in Brief</h3>
+            <p>
+                After a successful 2024 season, I changed my approach in 2025 to meet organizational demands for increased velocity.
+                The result was decreased performance across all metrics and a season-ending injury. This offseason, I trained at
+                Driveline Baseball with a focus on becoming a better athlete rather than forcing velocity gains. The outcome:
+                career-high velocity, improved strength metrics, and a return to the command and competitive mindset that made me
+                effective in 2024.
+            </p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="label">Current Velocity</div>
+                <div class="value">92-93</div>
+                <div class="change positive">+2-3 mph from 2024</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">Body Weight</div>
+                <div class="value">197</div>
+                <div class="change positive">-7 lbs, Better Composition</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">Peak Force</div>
+                <div class="value">3427N</div>
+                <div class="change positive">+2.4% from Aug 2025</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">RSI</div>
+                <div class="value">3.11</div>
+                <div class="change positive">+24% from Aug 2025</div>
+            </div>
+        </div>
+
+        <h2>What I Bring in 2026</h2>
+        <ul>
+            <li><strong>Career-high velocity:</strong> 92-93 mph fastball</li>
+            <li><strong>Proven command:</strong> 64% strike rate, elite command grades in 2024</li>
+            <li><strong>Four-pitch arsenal:</strong> FF, CT, SW, CH - all working with improved shapes</li>
+            <li><strong>High-leverage experience:</strong> Trusted in key situations across Low A and High A</li>
+            <li><strong>Track record against advanced competition:</strong> Struck out MLB players including Marcell Ozuna and Jared Kelenic</li>
+            <li><strong>Data-backed improvement:</strong> Measurable gains in strength, power, and athleticism</li>
+        </ul>
+
+        <div class="footer">
+            Paxton Thompson | Professional Evolution Report | January 2026
+        </div>
+    </div>
+
+    <!-- PAGE 2: THE STORY - PART 1 -->
+    <div class="page">
+        <h1>The Complete Story</h1>
+
+        <h2>2024: Being Myself</h2>
+        <p>
+            My first full professional season was everything I could have asked for. I approached the season with a simple mindset:
+            attack hitters relentlessly, command all four pitches, and trust my stuff. The results spoke for themselves.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>2024 Performance</th>
+                    <th>Context</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric-label">Innings Pitched</td>
+                    <td class="metric-value">43.1 IP</td>
+                    <td>Full season across Low A and High A</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Fastball Velocity</td>
+                    <td class="metric-value">91.0 mph</td>
+                    <td>Consistent velocity throughout season</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Strikeout Rate</td>
+                    <td class="metric-value positive">28%</td>
+                    <td>Well above MLB average (23%)</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Walk Rate</td>
+                    <td class="metric-value positive">8%</td>
+                    <td>Elite command (MLB avg: 8%)</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Strike Rate</td>
+                    <td class="metric-value positive">64%</td>
+                    <td>Excellent (MLB avg: 64%)</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">CSW%</td>
+                    <td class="metric-value">22%</td>
+                    <td>Called + Swinging Strike percentage</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">SwStr%</td>
+                    <td class="metric-value">12%</td>
+                    <td>Swinging strike rate (MLB avg: 12%)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            All four pitches in my arsenal worked effectively. My fastball commanded the zone, my cutter played off it perfectly,
+            my sweeper generated chase, and my changeup kept hitters honest. I was trusted in high-leverage situations because
+            I attacked the zone and competed.
+        </p>
+
+        <div class="highlight-box">
+            <h3>Key Insight: Arsenal Balance</h3>
+            <p>
+                In 2024, my pitch mix was balanced and effective: 48% FF, 15% CT, 26% SW, 12% CH. Each pitch had a clear role,
+                and I commanded all of them. My overall Stuff grade was 39, Locations grade was 40, and my approach was simple:
+                throw strikes and let my stuff work.
+            </p>
+        </div>
+
+        <div class="footer">
+            Paxton Thompson | Professional Evolution Report | January 2026
+        </div>
+    </div>
+
+    <!-- PAGE 3: THE STORY - PART 2 -->
+    <div class="page">
+        <h2>2025: Lost Myself</h2>
+
+        <p>
+            Following the 2024 season, I had an end-of-year meeting where the message was clear: we need you to throw harder.
+            The target was 93+ mph. I took that feedback seriously and went to work with the intention of meeting their expectations.
+        </p>
+
+        <p>
+            In my attempt to add velocity, I made significant changes. I altered my mechanics, focused on adding weight to
+            "get stronger," and centered everything around throwing harder. The results were the opposite of what we hoped for.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>2024</th>
+                    <th>2025</th>
+                    <th>Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric-label">Fastball Velocity</td>
+                    <td class="metric-value">91.0 mph</td>
+                    <td class="metric-value negative">89.9 mph</td>
+                    <td class="negative">-1.1 mph</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Strikeout Rate</td>
+                    <td class="metric-value">28%</td>
+                    <td class="metric-value negative">18%</td>
+                    <td class="negative">-10%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Walk Rate</td>
+                    <td class="metric-value">8%</td>
+                    <td class="metric-value">9%</td>
+                    <td class="negative">+1%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Strike Rate</td>
+                    <td class="metric-value">64%</td>
+                    <td class="metric-value negative">62%</td>
+                    <td class="negative">-2%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">CSW%</td>
+                    <td class="metric-value">22%</td>
+                    <td class="metric-value negative">16%</td>
+                    <td class="negative">-6%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Body Weight</td>
+                    <td class="metric-value">~197 lbs</td>
+                    <td class="metric-value">204 lbs</td>
+                    <td class="negative">+7 lbs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            I wasn't the same pitcher. My mechanics felt different, my pitches didn't move the same way, and most importantly,
+            I wasn't being myself on the mound. There were stretches where I competed well with what I had—moments where the
+            competitor in me showed up—but I wasn't getting away with anything because my stuff had declined.
+        </p>
+
+        <div class="highlight-box">
+            <h3>August 2025: The Breaking Point</h3>
+            <p>
+                In August, my body broke down. I ended the season on the Injured List. It was rock bottom. I had chased what
+                others wanted, lost what made me effective, and paid the price physically.
+            </p>
+        </div>
+
+        <p>
+            The 2025 season taught me valuable lessons. I learned what it meant to lose yourself in pursuit of meeting external
+            expectations. I learned that being a worse version of myself athletically—heavier, less explosive—made me worse at
+            baseball. Most importantly, I learned that I needed to get back to being me.
+        </p>
+
+        <div class="footer">
+            Paxton Thompson | Professional Evolution Report | January 2026
+        </div>
+    </div>
+
+    <!-- PAGE 4: THE STORY - PART 3 -->
+    <div class="page">
+        <h2>Offseason 2025-2026: Becoming the Best Version</h2>
+
+        <p>
+            This offseason, I trained at Driveline Baseball with a fundamentally different approach. The goal wasn't to throw
+            harder for the sake of throwing harder. The goal was to become a better athlete, rediscover my mechanical identity,
+            and trust that if I did those things right, velocity would come naturally.
+        </p>
+
+        <h3>Step 1: Body Composition Transformation</h3>
+        <p>
+            I started the offseason at 204 lbs—my heaviest playing weight from the 2025 season. Rather than trying to add more
+            mass, I focused on becoming leaner and more explosive. DEXA scans tracked my progress and confirmed what I felt:
+            I was becoming a better athlete.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="label">Starting Weight (Aug 2025)</div>
+                <div class="value">204</div>
+                <div class="change">Post-Season</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">Current Weight (Jan 2026)</div>
+                <div class="value">197</div>
+                <div class="change positive">-7 lbs, Improved Composition</div>
+            </div>
+        </div>
+
+        <h3>Step 2: Strength and Power Development</h3>
+        <p>
+            Driveline's High Performance Assessment quantified my improvement across multiple strength and power metrics.
+            The progression from August 2025 to January 2026 tells a clear story: I'm stronger, more explosive, and moving
+            better than ever.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>August 2025</th>
+                    <th>January 2026</th>
+                    <th>Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric-label">Overall HP Score</td>
+                    <td class="metric-value">57</td>
+                    <td class="metric-value positive">62</td>
+                    <td class="positive">+5 points</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Peak Force (IMTP)</td>
+                    <td class="metric-value">3347 N</td>
+                    <td class="metric-value positive">3427 N</td>
+                    <td class="positive">+2.4%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Relative Strength</td>
+                    <td class="metric-value">3.68</td>
+                    <td class="metric-value positive">3.9</td>
+                    <td class="positive">+6.0%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Jump Height (CMJ)</td>
+                    <td class="metric-value">44.91 cm</td>
+                    <td class="metric-value positive">49.61 cm</td>
+                    <td class="positive">+10.5%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Peak Power (CMJ)</td>
+                    <td class="metric-value">5484 W</td>
+                    <td class="metric-value positive">5637 W</td>
+                    <td class="positive">+2.8%</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">RSI (Reactive Strength)</td>
+                    <td class="metric-value">2.5</td>
+                    <td class="metric-value positive">3.11</td>
+                    <td class="positive">+24%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box">
+            <h3>What RSI Tells Us</h3>
+            <p>
+                Reactive Strength Index (RSI) measures how quickly and efficiently I can produce force. An RSI of 3.11 puts me
+                in the 90th percentile—elite territory. This isn't just about being strong; it's about being explosive and
+                athletic. That explosiveness translates directly to the mound.
+            </p>
+        </div>
+
+        <div class="footer">
+            Paxton Thompson | Professional Evolution Report | January 2026
+        </div>
+    </div>
+
+    <!-- PAGE 5: CURRENT STATE & RESULTS -->
+    <div class="page">
+        <h2>The Results: Career-Best Performance Metrics</h2>
+
+        <p>
+            When I focused on becoming a better athlete and returning to my mechanical identity, the velocity I was chasing
+            came naturally—and exceeded the original goal.
+        </p>
+
+        <h3>Velocity Progression</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Period</th>
+                    <th>Fastball Velocity</th>
+                    <th>Context</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric-label">2024 Season</td>
+                    <td class="metric-value">91.0 mph</td>
+                    <td>Full season average, being myself</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">2025 Season</td>
+                    <td class="metric-value negative">89.9 mph</td>
+                    <td>Changed mechanics, forced approach</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">January 2026 (Current)</td>
+                    <td class="metric-value positive">92-93 mph</td>
+                    <td>Driveline training, career high</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Pitch Arsenal: Best Shapes of My Career</h3>
+        <p>
+            My pitch shapes at Driveline mirror what worked in 2024—but now with 2-3 mph more velocity across the board.
+            All four pitches (FF, CT, SW, CH) are moving the way they should because my mechanics are back to being mine,
+            and I'm a more explosive athlete delivering them.
+        </p>
+
+        <ul>
+            <li><strong>Fastball:</strong> 92-93 mph with carry and ride, attacking up in the zone</li>
+            <li><strong>Cutter:</strong> Late horizontal break, tunnels perfectly off fastball</li>
+            <li><strong>Sweeper:</strong> Sharp, late break away from righties—my highest stuff grade pitch</li>
+            <li><strong>Changeup:</strong> Excellent separation from fastball, arm-side fade with depth</li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3>The Formula That Works</h3>
+            <p>
+                When you're yourself mechanically + you're a better athlete = everything clicks.
+            </p>
+            <p>
+                This isn't theory. The data proves it. My velocity is up, my strength metrics are up, my body composition is
+                improved, and my pitch shapes are back to what made me effective in 2024. I'm not forcing anything. I'm just
+                being the best version of myself.
+            </p>
+        </div>
+
+        <h2>What I Learned</h2>
+        <p>
+            You can't become someone you're not just because that's what others want. When I tried to add velocity by forcing
+            it—changing my mechanics, adding weight, chasing a number—I lost everything that made me effective.
+        </p>
+
+        <p>
+            When I focused on being the best version of myself, the velocity came naturally. The lesson is clear: trust your
+            identity, become a better athlete, and let your performance speak for itself.
+        </p>
+
+        <div class="footer">
+            Paxton Thompson | Professional Evolution Report | January 2026
+        </div>
+    </div>
+
+    <!-- PAGE 6: VIDEO EVIDENCE -->
+    <div class="page">
+        <h1>Video Evidence</h1>
+        <p>
+            Performance data tells part of the story. Video evidence demonstrates it. Below are links to key performances
+            against high-level competition, including Major League players and top organizational prospects.
+        </p>
+
+        <h3>Major League Strikeouts</h3>
+
+        <div class="video-item">
+            <h4>Marcell Ozuna - Strikeout</h4>
+            <p>
+                <strong>Opponent:</strong> Atlanta Braves outfielder, 3-time All-Star, 2024 NL home run leader (39 HR)<br>
+                <strong>Context:</strong> Spring Training at-bat demonstrating ability to compete against elite MLB hitters<br>
+                <strong>Video Link:</strong> [To be added - video on phone]
+            </p>
+        </div>
+
+        <div class="video-item">
+            <h4>Jared Kelenic - Swing & Miss</h4>
+            <p>
+                <strong>Opponent:</strong> Former top prospect, current MLB outfielder<br>
+                <strong>Context:</strong> Quality swing-and-miss on breaking ball against advanced competition<br>
+                <strong>Video Link:</strong> [To be added - video on phone]
+            </p>
+        </div>
+
+        <h3>Top Prospect Strikeouts</h3>
+
+        <div class="video-item">
+            <h4>Top 30 Organizational Prospects - Strikeout Collection</h4>
+            <p>
+                <strong>Opponents:</strong> Multiple top-30 ranked prospects within Phillies organization<br>
+                <strong>Context:</strong> Compilation of high-leverage strikeouts against advanced minor league hitters<br>
+                <strong>Pitches Featured:</strong> Mix of fastball, cutter, sweeper, and changeup strikeouts<br>
+                <strong>Video Link:</strong> [To be added - video on phone]
+            </p>
+        </div>
+
+        <h3>Full Arsenal Display</h3>
+
+        <div class="video-item">
+            <h4>Four-Pitch Mix Compilation</h4>
+            <p>
+                <strong>Content:</strong> Side-by-side examples of all four pitches (FF, CT, SW, CH) from various outings<br>
+                <strong>Purpose:</strong> Demonstrates pitch shapes, sequencing, and command across arsenal<br>
+                <strong>Video Link:</strong> [To be added - video on phone]
+            </p>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Note on Video Content</h3>
+            <p>
+                All video content is currently stored on mobile device and will be made available digitally upon request.
+                High-quality versions suitable for scouting evaluation can be provided in preferred format.
+            </p>
+        </div>
+
+        <div class="footer">
+            Paxton Thompson | Professional Evolution Report | January 2026
+        </div>
+    </div>
+
+    <!-- PAGE 7: CONTACT & NEXT STEPS -->
+    <div class="page">
+        <h1>Ready to Compete</h1>
+
+        <p>
+            I'm the best version of myself. The data backs it up. The trajectory is clear. I bring career-high velocity,
+            proven command, a four-pitch arsenal that works, and the competitive mindset to attack hitters in any situation.
+        </p>
+
+        <h2>What I Bring to Your Organization in 2026</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric-label">Stuff</td>
+                    <td>92-93 mph FB, four-pitch mix (FF/CT/SW/CH), career-best shapes</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Command</td>
+                    <td>Proven 64% strike rate, 8% walk rate in 2024, elite command grades</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Experience</td>
+                    <td>High-leverage innings across Low A and High A, 43.1 IP in 2024</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Track Record</td>
+                    <td>Struck out MLB players (Ozuna, Kelenic), top organizational prospects</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Athleticism</td>
+                    <td>Elite RSI (90th percentile), improved strength/power metrics across board</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Trajectory</td>
+                    <td>Measurable offseason gains, data-backed improvement in all areas</td>
+                </tr>
+                <tr>
+                    <td class="metric-label">Mindset</td>
+                    <td>Competitor who attacks zone, learns from adversity, trusts identity</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>The Value Proposition</h2>
+        <ul>
+            <li>A pitcher who understands what works for him and has the data to prove it</li>
+            <li>Someone who competed through adversity in 2025 and came back stronger</li>
+            <li>An athlete who's invested in his development and made measurable gains</li>
+            <li>A competitor with a track record of getting quality hitters out</li>
+            <li>A person who learned from failure and is now performing at a career-best level</li>
+        </ul>
+
+        <div class="contact-info">
+            <h3>Contact Information</h3>
+            <p><strong>Player:</strong> Paxton Thompson</p>
+            <p><strong>Position:</strong> RHP</p>
+            <p><strong>Height/Weight:</strong> 6'1" / 197 lbs</p>
+            <p><strong>Email:</strong> [INSERT YOUR EMAIL]</p>
+            <p><strong>Agent:</strong> [INSERT AGENT NAME & CONTACT]</p>
+            <p><strong>Full Story & Video:</strong> <a href="#">[INSERT WEBSITE URL]</a></p>
+        </div>
+
+        <h2>Next Steps</h2>
+        <p>
+            If your organization values pitchers who attack the zone, compete at a high level, and are on a clear upward
+            trajectory, I'd welcome the opportunity to discuss how I can contribute in 2026.
+        </p>
+
+        <p>
+            Additional materials available upon request:
+        </p>
+        <ul>
+            <li>Complete Driveline High Performance Assessment reports</li>
+            <li>DEXA scan body composition documentation</li>
+            <li>Full TrackMan pitching data from 2024 and 2025 seasons</li>
+            <li>Video compilation of all outings and key strikeouts</li>
+            <li>Detailed pitch-by-pitch data and command breakdowns</li>
+        </ul>
+
+        <div class="highlight-box" style="margin-top: 0.5in;">
+            <h3>Thank You</h3>
+            <p>
+                Thank you for taking the time to review my professional evolution. I'm excited about the opportunity to
+                compete at the highest level in 2026 and beyond.
+            </p>
+            <p style="text-align: center; margin-top: 0.2in;">
+                <strong>Let's talk.</strong>
+            </p>
+        </div>
+
+        <div class="footer">
+            Paxton Thompson | Professional Evolution Report | January 2026
+        </div>
+    </div>
+
+</body>
+</html>
