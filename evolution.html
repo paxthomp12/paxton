@@ -851,6 +851,15 @@
             .dexa-stats {
                 gap: 0.75rem;
                 margin: 0.75rem 0;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Center odd last children in 2-column layout */
+            .dexa-stats .dexa-card:nth-child(3):last-child,
+            .dexa-stats .dexa-card:nth-child(5):last-child {
+                grid-column: 1 / -1;
+                max-width: 50%;
+                margin: 0 auto;
             }
 
             .dexa-card {
@@ -926,140 +935,101 @@
         <a href="/" class="nav-link">← BACK TO HOME</a>
     </nav>
 
-    <!-- S/M K's SECTION - NOW FIRST -->
+    <!-- BEST VERSION SECTION - NOW FIRST -->
     <section style="padding-top: 7rem;">
-        <h2 class="section-title">S/M Strikeouts - Full At Bats</h2>
-        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; font-style: italic;">*2025 Top Prospects Lists</p>
+        <h2 class="section-title">Best Version of Myself Entering 2026</h2>
+        <p class="section-subtitle">Offseason Improvements at Driveline Baseball</p>
 
-        <div style="text-align: center; margin-bottom: 1.5rem;">
-            <p style="color: var(--text); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.35rem;">Unique release height of 4.9 feet - Bryan Woo & Joe Ryan territory</p>
-            <p style="color: var(--text); font-size: 0.9rem; font-weight: 600;">Elite flatness with FB, -3.7 VAA</p>
-        </div>
-
-        <div class="strikeout-grid">
-            <div class="strikeout-card">
-                <iframe id="video-1" src="https://player.vimeo.com/video/1160648283?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="1">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
-                    <button class="control-btn fullscreen-btn" data-video="1">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-                    </button>
+        <div class="dexa-stats" style="margin: 2rem 0;">
+            <div class="dexa-card">
+                <div class="dexa-label">Velocity</div>
+                <div class="dexa-value" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    +2.6
+                    <svg style="width: 24px; height: 24px; fill: var(--green);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5H7z"/></svg>
                 </div>
-                <div class="strikeout-name">Marcell Ozuna & Jared Kelenic</div>
+                <div class="dexa-change">89.9 → 92.5 mph</div>
             </div>
-            <div class="strikeout-card">
-                <iframe id="video-2" src="https://player.vimeo.com/video/1160648286?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+            <div class="dexa-card">
+                <div class="dexa-label">FB IVB</div>
+                <div class="dexa-value" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    +3.3
+                    <svg style="width: 24px; height: 24px; fill: var(--green);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5H7z"/></svg>
                 </div>
-                <div class="strikeout-name">Blue Jays 3rd Prospect</div>
+                <div class="dexa-change">15.1 → 18.4 IVB</div>
             </div>
-            <div class="strikeout-card">
-                <iframe id="video-3" src="https://player.vimeo.com/video/1160648291?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+            <div class="dexa-card">
+                <div class="dexa-label">Release Height</div>
+                <div class="dexa-value" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    -0.4
+                    <svg style="width: 24px; height: 24px; fill: var(--green);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
                 </div>
-                <div class="strikeout-name">Mets 5th Prospect</div>
+                <div class="dexa-change">5.3 → 4.9 ft</div>
             </div>
-            <div class="strikeout-card">
-                <iframe id="video-4" src="https://player.vimeo.com/video/1160648349?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+            <div class="dexa-card">
+                <div class="dexa-label">SW Horizontal</div>
+                <div class="dexa-value" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    +1.9
+                    <svg style="width: 24px; height: 24px; fill: var(--green);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5H7z"/></svg>
                 </div>
-                <div class="strikeout-name">Nationals 10th Prospect</div>
+                <div class="dexa-change">-12.1 → -14.0 HB</div>
             </div>
-            <div class="strikeout-card">
-                <iframe id="video-5" src="https://player.vimeo.com/video/1160648302?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+            <div class="dexa-card">
+                <div class="dexa-label">FB & CH VB Separation</div>
+                <div class="dexa-value" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    +2.3
+                    <svg style="width: 24px; height: 24px; fill: var(--green);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5H7z"/></svg>
                 </div>
-                <div class="strikeout-name">Mets 13th Prospect</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe id="video-6" src="https://player.vimeo.com/video/1160648313?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
-                </div>
-                <div class="strikeout-name">Phillies 15th Prospect</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe id="video-7" src="https://player.vimeo.com/video/1160648320?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
-                </div>
-                <div class="strikeout-name">Pirates 20th Prospect</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe id="video-8" src="https://player.vimeo.com/video/1160648340?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
-                </div>
-                <div class="strikeout-name">Reds 20th Prospect</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe id="video-9" src="https://player.vimeo.com/video/1160648330?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
-                </div>
-                <div class="strikeout-name">Rays 22nd Prospect</div>
-            </div>
-            <div class="strikeout-card">
-                <iframe id="video-10" src="https://player.vimeo.com/video/1160648360?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                <div class="custom-controls">
-                    <button class="control-btn play-btn" data-video="10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-                    <button class="control-btn fullscreen-btn" data-video="10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
-                </div>
-                <div class="strikeout-name">Cardinals 26th Prospect</div>
+                <div class="dexa-change">13.6 → 15.9</div>
             </div>
         </div>
 
-        <!-- MY STORY -->
-        <h2 class="section-title" style="margin-top: 3rem;">My Story</h2>
+        <!-- JOE RYAN COMPARISON -->
+        <h2 class="section-title" style="margin-top: 2rem;">Comparison to Joe Ryan (MIN)</h2>
+        <p class="section-subtitle" style="font-style: italic;">2025 MLB Data</p>
 
-        <div style="display: grid; grid-template-columns: 1fr 160px; gap: 1.5rem; align-items: flex-start;">
-            <div class="bullet-points">
-                <ul>
-                    <li><strong>2024: Proven track record when I embrace myself</strong>
-                        <ul style="margin-top: 0.5rem;">
-                            <li style="font-size: 0.9em; color: var(--text-muted);">2.73 ERA, 28% K-Rate, 8% BB-Rate - Success came from embracing my low release height (5.1ft) & riding the fastball</li>
-                        </ul>
-                    </li>
-                    <li><strong>2025: Searching for velocity the wrong way</strong>
-                        <ul style="margin-top: 0.5rem;">
-                            <li style="font-size: 0.9em; color: var(--text-muted);">Release height climbed to 5.3 ft trying to figure it out on my own</li>
-                            <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing slower, worse shapes, worse version of myself</li>
-                        </ul>
-                    </li>
-                    <li><strong>2026: Embracing who I am at Driveline Baseball</strong>
-                        <ul style="margin-top: 0.5rem;">
-                            <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing harder, riding the fastball better than before, better shapes</li>
-                            <li style="font-size: 0.9em; color: var(--text-muted);">I'm a better professional for what I went through & now embracing myself more than ever</li>
-                        </ul>
-                    </li>
-                    <li><strong>My work at Driveline shown below</strong></li>
-                </ul>
-            </div>
-
-            <div class="references-box">
-                <h4 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 0.25rem; text-align: center; font-weight: 600;">References</h4>
-                <p style="color: var(--text-muted); font-size: 0.65rem; text-align: center; margin-bottom: 0.5rem; font-style: italic;">All references are confirmed open to a call or conversation</p>
-                <ul style="list-style: none; padding: 0; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
-                    <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Preston Mattingly</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Assistant GM Phillies</span></li>
-                    <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Aaron Barrett</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Manager of Clearwater Threshers (Phillies Low A)</span><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">2019 World Series Champion</span></li>
-                    <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Casey Jacobson</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Cubs Assistant Pitching Coach</span></li>
-                    <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Matt Kress</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Driveline Pitching Coordinator</span></li>
-                </ul>
-            </div>
+        <div style="background: rgba(201, 169, 98, 0.05); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0;">
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Pitcher</th>
+                        <th>Velo</th>
+                        <th>Rel_H</th>
+                        <th>VAA</th>
+                        <th>FB IVB</th>
+                        <th>FB HB</th>
+                        <th>CH IVB</th>
+                        <th>CH HB</th>
+                        <th>SW IVB</th>
+                        <th>SW HB</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Paxton Thompson</strong></td>
+                        <td>92.5</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">4.9</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">-3.7</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">18.4</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">14.6</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">2.5</td>
+                        <td>13.5</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">-0.2</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">-14.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Joe Ryan</strong></td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">93.1</td>
+                        <td>5.0</td>
+                        <td>-3.8</td>
+                        <td>17.2</td>
+                        <td>12.8</td>
+                        <td>3.8</td>
+                        <td style="background: rgba(18, 107, 74, 0.3); font-weight: 600;">15.2</td>
+                        <td>-1.1</td>
+                        <td>-13.5</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
@@ -1188,20 +1158,158 @@
 
         <div class="bullet-points">
             <ul>
-                <li>No more searching, data backed. Wanted to embrace myself & the thrower I was which lead me to training at Driveline Baseball in Tampa, Florida</li>
-                <li>Velocity gains: 92.5 avg, 93.2 max mph Indoors (up 2-3 mph from 2025 season)
-                    <ul>
-                        <li>Lowest release height (4.9ft) & highest IVB (18.4 IVB) of my career. The byproduct of embracing who I am.</li>
+                <li>No more searching, data backed. Wanted to embrace myself & the thrower I was which lead me to training at Driveline Tampa</li>
+                <li>The byproduct of embracing who I am is the best version of myself entering 2026</li>
+            </ul>
+        </div>
+
+        <div class="references-box" style="max-width: 400px; margin: 2rem auto 0 auto;">
+            <h4 style="color: var(--accent); font-size: 0.85rem; margin-bottom: 0.25rem; text-align: center; font-weight: 600;">References</h4>
+            <p style="color: var(--text-muted); font-size: 0.65rem; text-align: center; margin-bottom: 0.5rem; font-style: italic;">All references are confirmed open to a call or conversation</p>
+            <ul style="list-style: none; padding: 0; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Preston Mattingly</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Assistant GM Phillies</span></li>
+                <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Aaron Barrett</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Manager of Clearwater Threshers (Phillies Low A)</span><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">2019 World Series Champion</span></li>
+                <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Casey Jacobson</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Cubs ML Assistant Pitching Coach</span></li>
+                <li style="margin-bottom: 0.4rem;"><strong style="color: var(--text); font-size: 0.85rem;">Matt Kress</strong><br><span style="font-size: 0.7rem; padding-left: 0.75rem; display: block;">Driveline Pitching Coordinator</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+            <div class="marker-circle"></div>
+        </div>
+    </div>
+
+    <!-- S/M K's SECTION -->
+    <section>
+        <h2 class="section-title">S/M Strikeouts - Full At Bats</h2>
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; font-style: italic;">*2025 Top Prospects Lists</p>
+
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <p style="color: var(--text); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.35rem;">Unique release height of 4.9 feet - Bryan Woo & Joe Ryan territory</p>
+            <p style="color: var(--text); font-size: 0.9rem; font-weight: 600;">Elite flatness with FB, -3.7 VAA</p>
+        </div>
+
+        <div class="strikeout-grid">
+            <div class="strikeout-card">
+                <iframe id="video-1" src="https://player.vimeo.com/video/1160648283?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                    <button class="control-btn fullscreen-btn" data-video="1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                </div>
+                <div class="strikeout-name">Marcell Ozuna & Jared Kelenic</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-2" src="https://player.vimeo.com/video/1160648286?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Blue Jays 3rd Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-3" src="https://player.vimeo.com/video/1160648291?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Mets 5th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-4" src="https://player.vimeo.com/video/1160648349?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Nationals 10th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-5" src="https://player.vimeo.com/video/1160648302?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Mets 13th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-6" src="https://player.vimeo.com/video/1160648313?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Phillies 15th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-7" src="https://player.vimeo.com/video/1160648320?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="7"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Pirates 20th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-8" src="https://player.vimeo.com/video/1160648340?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Reds 20th Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-9" src="https://player.vimeo.com/video/1160648330?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="9"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Rays 22nd Prospect</div>
+            </div>
+            <div class="strikeout-card">
+                <iframe id="video-10" src="https://player.vimeo.com/video/1160648360?controls=0&title=0&byline=0&portrait=0&badge=0&autopause=1&quality=auto&speed=1" class="strikeout-video" frameborder="0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                <div class="custom-controls">
+                    <button class="control-btn play-btn" data-video="10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                    <button class="control-btn fullscreen-btn" data-video="10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                </div>
+                <div class="strikeout-name">Cardinals 26th Prospect</div>
+            </div>
+        </div>
+
+        <div class="section-divider">
+            <div class="divider-markers">
+                <div class="marker-circle"></div>
+                <div class="marker-circle"></div>
+                <div class="marker-circle"></div>
+            </div>
+        </div>
+
+        <!-- MY STORY -->
+        <h2 class="section-title" style="margin-top: 2rem;">My Story</h2>
+
+        <div class="bullet-points">
+            <ul>
+                <li><strong>2024: Proven track record when I embrace myself</strong>
+                    <ul style="margin-top: 0.5rem;">
+                        <li style="font-size: 0.9em; color: var(--text-muted);">2.73 ERA, 28% K-Rate, 8% BB-Rate - Success came from embracing my low release height (5.1ft) & riding the fastball</li>
                     </ul>
                 </li>
-                <li>Pitch shapes are consistent & better than they've ever been
-                    <ul>
-                        <li>FB Avg 18.4 IVB, SW Avg -14.0 HB, CH Avg 2.5 IVB</li>
+                <li><strong>2025: Searching for velocity the wrong way</strong>
+                    <ul style="margin-top: 0.5rem;">
+                        <li style="font-size: 0.9em; color: var(--text-muted);">Release height climbed to 5.3 ft trying to figure it out on my own</li>
+                        <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing slower, worse shapes, worse version of myself</li>
                     </ul>
                 </li>
-                <li>Body recomposition: 204 lbs → 197 lbs while maintaining lean muscle</li>
-                <li>Significant strength & power improvements across all metrics</li>
-                <li>Best version of myself entering 2026</li>
+                <li><strong>2026: Embracing who I am at Driveline Baseball</strong>
+                    <ul style="margin-top: 0.5rem;">
+                        <li style="font-size: 0.9em; color: var(--text-muted);">Outcome: Throwing harder, riding the fastball better than before, better shapes</li>
+                        <li style="font-size: 0.9em; color: var(--text-muted);">I'm a better professional for what I went through & now embracing myself more than ever</li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </section>
@@ -1255,9 +1363,9 @@
                             <th>Pitch</th>
                             <th>Avg Velo</th>
                             <th>Max Velo</th>
-                            <th>HB</th>
                             <th>IVB</th>
-                            <th>Rel-Z</th>
+                            <th>HB</th>
+                            <th>Rel_H</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1265,33 +1373,33 @@
                             <td>FF</td>
                             <td>91.0</td>
                             <td>93.2</td>
-                            <td>12.9</td>
                             <td>14.9</td>
-                            <td>61</td>
+                            <td>12.9</td>
+                            <td>5.1</td>
                         </tr>
                         <tr>
                             <td>CT</td>
                             <td>87.1</td>
                             <td>89.8</td>
-                            <td>1.4</td>
                             <td>6.7</td>
-                            <td>60</td>
+                            <td>1.4</td>
+                            <td>5.0</td>
                         </tr>
                         <tr>
                             <td>SW</td>
                             <td>82.0</td>
                             <td>85.9</td>
-                            <td>-12.7</td>
                             <td>-1.6</td>
-                            <td>61</td>
+                            <td>-12.7</td>
+                            <td>5.1</td>
                         </tr>
                         <tr>
                             <td>CH</td>
                             <td>81.6</td>
                             <td>84.0</td>
-                            <td>8.8</td>
                             <td>2.3</td>
-                            <td>60</td>
+                            <td>8.8</td>
+                            <td>5.0</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1363,9 +1471,9 @@
                             <th>Pitch</th>
                             <th>Avg Velo</th>
                             <th>Max Velo</th>
-                            <th>HB</th>
                             <th>IVB</th>
-                            <th>Rel-Z</th>
+                            <th>HB</th>
+                            <th>Rel_H</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1373,33 +1481,33 @@
                             <td>FF</td>
                             <td>89.9</td>
                             <td>92.0</td>
-                            <td>11.9</td>
                             <td>15.1</td>
-                            <td>63</td>
+                            <td>11.9</td>
+                            <td>5.3</td>
                         </tr>
                         <tr>
                             <td>CT</td>
                             <td>85.9</td>
                             <td>89.1</td>
-                            <td>0.7</td>
                             <td>4.7</td>
-                            <td>62</td>
+                            <td>0.7</td>
+                            <td>5.2</td>
                         </tr>
                         <tr>
                             <td>SW</td>
                             <td>81.2</td>
                             <td>85.4</td>
-                            <td>-12.1</td>
                             <td>-1.0</td>
-                            <td>62</td>
+                            <td>-12.1</td>
+                            <td>5.2</td>
                         </tr>
                         <tr>
                             <td>CH</td>
                             <td>81.2</td>
                             <td>85.5</td>
-                            <td>9.6</td>
                             <td>1.5</td>
-                            <td>61</td>
+                            <td>9.6</td>
+                            <td>5.1</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1420,7 +1528,7 @@
                 <li><strong>Velo decreased to 89.9 mph</strong> (down 1.1 mph from 2024)</li>
                 <li><strong>K-Rate dropped to 18%</strong> (down 10% from 2024)</li>
                 <li>Release height got higher, in search of velocity</li>
-                <li>worse shapes, worst version of myself</li>
+                <li>Worse shapes, worst version of myself</li>
                 <li>Lead to shoulder injury (shoulder impingement) & ended my season early in 2025</li>
             </ul>
         </div>
@@ -1436,7 +1544,7 @@
 
     <!-- DRIVELINE STRENGTH PROGRESSION -->
     <section>
-        <h2 class="section-title">Strength & Power Progression at Driveline Baseball</h2>
+        <h2 class="section-title">Strength & Power Progression at Driveline</h2>
         <p class="section-subtitle">Offseason 2026</p>
 
         <div class="dexa-stats">
@@ -1476,7 +1584,7 @@
     <!-- DEXA SCAN RESULTS -->
     <section>
         <h2 class="section-title">Body Recomposition</h2>
-        <p class="section-subtitle">Offseason 2026</p>
+        <p class="section-subtitle">Offseason 2026<br>*Data via DXA Scan</p>
 
         <div class="dexa-stats">
             <div class="dexa-card">
