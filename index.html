@@ -1659,15 +1659,17 @@
         }
 
         .varc-video-compact {
-            border: 2px solid var(--border-light);
+            border: 1px solid rgba(201, 169, 98, 0.2);
             border-radius: 4px;
             overflow: hidden;
-            background: rgba(201, 169, 98, 0.05);
+            background: rgba(10, 18, 15, 0.95);
         }
 
         .varc-video-compact iframe {
             width: 100%;
             display: block;
+            opacity: 0.88;
+            filter: contrast(1.08) brightness(0.90) saturate(0.95);
         }
 
         .varc-left-column {
@@ -1702,16 +1704,18 @@
         }
 
         .varc-embed-mini {
-            border: 2px solid var(--border-light);
+            border: 1px solid rgba(201, 169, 98, 0.2);
             border-radius: 4px;
             overflow: hidden;
-            background: rgba(201, 169, 98, 0.05);
+            background: rgba(10, 18, 15, 0.95);
             max-height: 350px;
         }
 
         .varc-embed-mini iframe {
             width: 100%;
             display: block;
+            opacity: 0.88;
+            filter: contrast(1.08) brightness(0.90) saturate(0.95);
         }
 
         .varc-carousel {
@@ -1727,17 +1731,19 @@
         .varc-four-posts {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            gap: 1rem;
             margin: 2rem 0 3rem 0;
-            padding: 1.5rem 0;
+            padding: 0.5rem 0;
+            max-width: 1400px;
         }
 
         .varc-post-card {
-            border: 2px solid var(--border-light);
+            border: 1px solid rgba(201, 169, 98, 0.2);
             border-radius: 4px;
             overflow: hidden;
-            background: rgba(201, 169, 98, 0.05);
+            background: rgba(10, 18, 15, 0.95);
             transition: all 0.3s;
+            position: relative;
         }
 
         .varc-post-card:hover {
@@ -1749,6 +1755,50 @@
         .varc-post-card iframe {
             width: 100%;
             display: block;
+            opacity: 0.88;
+            filter: contrast(1.08) brightness(0.90) saturate(0.95);
+        }
+
+        .custom-post-card {
+            border: 2px solid var(--border-light);
+            border-radius: 4px;
+            padding: 1.5rem;
+            background: rgba(201, 169, 98, 0.03);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-height: 200px;
+        }
+
+        .custom-post-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .post-org {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--accent);
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .post-content {
+            color: var(--text);
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .post-detail {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
         }
 
         /* Shared Logo Styles */
@@ -1794,7 +1844,7 @@
             }
 
             .varc-post-card iframe {
-                height: 600px;
+                height: 350px;
             }
 
             .varc-compact-grid {
@@ -1872,7 +1922,7 @@
             }
 
             .varc-post-card iframe {
-                height: 500px;
+                height: 350px;
             }
 
             .varc-video-compact iframe {
@@ -1890,6 +1940,19 @@
             .varc-compact-grid {
                 gap: 1.5rem;
                 margin-bottom: 2rem;
+            }
+
+            .custom-post-card {
+                padding: 1.25rem;
+                min-height: 180px;
+            }
+
+            .post-content {
+                font-size: 0.95rem;
+            }
+
+            .post-detail {
+                font-size: 0.85rem;
             }
         }
 
@@ -3333,13 +3396,14 @@
         <!-- VARIANT C: Compact Flow - Lightweight Vertical Layout -->
         <div class="philanthropy-design" id="design-option-3">
             <div class="variant-c-flow">
-                <div class="varc-logo-center">
-                    <img src="assets/images/HBC Logo.png" alt="Homegrown Baseball Camp" class="hbc-logo-small">
-                </div>
-
                 <div class="varc-compact-grid">
-                    <div class="varc-video-compact">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7425622772078444544?compact=1" height="360" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                    <div class="varc-left-column">
+                        <div class="varc-logo-center">
+                            <img src="assets/images/HBC Logo.png" alt="Homegrown Baseball Camp" class="hbc-logo-small">
+                        </div>
+                        <div class="varc-video-compact">
+                            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7425622772078444544?compact=1" height="400" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        </div>
                     </div>
                     <div class="varc-content-side">
                         <div class="varc-text">
@@ -3358,16 +3422,16 @@
 
                 <div class="varc-four-posts">
                     <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7394436678876069888?collapsed=1" height="669" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7394436678876069888?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
                     </div>
                     <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7396633225235849216?collapsed=1" height="669" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7396633225235849216?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
                     </div>
                     <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7399168324200271873?collapsed=1" height="669" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7399168324200271873?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
                     </div>
                     <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7401687638908534785?collapsed=1" height="669" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7401687638908534785?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
                     </div>
                 </div>
 
