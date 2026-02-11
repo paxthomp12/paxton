@@ -923,6 +923,83 @@
                 padding: 1rem 1.25rem;
             }
         }
+
+        /* Footer */
+        footer {
+            padding: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(201, 169, 98, 0.3);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .footer-logo::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid var(--accent);
+        }
+
+        .footer-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: var(--accent);
+        }
+
+        .footer-logo:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .footer-logo:hover::before {
+            border-top-color: var(--bg);
+        }
+
+        .footer-logo:hover::after {
+            background: var(--bg);
+        }
+
+        .footer-logo:hover .footer-logo-text {
+            color: var(--bg);
+        }
+
+        .footer-logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 2rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -987,7 +1064,7 @@
             <div class="hero-buttons">
                 <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
                 <a href="mailto:paxthomp12@gmail.com" class="hero-btn">Email</a>
-                <a href="Resume for Website.pdf" download="Paxton_Thompson_Resume.pdf" class="hero-btn pdf-download-btn">PDF Resume</a>
+                <a href="assets/documents/Resume for Website.pdf" download="Paxton_Thompson_Resume.pdf" class="hero-btn pdf-download-btn">PDF Resume</a>
             </div>
         </div>
         <div class="hero-image">
@@ -1012,7 +1089,7 @@
 
         <div id="phillies" class="experience-item">
                 <h3 class="experience-title">Professional Baseball Player</h3>
-                <span class="experience-date">August 2023 - Present</span>
+                <span class="experience-date">August 2023 - January 2026</span>
                 <p class="experience-subtitle">Philadelphia Phillies</p>
                 <ul>
                     <li>Pitcher competing at the professional level, performing in high-pressure, results-driven environments.</li>
@@ -1194,7 +1271,7 @@
 
         // Icon Navigation Active State
         const navIcons = document.querySelectorAll('.nav-icon');
-        const sections = document.querySelectorAll('section[id]');
+        const sections = document.querySelectorAll('section[id], .experience-item[id]');
 
         function updateActiveNav() {
             let currentSection = '';
@@ -1256,5 +1333,12 @@
             }
         });
     </script>
+
+    <footer>
+        <a href="#" class="footer-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+            <span class="footer-logo-text">PT</span>
+        </a>
+    </footer>
+
 </body>
 </html>
