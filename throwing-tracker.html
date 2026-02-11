@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throwing Workload Tracker | Paxton Thompson</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0f0a;
+            --bg-alt: #0d120d;
+            --bg-card: #0f140f;
+            --text: #f5f3ef;
+            --text-muted: #8a9a8a;
+            --accent: #c9a962;
+            --green: #126b4a;
+            --danger: #d9534f;
+            --warning: #f0ad4e;
+            --border-subtle: rgba(201, 169, 98, 0.1);
+            --border-light: rgba(201, 169, 98, 0.2);
+            --border-medium: rgba(201, 169, 98, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0a0f0a 0%, #0d1a12 50%, #0a0f0a 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Alerts */
+        .alerts-container {
+            margin-bottom: 2rem;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-danger {
+            background: rgba(217, 83, 79, 0.1);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .alert-warning {
+            background: rgba(240, 173, 78, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .alert-info {
+            background: rgba(201, 169, 98, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            margin-bottom: 2rem;
+        }
+
+        .control-section {
+            margin-bottom: 2rem;
+        }
+
+        .control-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-section h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .file-input-label:hover {
+            background: #d4b978;
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-field input {
+            padding: 0.75rem;
+            background: var(--bg-alt);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-field input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #d4b978;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--green);
+        }
+
+        .btn-secondary:hover {
+            background: #158a5f;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            color: var(--accent);
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-sub {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .chart-title {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+        }
+
+        .chart-wrapper.tall {
+            height: 500px;
+        }
+
+        .two-col {
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+        }
+
+        /* Oura Placeholder */
+        .oura-section {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .oura-section h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .oura-section p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #d4b978;
+            transform: translateX(-5px);
+        }
+
+        /* Data Table */
+        .data-table-container {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--text);
+        }
+
+        th {
+            background: var(--bg-alt);
+            color: var(--accent);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        tr:hover {
+            background: var(--bg-alt);
+        }
+
+        .editable-cell {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .editable-cell:hover {
+            background: rgba(201, 169, 98, 0.05);
+        }
+
+        .velocity-input {
+            background: var(--bg-alt);
+            border: 1px solid var(--accent);
+            color: var(--text);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            width: 100px;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            border: 3px solid var(--border-light);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="evolution.html" class="back-link">← Back to Evolution</a>
+
+        <header>
+            <h1>Throwing Workload Tracker</h1>
+            <p class="subtitle">Optimize performance through data-driven insights</p>
+        </header>
+
+        <!-- Alerts -->
+        <div class="alerts-container" id="alertsContainer"></div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-section">
+                <h3>Upload Workload Data</h3>
+                <div class="file-input-wrapper">
+                    <input type="file" id="csvFile" accept=".csv">
+                    <label for="csvFile" class="file-input-label">Choose CSV File</label>
+                </div>
+                <span id="fileName" style="margin-left: 1rem; color: var(--text-muted);"></span>
+            </div>
+
+            <div class="control-section">
+                <h3>Add Peak Velocity</h3>
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="veloDate">Date</label>
+                        <input type="date" id="veloDate">
+                    </div>
+                    <div class="form-field">
+                        <label for="veloValue">Peak Velocity (mph)</label>
+                        <input type="number" id="veloValue" step="0.1" placeholder="93.1">
+                    </div>
+                </div>
+                <button class="btn" onclick="addVelocity()">Add Velocity Data</button>
+                <button class="btn btn-secondary" onclick="clearAllData()">Clear All Data</button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-label">Current A:C Ratio</div>
+                <div class="stat-value" id="currentAC">--</div>
+                <div class="stat-sub">Acute to Chronic</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Days Since High Intent</div>
+                <div class="stat-value" id="daysSinceHI">--</div>
+                <div class="stat-sub">Last high effort session</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Peak Velocity</div>
+                <div class="stat-value" id="peakVelo">--</div>
+                <div class="stat-sub">Personal best recorded</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">7-Day Throw Count</div>
+                <div class="stat-value" id="sevenDayThrows">--</div>
+                <div class="stat-sub">Total throws this week</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <!-- A:C Ratio Timeline -->
+            <div class="chart-container">
+                <h3 class="chart-title">A:C Ratio Timeline with Danger Zones</h3>
+                <div class="chart-wrapper tall">
+                    <canvas id="acRatioChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Workload and A:C Combined -->
+            <div class="chart-container">
+                <h3 class="chart-title">Daily Workload with A:C Ratio Overlay</h3>
+                <div class="chart-wrapper tall">
+                    <canvas id="workloadChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two Column Charts -->
+        <div class="charts-grid two-col">
+            <!-- Scatter Plot -->
+            <div class="chart-container">
+                <h3 class="chart-title">A:C Ratio vs Peak Velocity</h3>
+                <div class="chart-wrapper">
+                    <canvas id="scatterChart"></canvas>
+                </div>
+            </div>
+
+            <!-- High Effort Throws -->
+            <div class="chart-container">
+                <h3 class="chart-title">High Effort Throw Count</h3>
+                <div class="chart-wrapper">
+                    <canvas id="highEffortChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Throws Chart -->
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3 class="chart-title">Total Throw Count Timeline</h3>
+                <div class="chart-wrapper">
+                    <canvas id="totalThrowsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table with Velocity Entry -->
+        <div class="data-table-container">
+            <h3 class="chart-title">Workload Data with Peak Velocity Entry</h3>
+            <div id="dataTableWrapper"></div>
+        </div>
+
+        <!-- Oura Integration -->
+        <div class="oura-section">
+            <h3>Oura Ring Integration</h3>
+            <div id="ouraStatus">
+                <p>Connect your Oura Ring to correlate recovery metrics with throwing performance</p>
+                <div class="form-group" style="max-width: 600px; margin: 1.5rem auto;">
+                    <div class="form-field">
+                        <label for="ouraToken">Personal Access Token</label>
+                        <input type="password" id="ouraToken" placeholder="Paste your Oura Personal Access Token">
+                    </div>
+                </div>
+                <button class="btn" onclick="saveOuraToken()">Connect with Token</button>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem;">
+                    <a href="https://cloud.ouraring.com/personal-access-tokens" target="_blank" style="color: var(--accent); text-decoration: underline;">Get your token here →</a>
+                </p>
+            </div>
+            <div id="ouraConnected" style="display: none;">
+                <p style="color: var(--accent); margin-bottom: 0.5rem;">✓ Oura Ring Connected</p>
+                <p id="ouraLastSync" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;"></p>
+                <button class="btn" onclick="fetchOuraData()">Sync Now</button>
+                <button class="btn btn-secondary" onclick="disconnectOura()" style="margin-left: 0.5rem;">Disconnect</button>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">
+                    🔄 Auto-syncs every 4 hours when page is open
+                </p>
+            </div>
+            <div id="ouraDataContainer" style="margin-top: 2rem;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global data store
+        let workloadData = [];
+        let velocityData = [];
+        let charts = {};
+
+        // Embedded workload data
+        const embeddedWorkloadData = [
+            {"date":"2025-11-12T00:00:00.000Z","acRatio":2.1666666666666665,"acuteWorkload":0.5138498865481879,"chronicWorkload":0.12705079612455197,"oneDayWorkload":3.5574222914874554,"totalThrows":28,"highEffortThrows":10},
+            {"date":"2025-11-13T00:00:00.000Z","acRatio":1.9274342958092272,"acuteWorkload":2.5321234055458457,"chronicWorkload":0.6334043220267633,"oneDayWorkload":14.177898725261912,"totalThrows":59,"highEffortThrows":45},
+            {"date":"2025-11-14T00:00:00.000Z","acRatio":1.7393370394631484,"acuteWorkload":3.8261320996764376,"chronicWorkload":0.9898940836594977,"oneDayWorkload":9.981713325716555,"totalThrows":66,"highEffortThrows":36},
+            {"date":"2025-11-15T00:00:00.000Z","acRatio":1.6056591391687713,"acuteWorkload":5.136315780726727,"chronicWorkload":1.370949872262178,"oneDayWorkload":10.669562080875039,"totalThrows":63,"highEffortThrows":36},
+            {"date":"2025-11-16T00:00:00.000Z","acRatio":1.451885598484172,"acuteWorkload":4.816427477198884,"chronicWorkload":1.370949872262178,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-11-17T00:00:00.000Z","acRatio":1.417293134178005,"acuteWorkload":7.152361084171573,"chronicWorkload":2.027609135847473,"oneDayWorkload":18.38645938038826,"totalThrows":80,"highEffortThrows":67},
+            {"date":"2025-11-18T00:00:00.000Z","acRatio":1.3429700635237494,"acuteWorkload":8.307866016161599,"chronicWorkload":2.430288354891153,"oneDayWorkload":11.275018133223057,"totalThrows":78,"highEffortThrows":36},
+            {"date":"2025-11-19T00:00:00.000Z","acRatio":1.4534482029297757,"acuteWorkload":10.84492766171202,"chronicWorkload":3.1977927602544813,"oneDayWorkload":21.490123350173235,"totalThrows":88,"highEffortThrows":66},
+            {"date":"2025-11-20T00:00:00.000Z","acRatio":1.4892459886157097,"acuteWorkload":10.864738447794098,"chronicWorkload":3.387179075399347,"oneDayWorkload":5.302816824056208,"totalThrows":77,"highEffortThrows":0},
+            {"date":"2025-11-21T00:00:00.000Z","acRatio":1.5332973100753295,"acuteWorkload":12.142519358061769,"chronicWorkload":3.959610206798451,"oneDayWorkload":16.0280716791749,"totalThrows":73,"highEffortThrows":48},
+            {"date":"2025-11-22T00:00:00.000Z","acRatio":1.3886214252654887,"acuteWorkload":10.263679195205784,"chronicWorkload":3.959610206798451,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-11-23T00:00:00.000Z","acRatio":1.3607155966528177,"acuteWorkload":10.337182900669152,"chronicWorkload":4.341070001737014,"oneDayWorkload":10.6808742582798,"totalThrows":68,"highEffortThrows":42},
+            {"date":"2025-11-24T00:00:00.000Z","acRatio":1.4507476679611009,"acuteWorkload":12.623075265323541,"chronicWorkload":5.282800139385343,"oneDayWorkload":26.368443854153156,"totalThrows":97,"highEffortThrows":78},
+            {"date":"2025-11-25T00:00:00.000Z","acRatio":1.4966882499329777,"acuteWorkload":13.098333270845213,"chronicWorkload":5.625992656161546,"oneDayWorkload":9.609390469733626,"totalThrows":60,"highEffortThrows":32},
+            {"date":"2025-11-26T00:00:00.000Z","acRatio":1.4431106958926068,"acuteWorkload":13.224599628958906,"chronicWorkload":6.218397166654804,"oneDayWorkload":16.587326293811202,"totalThrows":83,"highEffortThrows":53},
+            {"date":"2025-11-27T00:00:00.000Z","acRatio":1.316802546981898,"acuteWorkload":11.463761718074489,"chronicWorkload":6.218397166654804,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-11-28T00:00:00.000Z","acRatio":1.0960420838384917,"acuteWorkload":9.087499984900939,"chronicWorkload":6.218397166654804,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-11-29T00:00:00.000Z","acRatio":1.0126501592937445,"acuteWorkload":8.014441121736963,"chronicWorkload":6.218397166654804,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-11-30T00:00:00.000Z","acRatio":0.824383024454637,"acuteWorkload":6.240763033834649,"chronicWorkload":6.218397166654804,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-01T00:00:00.000Z","acRatio":0.7875772380482876,"acuteWorkload":5.713712743201503,"chronicWorkload":6.218397166654804,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-02T00:00:00.000Z","acRatio":0.8532005828709645,"acuteWorkload":6.405407555343118,"chronicWorkload":6.703129373698697,"oneDayWorkload":13.572501797229052,"totalThrows":67,"highEffortThrows":51},
+            {"date":"2025-12-03T00:00:00.000Z","acRatio":0.7654950173945753,"acuteWorkload":5.91065802095044,"chronicWorkload":7.169828722062193,"oneDayWorkload":13.067581754177809,"totalThrows":61,"highEffortThrows":47},
+            {"date":"2025-12-04T00:00:00.000Z","acRatio":0.76255410009127,"acuteWorkload":5.880564106742127,"chronicWorkload":7.436251355010824,"oneDayWorkload":7.459833722561598,"totalThrows":72,"highEffortThrows":9},
+            {"date":"2025-12-05T00:00:00.000Z","acRatio":0.8518248683839555,"acuteWorkload":6.875505444655815,"chronicWorkload":8.071501196836058,"oneDayWorkload":17.786995571106672,"totalThrows":75,"highEffortThrows":63},
+            {"date":"2025-12-06T00:00:00.000Z","acRatio":0.9135938646044706,"acuteWorkload":7.645731412847012,"chronicWorkload":8.368851531371808,"oneDayWorkload":8.325809367001057,"totalThrows":60,"highEffortThrows":28},
+            {"date":"2025-12-07T00:00:00.000Z","acRatio":0.8536366908847947,"acuteWorkload":7.1439587277463765,"chronicWorkload":8.368851531371808,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-08T00:00:00.000Z","acRatio":1.0153593684499482,"acuteWorkload":9.1192629331309,"chronicWorkload":8.98131559770055,"oneDayWorkload":17.148993857204914,"totalThrows":78,"highEffortThrows":68},
+            {"date":"2025-12-09T00:00:00.000Z","acRatio":0.9435791308855241,"acuteWorkload":8.474581965886888,"chronicWorkload":8.98131559770055,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-10T00:00:00.000Z","acRatio":1.0112567403381434,"acuteWorkload":9.328684904964431,"chronicWorkload":9.224843239952213,"oneDayWorkload":10.376196274533868,"totalThrows":61,"highEffortThrows":34},
+            {"date":"2025-12-11T00:00:00.000Z","acRatio":0.9537033532485526,"acuteWorkload":8.518462019636187,"chronicWorkload":8.931982875618683,"oneDayWorkload":5.977808523923159,"totalThrows":58,"highEffortThrows":7},
+            {"date":"2025-12-12T00:00:00.000Z","acRatio":1.0624642448292199,"acuteWorkload":9.883610610508669,"chronicWorkload":9.30253479927445,"oneDayWorkload":20.357167188078165,"totalThrows":75,"highEffortThrows":54},
+            {"date":"2025-12-13T00:00:00.000Z","acRatio":1.0630371672404124,"acuteWorkload":9.785832011891113,"chronicWorkload":9.205540797124346,"oneDayWorkload":7.953730020672083,"totalThrows":62,"highEffortThrows":0},
+            {"date":"2025-12-14T00:00:00.000Z","acRatio":0.8492604238823575,"acuteWorkload":7.817901479432157,"chronicWorkload":9.205540797124346,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-15T00:00:00.000Z","acRatio":0.8878280458044603,"acuteWorkload":7.852833903684383,"chronicWorkload":8.844994186423719,"oneDayWorkload":8.29115428077057,"totalThrows":53,"highEffortThrows":11},
+            {"date":"2025-12-16T00:00:00.000Z","acRatio":1.0870409623563146,"acuteWorkload":9.878648155007973,"chronicWorkload":9.087650325149301,"oneDayWorkload":18.069390017539263,"totalThrows":88,"highEffortThrows":38},
+            {"date":"2025-12-17T00:00:00.000Z","acRatio":1.0506473415512643,"acuteWorkload":9.018284696508724,"chronicWorkload":8.5835506738097,"oneDayWorkload":7.375333112664521,"totalThrows":67,"highEffortThrows":0},
+            {"date":"2025-12-18T00:00:00.000Z","acRatio":0.996519070941135,"acuteWorkload":8.364944868023867,"chronicWorkload":8.394164358664833,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-19T00:00:00.000Z","acRatio":1.0835603980686523,"acuteWorkload":9.018506760714159,"chronicWorkload":8.323030978973415,"oneDayWorkload":14.036337047815323,"totalThrows":66,"highEffortThrows":9},
+            {"date":"2025-12-20T00:00:00.000Z","acRatio":0.9515211690532897,"acuteWorkload":7.91954016717953,"chronicWorkload":8.323030978973415,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-21T00:00:00.000Z","acRatio":0.7393778806116115,"acuteWorkload":5.871822070777931,"chronicWorkload":7.941571184034847,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-22T00:00:00.000Z","acRatio":0.954517216327856,"acuteWorkload":7.24565795843826,"chronicWorkload":7.5909138509970395,"oneDayWorkload":16.55003852909431,"totalThrows":80,"highEffortThrows":22},
+            {"date":"2025-12-23T00:00:00.000Z","acRatio":1.043985400290987,"acuteWorkload":7.864658341995287,"chronicWorkload":7.53330299427865,"oneDayWorkload":7.996286481618881,"totalThrows":41,"highEffortThrows":2},
+            {"date":"2025-12-24T00:00:00.000Z","acRatio":0.9633088942597956,"acuteWorkload":6.686229243584801,"chronicWorkload":6.9408984837853955,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-25T00:00:00.000Z","acRatio":0.7056505667917788,"acuteWorkload":4.897848949127363,"chronicWorkload":6.9408984837853955,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-26T00:00:00.000Z","acRatio":0.9266120704881168,"acuteWorkload":7.153362753409763,"chronicWorkload":7.719911040702875,"oneDayWorkload":21.812351593689527,"totalThrows":102,"highEffortThrows":42},
+            {"date":"2025-12-27T00:00:00.000Z","acRatio":0.8614180834354727,"acuteWorkload":6.650070972974615,"chronicWorkload":7.719911040702875,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-28T00:00:00.000Z","acRatio":0.6699602543280155,"acuteWorkload":5.172033564218953,"chronicWorkload":7.719911040702875,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2025-12-29T00:00:00.000Z","acRatio":0.9291859269208004,"acuteWorkload":7.885357005184853,"chronicWorkload":8.486306966912302,"oneDayWorkload":21.459085933864117,"totalThrows":84,"highEffortThrows":29},
+            {"date":"2025-12-30T00:00:00.000Z","acRatio":1.0218293615097138,"acuteWorkload":8.46563639791759,"chronicWorkload":8.284784834730074,"oneDayWorkload":7.929882096126676,"totalThrows":58,"highEffortThrows":1},
+            {"date":"2025-12-31T00:00:00.000Z","acRatio":1.037912456157173,"acuteWorkload":8.607941306552359,"chronicWorkload":8.293513827190106,"oneDayWorkload":13.311993543058634,"totalThrows":77,"highEffortThrows":22},
+            {"date":"2026-01-01T00:00:00.000Z","acRatio":1.0147319081113515,"acuteWorkload":8.378772322527952,"chronicWorkload":8.257129056011225,"oneDayWorkload":6.44106012955308,"totalThrows":39,"highEffortThrows":3},
+            {"date":"2026-01-02T00:00:00.000Z","acRatio":1.1897548981409083,"acuteWorkload":9.601920732333385,"chronicWorkload":8.070503216534087,"oneDayWorkload":12.561472065746784,"totalThrows":65,"highEffortThrows":21},
+            {"date":"2026-01-03T00:00:00.000Z","acRatio":1.1457326891050212,"acuteWorkload":8.905955354316397,"chronicWorkload":7.7731528819983335,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-01-04T00:00:00.000Z","acRatio":0.8613291722788701,"acuteWorkload":6.695243337848738,"chronicWorkload":7.7731528819983335,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-01-05T00:00:00.000Z","acRatio":1.119471476293249,"acuteWorkload":8.71854760234451,"chronicWorkload":7.788092673172013,"oneDayWorkload":17.56730801006779,"totalThrows":96,"highEffortThrows":30},
+            {"date":"2026-01-06T00:00:00.000Z","acRatio":1.1376608773845984,"acuteWorkload":9.174194327916481,"chronicWorkload":8.064085273818419,"oneDayWorkload":7.72779281809926,"totalThrows":73,"highEffortThrows":1},
+            {"date":"2026-01-07T00:00:00.000Z","acRatio":1.1873400037371393,"acuteWorkload":10.039022564010999,"chronicWorkload":8.455052918636017,"oneDayWorkload":21.323290329426527,"totalThrows":79,"highEffortThrows":50},
+            {"date":"2026-01-08T00:00:00.000Z","acRatio":1.1424195510326365,"acuteWorkload":9.671530306309515,"chronicWorkload":8.465830523967652,"oneDayWorkload":6.279581473208964,"totalThrows":43,"highEffortThrows":8},
+            {"date":"2026-01-09T00:00:00.000Z","acRatio":1.217530165674175,"acuteWorkload":10.018815307176888,"chronicWorkload":8.22880252961062,"oneDayWorkload":13.72038334608078,"totalThrows":60,"highEffortThrows":32},
+            {"date":"2026-01-10T00:00:00.000Z","acRatio":1.2099826558168194,"acuteWorkload":9.935289142346786,"chronicWorkload":8.211100460477097,"oneDayWorkload":7.458072084933519,"totalThrows":53,"highEffortThrows":13},
+            {"date":"2026-01-11T00:00:00.000Z","acRatio":1.015817822765856,"acuteWorkload":8.340982192273563,"chronicWorkload":8.211100460477097,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-01-12T00:00:00.000Z","acRatio":1.2935371391234667,"acuteWorkload":11.420775409504625,"chronicWorkload":8.82910514439781,"oneDayWorkload":25.595285430550575,"totalThrows":98,"highEffortThrows":48},
+            {"date":"2026-01-13T00:00:00.000Z","acRatio":1.3468290883938632,"acuteWorkload":11.23780307761239,"chronicWorkload":8.34389691643342,"oneDayWorkload":4.483559634536505,"totalThrows":46,"highEffortThrows":1},
+            {"date":"2026-01-14T00:00:00.000Z","acRatio":1.267950384353166,"acuteWorkload":10.746073115032377,"chronicWorkload":8.475152693387441,"oneDayWorkload":11.050494867376983,"totalThrows":52,"highEffortThrows":25},
+            {"date":"2026-01-15T00:00:00.000Z","acRatio":1.2061528652589768,"acuteWorkload":10.573583599216192,"chronicWorkload":8.76637108261224,"oneDayWorkload":8.15411489829421,"totalThrows":38,"highEffortThrows":21},
+            {"date":"2026-01-16T00:00:00.000Z","acRatio":1.2456926131927681,"acuteWorkload":11.194885593005973,"chronicWorkload":8.986876436806476,"oneDayWorkload":20.21048696525395,"totalThrows":77,"highEffortThrows":46},
+            {"date":"2026-01-17T00:00:00.000Z","acRatio":1.1646383063382453,"acuteWorkload":10.67497321789204,"chronicWorkload":9.165912850192404,"oneDayWorkload":5.013019574806094,"totalThrows":56,"highEffortThrows":0},
+            {"date":"2026-01-18T00:00:00.000Z","acRatio":0.9736935634646267,"acuteWorkload":8.924790345510054,"chronicWorkload":9.165912850192404,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-01-19T00:00:00.000Z","acRatio":1.2210002601295264,"acuteWorkload":11.657415269586878,"chronicWorkload":9.547430619179584,"oneDayWorkload":27.232536060735583,"totalThrows":106,"highEffortThrows":63},
+            {"date":"2026-01-20T00:00:00.000Z","acRatio":1.2284234904764895,"acuteWorkload":11.625200161208493,"chronicWorkload":9.463511770439386,"oneDayWorkload":5.646558716893196,"totalThrows":42,"highEffortThrows":9},
+            {"date":"2026-01-21T00:00:00.000Z","acRatio":1.0607445922693377,"acuteWorkload":10.4242795295263,"chronicWorkload":9.827322812200048,"oneDayWorkload":10.18670916929841,"totalThrows":47,"highEffortThrows":23},
+            {"date":"2026-01-22T00:00:00.000Z","acRatio":1.0277179827838774,"acuteWorkload":10.356336724665024,"chronicWorkload":10.07702200229272,"oneDayWorkload":6.9915773225948215,"totalThrows":43,"highEffortThrows":15},
+            {"date":"2026-01-23T00:00:00.000Z","acRatio":1.2363657782433002,"acuteWorkload":12.681957523434214,"chronicWorkload":10.257447873924066,"oneDayWorkload":26.864275999367237,"totalThrows":89,"highEffortThrows":66},
+            {"date":"2026-01-24T00:00:00.000Z","acRatio":1.091552111803127,"acuteWorkload":11.19653888849231,"chronicWorkload":10.257447873924066,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-01-25T00:00:00.000Z","acRatio":0.8717395653125449,"acuteWorkload":8.941823150830654,"chronicWorkload":10.257447873924066,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-01-26T00:00:00.000Z","acRatio":1.0070865438210659,"acuteWorkload":10.1045345374176,"chronicWorkload":10.033432180594126,"oneDayWorkload":15.1866465206258,"totalThrows":70,"highEffortThrows":34},
+            {"date":"2026-01-27T00:00:00.000Z","acRatio":1.0260829888955694,"acuteWorkload":10.231476052701726,"chronicWorkload":9.971392337099788,"oneDayWorkload":6.192766478285193,"totalThrows":42,"highEffortThrows":1},
+            {"date":"2026-01-28T00:00:00.000Z","acRatio":0.9042268617373582,"acuteWorkload":8.893274700996049,"chronicWorkload":9.83522507162499,"oneDayWorkload":9.499310109764338,"totalThrows":65,"highEffortThrows":15},
+            {"date":"2026-01-29T00:00:00.000Z","acRatio":0.8771189574677912,"acuteWorkload":8.589701742594801,"chronicWorkload":9.793086410300537,"oneDayWorkload":5.2611776124686,"totalThrows":45,"highEffortThrows":0},
+            {"date":"2026-01-30T00:00:00.000Z","acRatio":0.9741453394436766,"acuteWorkload":9.702130893162556,"chronicWorkload":9.959633845503314,"oneDayWorkload":17.224800251424313,"totalThrows":61,"highEffortThrows":43},
+            {"date":"2026-01-31T00:00:00.000Z","acRatio":0.8524175556497205,"acuteWorkload":8.48976673775016,"chronicWorkload":9.959633845503314,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-02-01T00:00:00.000Z","acRatio":0.5979755179615694,"acuteWorkload":5.955617207472422,"chronicWorkload":9.959633845503314,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-02-02T00:00:00.000Z","acRatio":0.7626511428430525,"acuteWorkload":7.490527265416716,"chronicWorkload":9.8216954576284,"oneDayWorkload":13.705033149570227,"totalThrows":61,"highEffortThrows":29},
+            {"date":"2026-02-03T00:00:00.000Z","acRatio":0.7886362856755166,"acuteWorkload":7.672568423088848,"chronicWorkload":9.72890616682291,"oneDayWorkload":5.129692675545812,"totalThrows":43,"highEffortThrows":0},
+            {"date":"2026-02-04T00:00:00.000Z","acRatio":0.9814080885234427,"acuteWorkload":9.692759334011415,"chronicWorkload":9.87638011889066,"oneDayWorkload":25.452560987323523,"totalThrows":89,"highEffortThrows":53},
+            {"date":"2026-02-05T00:00:00.000Z","acRatio":0.9240044127280346,"acuteWorkload":9.020187198572483,"chronicWorkload":9.762060737287221,"oneDayWorkload":3.0786387883126736,"totalThrows":34,"highEffortThrows":0},
+            {"date":"2026-02-06T00:00:00.000Z","acRatio":0.939286090281171,"acuteWorkload":9.01457715658989,"chronicWorkload":9.59726461390631,"oneDayWorkload":9.106091891415417,"totalThrows":65,"highEffortThrows":10},
+            {"date":"2026-02-07T00:00:00.000Z","acRatio":0.9898282865732663,"acuteWorkload":9.639349674901718,"chronicWorkload":9.73840594945275,"oneDayWorkload":11.410029480233788,"totalThrows":62,"highEffortThrows":25},
+            {"date":"2026-02-08T00:00:00.000Z","acRatio":0.7941709663833048,"acuteWorkload":7.7339592639098145,"chronicWorkload":9.73840594945275,"oneDayWorkload":null,"totalThrows":0,"highEffortThrows":0},
+            {"date":"2026-02-09T00:00:00.000Z","acRatio":1.0658204327459573,"acuteWorkload":10.205497080201484,"chronicWorkload":9.575249982690101,"oneDayWorkload":21.026918361196294,"totalThrows":80,"highEffortThrows":60},
+            {"date":"2026-02-10T00:00:00.000Z","acRatio":1.0698259215418044,"acuteWorkload":10.291193832742284,"chronicWorkload":9.619503159832668,"oneDayWorkload":5.722648594528437,"totalThrows":56,"highEffortThrows":0},
+            {"date":"2026-02-11T00:00:00.000Z","acRatio":0.993440928851521,"acuteWorkload":9.364091407508942,"chronicWorkload":9.42591666555797,"oneDayWorkload":5.630073027685285,"totalThrows":49,"highEffortThrows":5}
+        ];
+
+        // Embedded velocity data
+        const embeddedVelocityData = [
+            {"date":"2025-11-11T00:00:00.000Z","velocity":88.2},
+            {"date":"2025-12-16T00:00:00.000Z","velocity":91.6},
+            {"date":"2026-01-23T00:00:00.000Z","velocity":91.8},
+            {"date":"2026-01-30T00:00:00.000Z","velocity":92.6},
+            {"date":"2026-02-04T00:00:00.000Z","velocity":93.1},
+            {"date":"2026-02-09T00:00:00.000Z","velocity":92.0}
+        ];
+
+        // Oura API Configuration
+        const OURA_CLIENT_ID = 'e02ab922-92a9-4a4d-ab84-83abea0604e0';
+
+        // Auto-detect environment
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const OURA_REDIRECT_URI = isLocalhost
+            ? 'http://localhost:8080/auth/oura/callback.html'
+            : 'https://paxton-thompson.com/auth/oura/callback';
+
+        // Use appropriate proxy based on environment
+        const OURA_API_BASE = isLocalhost
+            ? 'http://localhost:3001'  // Local Node.js proxy
+            : '/oura-proxy.php';        // Production PHP proxy
+
+        // Auto-sync settings
+        const AUTO_SYNC_INTERVAL_HOURS = 4; // Auto-sync every 4 hours
+        const AUTO_SYNC_ON_LOAD = true; // Auto-sync when page loads
+
+        // Load data from localStorage on page load, or use embedded data if none exists
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStoredData();
+            setDefaultDate();
+            checkOuraConnection();
+
+            // Auto-sync Oura data if connected
+            if (AUTO_SYNC_ON_LOAD) {
+                autoSyncOuraData();
+            }
+
+            // Set up periodic auto-sync every 4 hours
+            setInterval(() => {
+                autoSyncOuraData();
+            }, AUTO_SYNC_INTERVAL_HOURS * 60 * 60 * 1000);
+        });
+
+        function setDefaultDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('veloDate').value = today;
+        }
+
+        function loadStoredData() {
+            const storedWorkload = localStorage.getItem('throwingWorkloadData');
+            const storedVelocity = localStorage.getItem('throwingVelocityData');
+
+            // Use stored data if available, otherwise use embedded data
+            if (storedWorkload) {
+                workloadData = JSON.parse(storedWorkload);
+            } else if (embeddedWorkloadData.length > 0) {
+                workloadData = embeddedWorkloadData;
+                saveData(); // Save embedded data to localStorage
+            }
+
+            if (storedVelocity) {
+                velocityData = JSON.parse(storedVelocity);
+            } else if (embeddedVelocityData.length > 0) {
+                velocityData = embeddedVelocityData;
+                saveData(); // Save embedded data to localStorage
+            }
+
+            if (workloadData.length > 0) {
+                processAndDisplayData();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('throwingWorkloadData', JSON.stringify(workloadData));
+            localStorage.setItem('throwingVelocityData', JSON.stringify(velocityData));
+        }
+
+        // File upload handler
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('fileName').textContent = file.name;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                parseCSV(text);
+            };
+            reader.readAsText(file);
+        });
+
+        function parseCSV(text) {
+            const lines = text.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+
+            workloadData = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                if (lines[i].trim() === '') continue;
+
+                const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+
+                const row = {
+                    date: values[2],
+                    acRatio: parseFloat(values[3]) || null,
+                    acuteWorkload: parseFloat(values[4]) || null,
+                    chronicWorkload: parseFloat(values[5]) || null,
+                    oneDayWorkload: parseFloat(values[6]) || null,
+                    totalThrows: parseInt(values[7]) || 0,
+                    highEffortThrows: parseInt(values[8]) || 0
+                };
+
+                workloadData.push(row);
+            }
+
+            // Sort by date
+            workloadData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            saveData();
+            processAndDisplayData();
+            showAlert('success', 'CSV data loaded successfully!');
+        }
+
+        function addVelocity() {
+            const date = document.getElementById('veloDate').value;
+            const velocity = parseFloat(document.getElementById('veloValue').value);
+
+            if (!date || !velocity) {
+                showAlert('warning', 'Please enter both date and velocity');
+                return;
+            }
+
+            // Check if velocity already exists for this date
+            const existingIndex = velocityData.findIndex(v => v.date === date);
+
+            if (existingIndex >= 0) {
+                velocityData[existingIndex].velocity = velocity;
+            } else {
+                velocityData.push({ date, velocity });
+            }
+
+            // Sort by date
+            velocityData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            saveData();
+            processAndDisplayData();
+            showAlert('success', `Peak velocity ${velocity} mph added for ${date}`);
+
+            // Clear inputs
+            document.getElementById('veloValue').value = '';
+            setDefaultDate();
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+                workloadData = [];
+                velocityData = [];
+                localStorage.removeItem('throwingWorkloadData');
+                localStorage.removeItem('throwingVelocityData');
+
+                // Destroy all charts
+                Object.values(charts).forEach(chart => chart.destroy());
+                charts = {};
+
+                // Clear displays
+                document.getElementById('statsGrid').querySelectorAll('.stat-value').forEach(el => {
+                    el.textContent = '--';
+                });
+                document.getElementById('dataTableWrapper').innerHTML = '';
+                document.getElementById('fileName').textContent = '';
+
+                showAlert('info', 'All data cleared');
+            }
+        }
+
+        function processAndDisplayData() {
+            if (workloadData.length === 0) return;
+
+            updateStats();
+            checkDangerZones();
+            renderCharts();
+            renderDataTable();
+        }
+
+        function updateStats() {
+            // Current A:C Ratio
+            const latestData = workloadData[workloadData.length - 1];
+            const currentAC = latestData.acRatio || 0;
+            document.getElementById('currentAC').textContent = currentAC.toFixed(2);
+
+            // Style based on zone
+            const acElement = document.getElementById('currentAC');
+            if (currentAC >= 1.3 || currentAC <= 0.7) {
+                acElement.style.color = 'var(--danger)';
+            } else if (currentAC >= 1.15 || currentAC <= 0.85) {
+                acElement.style.color = 'var(--warning)';
+            } else {
+                acElement.style.color = 'var(--accent)';
+            }
+
+            // Days since last high intent
+            const highIntentDays = workloadData.filter(d => d.highEffortThrows > 30);
+            if (highIntentDays.length > 0) {
+                const lastHighIntent = new Date(highIntentDays[highIntentDays.length - 1].date);
+                const today = new Date();
+                const daysDiff = Math.floor((today - lastHighIntent) / (1000 * 60 * 60 * 24));
+                document.getElementById('daysSinceHI').textContent = daysDiff;
+            } else {
+                document.getElementById('daysSinceHI').textContent = '--';
+            }
+
+            // Peak velocity
+            if (velocityData.length > 0) {
+                const maxVelo = Math.max(...velocityData.map(v => v.velocity));
+                document.getElementById('peakVelo').textContent = maxVelo.toFixed(1) + ' mph';
+            } else {
+                document.getElementById('peakVelo').textContent = '--';
+            }
+
+            // 7-day throw count
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            const recentThrows = workloadData
+                .filter(d => new Date(d.date) >= sevenDaysAgo)
+                .reduce((sum, d) => sum + d.totalThrows, 0);
+            document.getElementById('sevenDayThrows').textContent = recentThrows;
+        }
+
+        function checkDangerZones() {
+            const latestData = workloadData[workloadData.length - 1];
+            const currentAC = latestData.acRatio || 0;
+
+            // Clear existing alerts
+            document.getElementById('alertsContainer').innerHTML = '';
+
+            if (currentAC >= 1.3) {
+                showAlert('danger', `⚠️ DANGER ZONE: A:C Ratio is ${currentAC.toFixed(2)} (≥1.3). High injury risk - consider recovery.`);
+            } else if (currentAC <= 0.7 && currentAC > 0) {
+                showAlert('danger', `⚠️ DANGER ZONE: A:C Ratio is ${currentAC.toFixed(2)} (≤0.7). Significant underload - may affect readiness.`);
+            } else if (currentAC >= 1.15) {
+                showAlert('warning', `⚠️ Warning: A:C Ratio is ${currentAC.toFixed(2)} (≥1.15). Approaching danger zone.`);
+            } else if (currentAC <= 0.85 && currentAC > 0) {
+                showAlert('warning', `⚠️ Warning: A:C Ratio is ${currentAC.toFixed(2)} (≤0.85). Approaching underload zone.`);
+            }
+        }
+
+        function showAlert(type, message) {
+            const alertsContainer = document.getElementById('alertsContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            alertsContainer.appendChild(alert);
+        }
+
+        function renderCharts() {
+            renderACRatioChart();
+            renderWorkloadChart();
+            renderScatterChart();
+            renderHighEffortChart();
+            renderTotalThrowsChart();
+        }
+
+        function renderACRatioChart() {
+            const ctx = document.getElementById('acRatioChart');
+
+            if (charts.acRatio) {
+                charts.acRatio.destroy();
+            }
+
+            const dates = workloadData.map(d => d.date);
+            const acRatios = workloadData.map(d => d.acRatio);
+
+            charts.acRatio = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: 'A:C Ratio',
+                            data: acRatios,
+                            borderColor: '#c9a962',
+                            backgroundColor: 'rgba(201, 169, 98, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Upper Danger Zone (1.3)',
+                            data: Array(dates.length).fill(1.3),
+                            borderColor: '#d9534f',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            label: 'Lower Danger Zone (0.7)',
+                            data: Array(dates.length).fill(0.7),
+                            borderColor: '#d9534f',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            label: 'Optimal (1.0)',
+                            data: Array(dates.length).fill(1.0),
+                            borderColor: '#126b4a',
+                            borderWidth: 2,
+                            borderDash: [10, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#f5f3ef',
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(10, 15, 10, 0.95)',
+                            titleColor: '#c9a962',
+                            bodyColor: '#f5f3ef',
+                            borderColor: '#c9a962',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day',
+                                displayFormats: {
+                                    day: 'MMM d'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            min: 0.5,
+                            max: 1.5,
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderWorkloadChart() {
+            const ctx = document.getElementById('workloadChart');
+
+            if (charts.workload) {
+                charts.workload.destroy();
+            }
+
+            const dates = workloadData.map(d => d.date);
+            const oneDayWorkload = workloadData.map(d => d.oneDayWorkload || 0);
+            const acRatios = workloadData.map(d => d.acRatio);
+
+            charts.workload = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: 'One Day Workload',
+                            data: oneDayWorkload,
+                            backgroundColor: 'rgba(18, 107, 74, 0.6)',
+                            borderColor: '#126b4a',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'A:C Ratio',
+                            data: acRatios,
+                            type: 'line',
+                            borderColor: '#c9a962',
+                            backgroundColor: 'rgba(201, 169, 98, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#f5f3ef',
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(10, 15, 10, 0.95)',
+                            titleColor: '#c9a962',
+                            bodyColor: '#f5f3ef',
+                            borderColor: '#c9a962',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day',
+                                displayFormats: {
+                                    day: 'MMM d'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Workload',
+                                color: '#126b4a'
+                            },
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'A:C Ratio',
+                                color: '#c9a962'
+                            },
+                            min: 0.5,
+                            max: 1.5,
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderScatterChart() {
+            const ctx = document.getElementById('scatterChart');
+
+            if (charts.scatter) {
+                charts.scatter.destroy();
+            }
+
+            // Match velocity data with workload data
+            const scatterData = velocityData.map(v => {
+                const workloadEntry = workloadData.find(w => w.date === v.date);
+                if (workloadEntry && workloadEntry.acRatio) {
+                    return {
+                        x: workloadEntry.acRatio,
+                        y: v.velocity
+                    };
+                }
+                return null;
+            }).filter(d => d !== null);
+
+            charts.scatter = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Peak Velocity vs A:C Ratio',
+                        data: scatterData,
+                        backgroundColor: 'rgba(201, 169, 98, 0.6)',
+                        borderColor: '#c9a962',
+                        borderWidth: 2,
+                        pointRadius: 8,
+                        pointHoverRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#f5f3ef',
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(10, 15, 10, 0.95)',
+                            titleColor: '#c9a962',
+                            bodyColor: '#f5f3ef',
+                            borderColor: '#c9a962',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return `A:C: ${context.parsed.x.toFixed(2)}, Velo: ${context.parsed.y.toFixed(1)} mph`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'A:C Ratio',
+                                color: '#c9a962'
+                            },
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Peak Velocity (mph)',
+                                color: '#c9a962'
+                            },
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderHighEffortChart() {
+            const ctx = document.getElementById('highEffortChart');
+
+            if (charts.highEffort) {
+                charts.highEffort.destroy();
+            }
+
+            const dates = workloadData.map(d => d.date);
+            const highEffortThrows = workloadData.map(d => d.highEffortThrows);
+
+            // Mark high intent days (>30 high effort throws)
+            const backgroundColors = highEffortThrows.map(count =>
+                count > 30 ? 'rgba(201, 169, 98, 0.8)' : 'rgba(18, 107, 74, 0.6)'
+            );
+
+            charts.highEffort = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'High Effort Throws',
+                        data: highEffortThrows,
+                        backgroundColor: backgroundColors,
+                        borderColor: '#126b4a',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#f5f3ef',
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(10, 15, 10, 0.95)',
+                            titleColor: '#c9a962',
+                            bodyColor: '#f5f3ef',
+                            borderColor: '#c9a962',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day',
+                                displayFormats: {
+                                    day: 'MMM d'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTotalThrowsChart() {
+            const ctx = document.getElementById('totalThrowsChart');
+
+            if (charts.totalThrows) {
+                charts.totalThrows.destroy();
+            }
+
+            const dates = workloadData.map(d => d.date);
+            const totalThrows = workloadData.map(d => d.totalThrows);
+
+            charts.totalThrows = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Total Throws',
+                        data: totalThrows,
+                        borderColor: '#126b4a',
+                        backgroundColor: 'rgba(18, 107, 74, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#f5f3ef',
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(10, 15, 10, 0.95)',
+                            titleColor: '#c9a962',
+                            bodyColor: '#f5f3ef',
+                            borderColor: '#c9a962',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day',
+                                displayFormats: {
+                                    day: 'MMM d'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(201, 169, 98, 0.1)'
+                            },
+                            ticks: {
+                                color: '#8a9a8a'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderDataTable() {
+            const tableWrapper = document.getElementById('dataTableWrapper');
+
+            if (workloadData.length === 0) {
+                tableWrapper.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No data to display. Upload a CSV file to get started.</p>';
+                return;
+            }
+
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>A:C Ratio</th>
+                            <th>Acute Workload</th>
+                            <th>Chronic Workload</th>
+                            <th>One Day Workload</th>
+                            <th>Total Throws</th>
+                            <th>High Effort</th>
+                            <th>Peak Velocity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            // Reverse to show most recent first
+            const reversedData = [...workloadData].reverse();
+
+            reversedData.forEach(row => {
+                const dateStr = new Date(row.date).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+
+                const veloEntry = velocityData.find(v => v.date === row.date);
+                const veloDisplay = veloEntry ? `${veloEntry.velocity.toFixed(1)} mph` :
+                    '<span style="color: var(--text-muted); font-style: italic;">Click to add</span>';
+
+                // Color code A:C ratio
+                let acColor = 'var(--text)';
+                if (row.acRatio >= 1.3 || row.acRatio <= 0.7) {
+                    acColor = 'var(--danger)';
+                } else if (row.acRatio >= 1.15 || row.acRatio <= 0.85) {
+                    acColor = 'var(--warning)';
+                }
+
+                tableHTML += `
+                    <tr>
+                        <td>${dateStr}</td>
+                        <td style="color: ${acColor}; font-weight: 600;">${row.acRatio ? row.acRatio.toFixed(3) : '--'}</td>
+                        <td>${row.acuteWorkload ? row.acuteWorkload.toFixed(2) : '--'}</td>
+                        <td>${row.chronicWorkload ? row.chronicWorkload.toFixed(2) : '--'}</td>
+                        <td>${row.oneDayWorkload ? row.oneDayWorkload.toFixed(2) : '--'}</td>
+                        <td>${row.totalThrows}</td>
+                        <td style="font-weight: ${row.highEffortThrows > 30 ? '700' : '400'}; color: ${row.highEffortThrows > 30 ? 'var(--accent)' : 'var(--text)'}">${row.highEffortThrows}</td>
+                        <td class="editable-cell" onclick="editVelocity('${row.date}')">${veloDisplay}</td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += '</tbody></table>';
+            tableWrapper.innerHTML = tableHTML;
+        }
+
+        function editVelocity(date) {
+            const velocity = prompt('Enter peak velocity (mph) for ' + new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ':');
+
+            if (velocity && !isNaN(velocity)) {
+                const existingIndex = velocityData.findIndex(v => v.date === date);
+
+                if (existingIndex >= 0) {
+                    velocityData[existingIndex].velocity = parseFloat(velocity);
+                } else {
+                    velocityData.push({ date, velocity: parseFloat(velocity) });
+                }
+
+                velocityData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                saveData();
+                processAndDisplayData();
+                showAlert('success', `Peak velocity ${velocity} mph added for ${new Date(date).toLocaleDateString()}`);
+            }
+        }
+
+        // ========== OURA RING INTEGRATION ==========
+
+        function autoSyncOuraData() {
+            const accessToken = localStorage.getItem('ouraAccessToken');
+
+            if (!accessToken) {
+                // Not connected, skip auto-sync
+                return;
+            }
+
+            // Check when we last synced
+            const ouraDataStr = localStorage.getItem('ouraData');
+            if (ouraDataStr) {
+                const ouraData = JSON.parse(ouraDataStr);
+                const lastSync = new Date(ouraData.lastSync);
+                const hoursSinceLastSync = (Date.now() - lastSync.getTime()) / (1000 * 60 * 60);
+
+                // Only sync if it's been more than 3 hours
+                if (hoursSinceLastSync < 3) {
+                    console.log(`Oura data is fresh (${hoursSinceLastSync.toFixed(1)} hours old), skipping auto-sync`);
+                    return;
+                }
+            }
+
+            // Perform silent sync
+            console.log('Auto-syncing Oura data...');
+            fetchOuraData(true); // Pass true for silent mode
+        }
+
+        function checkOuraConnection() {
+            const accessToken = localStorage.getItem('ouraAccessToken');
+
+            if (accessToken) {
+                document.getElementById('ouraStatus').style.display = 'none';
+                document.getElementById('ouraConnected').style.display = 'block';
+
+                // Display last sync time
+                const ouraDataStr = localStorage.getItem('ouraData');
+                if (ouraDataStr) {
+                    const ouraData = JSON.parse(ouraDataStr);
+                    const lastSync = new Date(ouraData.lastSync);
+                    const now = new Date();
+                    const hoursSince = (now - lastSync) / (1000 * 60 * 60);
+
+                    let syncText = '';
+                    if (hoursSince < 1) {
+                        syncText = `Last synced ${Math.round(hoursSince * 60)} minutes ago`;
+                    } else if (hoursSince < 24) {
+                        syncText = `Last synced ${Math.round(hoursSince)} hours ago`;
+                    } else {
+                        syncText = `Last synced ${Math.round(hoursSince / 24)} days ago`;
+                    }
+
+                    document.getElementById('ouraLastSync').textContent = syncText;
+                    displayOuraData(ouraData);
+                } else {
+                    document.getElementById('ouraLastSync').textContent = 'No data synced yet';
+                }
+            } else {
+                document.getElementById('ouraStatus').style.display = 'block';
+                document.getElementById('ouraConnected').style.display = 'none';
+            }
+        }
+
+        function saveOuraToken() {
+            const tokenInput = document.getElementById('ouraToken');
+            const token = tokenInput ? tokenInput.value.trim() : '';
+
+            if (!token) {
+                showAlert('warning', 'Please enter your Personal Access Token');
+                return;
+            }
+
+            // Save the token (we'll validate it when syncing data due to CORS issues)
+            localStorage.setItem('ouraAccessToken', token);
+            document.getElementById('ouraToken').value = '';
+            checkOuraConnection();
+            showAlert('success', 'Token saved! Click "Sync Oura Data" to test the connection.');
+        }
+
+        function disconnectOura() {
+            if (confirm('Are you sure you want to disconnect your Oura Ring?')) {
+                localStorage.removeItem('ouraAccessToken');
+                localStorage.removeItem('ouraData');
+
+                document.getElementById('ouraStatus').style.display = 'block';
+                document.getElementById('ouraConnected').style.display = 'none';
+                document.getElementById('ouraDataContainer').innerHTML = '';
+
+                showAlert('info', 'Oura Ring disconnected');
+            }
+        }
+
+        async function fetchOuraData(silent = false) {
+            console.log('fetchOuraData called, silent mode:', silent);
+            const accessToken = localStorage.getItem('ouraAccessToken');
+
+            if (!accessToken) {
+                if (!silent) {
+                    alert('No token found!');
+                    showAlert('warning', 'Please connect your Oura Ring first');
+                }
+                return;
+            }
+
+            if (!silent) {
+                showAlert('info', 'Syncing Oura data... This may take a moment.');
+            }
+
+            try {
+                // Calculate date range - last 90 days
+                const endDate = new Date().toISOString().split('T')[0];
+                const startDate = new Date();
+                startDate.setDate(startDate.getDate() - 90);
+                const startDateStr = startDate.toISOString().split('T')[0];
+
+                console.log('Fetching Oura data from', startDateStr, 'to', endDate);
+
+                // Build API URLs based on environment
+                let readinessUrl, sleepUrl, activityUrl;
+
+                if (isLocalhost) {
+                    // Local Node.js proxy - use direct paths
+                    readinessUrl = `${OURA_API_BASE}/usercollection/daily_readiness?start_date=${startDateStr}&end_date=${endDate}`;
+                    sleepUrl = `${OURA_API_BASE}/usercollection/daily_sleep?start_date=${startDateStr}&end_date=${endDate}`;
+                    activityUrl = `${OURA_API_BASE}/usercollection/daily_activity?start_date=${startDateStr}&end_date=${endDate}`;
+                } else {
+                    // Production PHP proxy - use endpoint parameter
+                    readinessUrl = `${OURA_API_BASE}?endpoint=/usercollection/daily_readiness&start_date=${startDateStr}&end_date=${endDate}`;
+                    sleepUrl = `${OURA_API_BASE}?endpoint=/usercollection/daily_sleep&start_date=${startDateStr}&end_date=${endDate}`;
+                    activityUrl = `${OURA_API_BASE}?endpoint=/usercollection/daily_activity&start_date=${startDateStr}&end_date=${endDate}`;
+                }
+
+                // Fetch daily readiness, sleep, and activity data
+                const [readinessRes, sleepRes, activityRes] = await Promise.all([
+                    fetch(readinessUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }),
+                    fetch(sleepUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }),
+                    fetch(activityUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                ]);
+
+                console.log('Responses received:', {
+                    readiness: readinessRes.status,
+                    sleep: sleepRes.status,
+                    activity: activityRes.status
+                });
+
+                if (!readinessRes.ok || !sleepRes.ok || !activityRes.ok) {
+                    const errorDetails = [];
+                    if (!readinessRes.ok) errorDetails.push(`Readiness: ${readinessRes.status}`);
+                    if (!sleepRes.ok) errorDetails.push(`Sleep: ${sleepRes.status}`);
+                    if (!activityRes.ok) errorDetails.push(`Activity: ${activityRes.status}`);
+                    throw new Error('API request failed: ' + errorDetails.join(', '));
+                }
+
+                const readinessData = await readinessRes.json();
+                const sleepData = await sleepRes.json();
+                const activityData = await activityRes.json();
+
+                console.log('Data received:', {
+                    readiness: readinessData.data?.length || 0,
+                    sleep: sleepData.data?.length || 0,
+                    activity: activityData.data?.length || 0
+                });
+
+                const combinedData = {
+                    readiness: readinessData.data,
+                    sleep: sleepData.data,
+                    activity: activityData.data,
+                    lastSync: new Date().toISOString()
+                };
+
+                // Store data
+                localStorage.setItem('ouraData', JSON.stringify(combinedData));
+
+                displayOuraData(combinedData);
+                checkOuraConnection(); // Update last sync time display
+
+                if (!silent) {
+                    showAlert('success', `Oura data synced! Retrieved ${readinessData.data?.length || 0} days of data.`);
+                } else {
+                    console.log(`Oura auto-sync complete: ${readinessData.data?.length || 0} days of data`);
+                }
+
+            } catch (error) {
+                console.error('Error fetching Oura data:', error);
+                if (!silent) {
+                    if (error.message.includes('Failed to fetch')) {
+                        showAlert('danger', '⚠️ Connection Error: Make sure the Oura proxy server is running on port 3001.');
+                    } else {
+                        showAlert('danger', `Failed to sync: ${error.message}. Check your token and try again.`);
+                    }
+                }
+            }
+        }
+
+        function displayOuraData(ouraData) {
+            const container = document.getElementById('ouraDataContainer');
+
+            if (!ouraData || !ouraData.readiness) {
+                container.innerHTML = '<p style="color: var(--text-muted);">No Oura data available. Click "Sync Oura Data" to fetch.</p>';
+                return;
+            }
+
+            // Create a map of dates to Oura metrics
+            const ouraByDate = {};
+
+            ouraData.readiness.forEach(day => {
+                const date = day.day;
+                if (!ouraByDate[date]) ouraByDate[date] = {};
+                ouraByDate[date].readiness = day.score;
+                ouraByDate[date].hrv = day.contributors?.hrv_balance;
+                ouraByDate[date].restingHR = day.contributors?.resting_heart_rate;
+                ouraByDate[date].temperature = day.contributors?.body_temperature;
+            });
+
+            ouraData.sleep.forEach(day => {
+                const date = day.day;
+                if (!ouraByDate[date]) ouraByDate[date] = {};
+                ouraByDate[date].sleepScore = day.score;
+                ouraByDate[date].totalSleep = day.contributors?.total_sleep;
+                ouraByDate[date].deepSleep = day.contributors?.deep_sleep;
+                ouraByDate[date].remSleep = day.contributors?.rem_sleep;
+            });
+
+            ouraData.activity.forEach(day => {
+                const date = day.day;
+                if (!ouraByDate[date]) ouraByDate[date] = {};
+                ouraByDate[date].activityScore = day.score;
+            });
+
+            // Display last sync time
+            const lastSync = new Date(ouraData.lastSync).toLocaleString();
+
+            let html = `
+                <div style="margin-bottom: 2rem; padding: 1rem; background: var(--bg-alt); border-radius: 8px;">
+                    <div style="color: var(--text-muted); font-size: 0.9rem;">Last synced: ${lastSync}</div>
+                </div>
+
+                <h4 style="color: var(--accent); margin-bottom: 1rem;">Oura Metrics Overview</h4>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+            `;
+
+            // Calculate averages
+            const validReadiness = Object.values(ouraByDate).filter(d => d.readiness).map(d => d.readiness);
+            const validSleep = Object.values(ouraByDate).filter(d => d.sleepScore).map(d => d.sleepScore);
+            const validActivity = Object.values(ouraByDate).filter(d => d.activityScore).map(d => d.activityScore);
+
+            const avgReadiness = validReadiness.length ? (validReadiness.reduce((a, b) => a + b, 0) / validReadiness.length).toFixed(0) : '--';
+            const avgSleep = validSleep.length ? (validSleep.reduce((a, b) => a + b, 0) / validSleep.length).toFixed(0) : '--';
+            const avgActivity = validActivity.length ? (validActivity.reduce((a, b) => a + b, 0) / validActivity.length).toFixed(0) : '--';
+
+            html += `
+                <div style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Avg Readiness</div>
+                    <div style="color: var(--accent); font-size: 2rem; font-weight: 700;">${avgReadiness}</div>
+                </div>
+                <div style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Avg Sleep Score</div>
+                    <div style="color: var(--accent); font-size: 2rem; font-weight: 700;">${avgSleep}</div>
+                </div>
+                <div style="background: var(--bg-alt); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Avg Activity</div>
+                    <div style="color: var(--accent); font-size: 2rem; font-weight: 700;">${avgActivity}</div>
+                </div>
+            `;
+
+            html += '</div>';
+
+            // Correlate with throwing data
+            html += '<h4 style="color: var(--accent); margin: 2rem 0 1rem;">Recovery Metrics on High Intent Days</h4>';
+
+            const highIntentDays = workloadData.filter(d => d.highEffortThrows > 30);
+
+            if (highIntentDays.length > 0) {
+                html += '<table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">';
+                html += '<thead><tr>';
+                html += '<th style="text-align: left; padding: 0.75rem; background: var(--bg-alt); color: var(--accent); border-bottom: 2px solid var(--border-light);">Date</th>';
+                html += '<th style="text-align: left; padding: 0.75rem; background: var(--bg-alt); color: var(--accent); border-bottom: 2px solid var(--border-light);">Peak Velo</th>';
+                html += '<th style="text-align: left; padding: 0.75rem; background: var(--bg-alt); color: var(--accent); border-bottom: 2px solid var(--border-light);">Readiness</th>';
+                html += '<th style="text-align: left; padding: 0.75rem; background: var(--bg-alt); color: var(--accent); border-bottom: 2px solid var(--border-light);">Sleep Score</th>';
+                html += '<th style="text-align: left; padding: 0.75rem; background: var(--bg-alt); color: var(--accent); border-bottom: 2px solid var(--border-light);">A:C Ratio</th>';
+                html += '</tr></thead><tbody>';
+
+                highIntentDays.reverse().forEach(day => {
+                    const dateKey = new Date(day.date).toISOString().split('T')[0];
+                    const ouraMetrics = ouraByDate[dateKey] || {};
+                    const veloEntry = velocityData.find(v => v.date === day.date);
+
+                    const dateStr = new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    const velo = veloEntry ? `${veloEntry.velocity.toFixed(1)} mph` : '--';
+                    const readiness = ouraMetrics.readiness || '--';
+                    const sleepScore = ouraMetrics.sleepScore || '--';
+                    const acRatio = day.acRatio ? day.acRatio.toFixed(2) : '--';
+
+                    html += '<tr style="border-bottom: 1px solid var(--border-subtle);">';
+                    html += `<td style="padding: 0.75rem;">${dateStr}</td>`;
+                    html += `<td style="padding: 0.75rem; font-weight: 600; color: var(--accent);">${velo}</td>`;
+                    html += `<td style="padding: 0.75rem;">${readiness}</td>`;
+                    html += `<td style="padding: 0.75rem;">${sleepScore}</td>`;
+                    html += `<td style="padding: 0.75rem;">${acRatio}</td>`;
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+            } else {
+                html += '<p style="color: var(--text-muted);">No high intent days found in your workload data.</p>';
+            }
+
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
