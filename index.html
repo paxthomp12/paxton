@@ -681,6 +681,32 @@
             line-height: 1.8;
         }
 
+        .card-logo {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(85%);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-logo {
+            opacity: 1;
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(100%) contrast(90%);
+            transform: scale(1.05);
+        }
+
+        .card-logo[alt*="Firm Foundation"] {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(92%) contrast(110%) drop-shadow(0 0 0.5px rgba(201, 169, 98, 0.5));
+        }
+
+        .card:hover .card-logo[alt*="Firm Foundation"] {
+            filter: brightness(0) saturate(100%) invert(73%) sepia(20%) saturate(1064%) hue-rotate(3deg) brightness(100%) contrast(115%) drop-shadow(0 0 1px rgba(201, 169, 98, 0.7));
+        }
+
         /* Gallery */
         .gallery-section {
             background: transparent;
@@ -1652,6 +1678,17 @@
             filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
         }
 
+        .varc-text-centered {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .varc-text-centered .varc-text {
+            max-width: 800px;
+            width: 100%;
+        }
+
         .varc-compact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1702,6 +1739,26 @@
             background: rgba(201, 169, 98, 0.03);
             border: 1px solid var(--border-light);
             border-radius: 4px;
+            position: relative;
+        }
+
+        .varc-text-centered .varc-text {
+            padding: 1.5rem 140px 1.5rem 1.5rem;
+        }
+
+        .philanthropy-logo {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .varc-text:hover .philanthropy-logo {
+            opacity: 1;
         }
 
         .varc-embed-mini {
@@ -2117,6 +2174,25 @@
             }
             .card {
                 padding: 2rem;
+            }
+            .card-logo {
+                width: 45px;
+                height: 45px;
+                top: 1.5rem;
+                right: 1.5rem;
+                opacity: 0.7;
+            }
+            .philanthropy-logo {
+                width: 70px;
+                height: 70px;
+                top: 1rem;
+                right: 1rem;
+            }
+            .varc-text-centered {
+                margin-bottom: 2rem;
+            }
+            .varc-text-centered .varc-text {
+                padding: 1rem 90px 1rem 1rem;
             }
             .carousel-container {
                 height: 400px;
@@ -3368,11 +3444,13 @@
 
         <div class="card-grid">
             <a href="https://paxthomp12.github.io/old-logan-capital/" target="_blank" class="card card-link">
+                <img src="assets/images/OLC Icon.png" alt="Old Logan Capital" class="card-logo">
                 <h3 class="card-title">Co-Founder</h3>
                 <p class="card-subtitle">Old Logan Capital</p>
                 <p class="card-desc">Co-founded an investment company focused on strategic market opportunities and long-term value creation. Leading initiatives in market analysis and investment decision-making.</p>
             </a>
             <a href="https://www.firmfoundationfw.com/" target="_blank" class="card card-link">
+                <img src="assets/images/FFFW Icon.png" alt="Firm Foundation Family Wealth" class="card-logo">
                 <h3 class="card-title">Wealth Management Intern</h3>
                 <p class="card-subtitle">Firm Foundation Family Wealth</p>
                 <p class="card-desc">Gaining hands-on experience in financial planning, client relations, and developing expertise in investment strategies and portfolio management.</p>
@@ -3397,20 +3475,20 @@
         <!-- VARIANT C: Compact Flow - Lightweight Vertical Layout -->
         <div class="philanthropy-design" id="design-option-3">
             <div class="variant-c-flow">
+                <div class="varc-text-centered">
+                    <div class="varc-text">
+                        <img src="assets/images/HBC Logo.png" alt="Homegrown Baseball Camp" class="philanthropy-logo">
+                        <h3 style="font-family: 'Bebas Neue', sans-serif; color: var(--accent); font-size: 1.6rem; margin-bottom: 0.75rem; letter-spacing: 2px;">Homegrown Baseball Camp</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">I invest in the next generation of kids in my hometown of St. Michael, Minnesota. I host the Homegrown Baseball Camp in support of STMA Youth Baseball, raising money for scholarships, equipment, and field upgrades while bringing current and former alumni together to inspire these young athletes and show them what's possible in the game of baseball.</p>
+                    </div>
+                </div>
                 <div class="varc-compact-grid">
                     <div class="varc-left-column">
-                        <div class="varc-logo-center">
-                            <img src="assets/images/HBC Logo.png" alt="Homegrown Baseball Camp" class="hbc-logo-small">
-                        </div>
                         <div class="varc-video-compact">
                             <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7425622772078444544?compact=1" height="400" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
                         </div>
                     </div>
                     <div class="varc-content-side">
-                        <div class="varc-text">
-                            <h3 style="font-family: 'Bebas Neue', sans-serif; color: var(--accent); font-size: 1.6rem; margin-bottom: 0.75rem; letter-spacing: 2px;">Homegrown Baseball Camp</h3>
-                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">I invest in the next generation of kids in my hometown of St. Michael, Minnesota. I host the Homegrown Baseball Camp in support of STMA Youth Baseball, raising money for scholarships, equipment, and field upgrades while bringing current and former alumni together to inspire these young athletes and show them what's possible in the game of baseball.</p>
-                        </div>
                         <div class="varc-embed-stack">
                             <div class="varc-embed-mini">
                                 <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7425622772078444544" height="350" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
