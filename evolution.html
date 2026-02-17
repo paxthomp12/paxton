@@ -43,6 +43,8 @@
             background-attachment: fixed;
             color: var(--text);
             line-height: 1.5;
+            position: relative;
+            min-height: 100vh;
         }
 
         html {
@@ -1095,7 +1097,7 @@
                 <h3 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; text-align: center;">Pitch Arsenal</h3>
                 <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">
                     Combined data from bullpens and live at bats at Driveline Tampa.<br>
-                    <a href="assets/data/paxton-mocap.csv" style="color: var(--accent); text-decoration: underline;" download>Bullpen data</a> | <a href="assets/data/paxton-liveab.csv" style="color: var(--accent); text-decoration: underline;" download>Live AB data</a>
+                    <a href="assets/data/paxton-liveab.csv" style="color: var(--accent); text-decoration: underline;" download>Live AB Data 2/4</a> | <a href="assets/data/paxton-liveab2.13.csv" style="color: var(--accent); text-decoration: underline;" download>Live AB Data 2/13</a> | <a href="assets/data/paxton-mocap.csv" style="color: var(--accent); text-decoration: underline;" download>Bullpen Data</a>
                 </p>
                 <div class="trackman-table-wrapper">
                     <table class="trackman-table">
@@ -1115,46 +1117,46 @@
                         <tbody id="trackmanTableBody">
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-4seam">4-Seam</span></td>
-                                <td>92.5</td>
+                                <td>92.3</td>
                                 <td>93.2</td>
-                                <td>2560</td>
-                                <td>18.4</td>
-                                <td>14.6</td>
-                                <td>1:00</td>
+                                <td>2474</td>
+                                <td>18.8</td>
+                                <td>13.3</td>
+                                <td>1:15</td>
                                 <td>4.9</td>
-                                <td>-3.7</td>
+                                <td>-3.4</td>
                             </tr>
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-cutter">Cutter</span></td>
-                                <td>87.8</td>
+                                <td>87.9</td>
                                 <td>88.9</td>
-                                <td>2050</td>
-                                <td>8.2</td>
-                                <td>3.0</td>
-                                <td>12:30</td>
+                                <td>2046</td>
+                                <td>8.3</td>
+                                <td>2.7</td>
+                                <td>1:00</td>
                                 <td>4.8</td>
-                                <td>-5.3</td>
+                                <td>-6.2</td>
                             </tr>
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-changeup">Changeup</span></td>
-                                <td>83.0</td>
+                                <td>83.1</td>
                                 <td>84.0</td>
-                                <td>1140</td>
-                                <td>2.5</td>
-                                <td>13.5</td>
-                                <td>2:30</td>
-                                <td>4.7</td>
-                                <td>-7.5</td>
+                                <td>1139</td>
+                                <td>2.6</td>
+                                <td>15.2</td>
+                                <td>2:45</td>
+                                <td>4.8</td>
+                                <td>-6.2</td>
                             </tr>
                             <tr>
                                 <td><span class="trackman-pitch-type pitch-sweeper">Sweeper</span></td>
-                                <td>80.6</td>
+                                <td>80.3</td>
                                 <td>82.8</td>
-                                <td>2380</td>
-                                <td>-0.2</td>
+                                <td>2299</td>
+                                <td>0.8</td>
                                 <td>-14.0</td>
-                                <td>9:00</td>
-                                <td>4.9</td>
+                                <td>9:30</td>
+                                <td>4.7</td>
                                 <td>-6.9</td>
                             </tr>
                         </tbody>
@@ -1859,7 +1861,34 @@
                 {type: 'Sweeper', velocity: 82.35, hb: -17.05, ivb: -4.03, vaa: -8.40, relHeight: 4.82, spinRate: 2525, tilt: '8:30'},
                 {type: 'Sweeper', velocity: 81.29, hb: -14.10, ivb: 2.41, vaa: -5.83, relHeight: 4.78, spinRate: 2269, tilt: '9:15'},
                 {type: 'Sweeper', velocity: 82.25, hb: -10.14, ivb: 7.86, vaa: -3.78, relHeight: 4.87, spinRate: 2400, tilt: '9:00'},
-                {type: 'Sweeper', velocity: 81.26, hb: -11.49, ivb: -2.25, vaa: -8.83, relHeight: 4.75, spinRate: 2434, tilt: '8:45'}
+                {type: 'Sweeper', velocity: 81.26, hb: -11.49, ivb: -2.25, vaa: -8.83, relHeight: 4.75, spinRate: 2434, tilt: '8:45'},
+                // New pitches from liveab2.13
+                {type: 'Cutter', velocity: 87.34, hb: 2.36, ivb: 9.91, vaa: -4.54, relHeight: 4.81, spinRate: 2055, tilt: '12:30'},
+                {type: '4-Seam', velocity: 92.04, hb: 15.32, ivb: 19.87, vaa: -2.14, relHeight: 4.93, spinRate: 2584, tilt: '1:15'},
+                {type: 'Cutter', velocity: 87.56, hb: 2.52, ivb: 8.43, vaa: -7.66, relHeight: 4.77, spinRate: 2206, tilt: '12:30'},
+                {type: '4-Seam', velocity: 91.52, hb: 16.64, ivb: 21.12, vaa: -2.83, relHeight: 4.80, spinRate: 2520, tilt: '1:15'},
+                {type: 'Sweeper', velocity: 79.10, hb: -16.23, ivb: -1.22, vaa: -6.78, relHeight: 4.74, spinRate: 2380, tilt: '8:45'},
+                {type: '4-Seam', velocity: 92.17, hb: 16.52, ivb: 18.49, vaa: -4.02, relHeight: 4.86, spinRate: 2495, tilt: '1:30'},
+                {type: 'Sweeper', velocity: 80.70, hb: -17.00, ivb: -6.02, vaa: -9.43, relHeight: 4.75, spinRate: 2249, tilt: '8:15'},
+                {type: 'Sweeper', velocity: 79.13, hb: -16.55, ivb: 5.76, vaa: -4.56, relHeight: 4.76, spinRate: 2450, tilt: '9:45'},
+                {type: 'Cutter', velocity: 87.28, hb: 2.19, ivb: 7.64, vaa: -5.84, relHeight: 4.70, spinRate: 2244, tilt: '12:30'},
+                {type: 'Sweeper', velocity: 80.22, hb: -15.79, ivb: 2.32, vaa: -5.79, relHeight: 4.78, spinRate: 2309, tilt: '9:15'},
+                {type: 'Sweeper', velocity: 80.05, hb: -15.27, ivb: -3.71, vaa: -6.72, relHeight: 4.74, spinRate: 2317, tilt: '8:30'},
+                {type: 'Cutter', velocity: 88.61, hb: 4.11, ivb: 10.44, vaa: -6.57, relHeight: 4.80, spinRate: 1970, tilt: '12:45'},
+                {type: 'Sweeper', velocity: 80.33, hb: -12.75, ivb: 2.74, vaa: -7.04, relHeight: 4.70, spinRate: 2323, tilt: '9:30'},
+                {type: '4-Seam', velocity: 91.97, hb: 14.20, ivb: 18.64, vaa: -4.99, relHeight: 4.83, spinRate: 2387, tilt: '1:15'},
+                {type: 'Cutter', velocity: 86.49, hb: 0.97, ivb: 8.42, vaa: -5.90, relHeight: 4.73, spinRate: 1965, tilt: '12:15'},
+                {type: 'Changeup', velocity: 82.75, hb: 16.39, ivb: 1.07, vaa: -6.91, relHeight: 4.78, spinRate: 1160, tilt: '2:45'},
+                {type: 'Changeup', velocity: 82.79, hb: 19.30, ivb: 3.37, vaa: -6.59, relHeight: 4.86, spinRate: 1152, tilt: '2:45'},
+                {type: 'Changeup', velocity: 82.37, hb: 18.15, ivb: 5.73, vaa: -4.73, relHeight: 4.74, spinRate: 1174, tilt: '2:30'},
+                {type: 'Cutter', velocity: 88.11, hb: 6.38, ivb: 11.56, vaa: -5.60, relHeight: 4.72, spinRate: 1957, tilt: '1:00'},
+                {type: 'Cutter', velocity: 86.73, hb: 3.31, ivb: 11.01, vaa: -5.80, relHeight: 4.76, spinRate: 1931, tilt: '12:30'},
+                {type: '4-Seam', velocity: 92.34, hb: 12.40, ivb: 20.19, vaa: -4.02, relHeight: 4.87, spinRate: 2362, tilt: '1:00'},
+                {type: 'Cutter', velocity: 86.76, hb: -0.01, ivb: 7.65, vaa: -6.37, relHeight: 4.73, spinRate: 2113, tilt: '12:00'},
+                {type: 'Sweeper', velocity: 81.55, hb: -10.83, ivb: 2.53, vaa: -7.22, relHeight: 4.73, spinRate: 2210, tilt: '9:30'},
+                {type: '4-Seam', velocity: 91.61, hb: 12.18, ivb: 19.29, vaa: -3.95, relHeight: 4.75, spinRate: 2378, tilt: '1:00'},
+                {type: 'Sweeper', velocity: 80.16, hb: -9.78, ivb: -1.69, vaa: -7.65, relHeight: 4.69, spinRate: 2159, tilt: '8:45'},
+                {type: 'Sweeper', velocity: 81.03, hb: -10.97, ivb: 6.39, vaa: -6.87, relHeight: 4.76, spinRate: 2291, tilt: '10:00'}
             ];
 
             // Apply clustering
@@ -2062,7 +2091,7 @@
 
     <style>
         .hidden-tracker-link {
-            position: fixed;
+            position: absolute;
             bottom: 20px;
             right: 20px;
             width: 40px;
