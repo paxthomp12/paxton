@@ -424,7 +424,7 @@
         /* Section */
         section {
             padding: 8rem 4rem;
-            scroll-margin-top: 120px;
+            scroll-margin-top: 25px;
         }
 
         .section-header {
@@ -447,7 +447,7 @@
         .stats-section {
             background: transparent;
             padding: 8rem 4rem;
-            scroll-margin-top: 120px;
+            scroll-margin-top: 25px;
             padding-top: 10rem;
         }
 
@@ -1294,6 +1294,82 @@
             border-bottom: 1px solid rgba(201, 169, 98, 0.2);
             padding-bottom: 2rem;
             margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .journey-header-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .journey-header-video {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .journey-header-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Journey Video Controls */
+        .journey-header-video .custom-controls {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+            justify-content: center;
+        }
+
+        .journey-header-video:hover .custom-controls {
+            opacity: 1;
+        }
+
+        .journey-header-video .control-btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            pointer-events: auto;
+        }
+
+        .journey-header-video .control-btn:hover {
+            background: rgba(201, 169, 98, 0.2);
+            border-color: var(--accent);
+        }
+
+        .journey-header-video .control-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent);
+        }
+
+        @media (hover: none) {
+            .journey-header-video .custom-controls {
+                opacity: 1;
+            }
         }
 
         .journey-year-title {
@@ -1365,6 +1441,28 @@
                 margin: 2rem auto;
             }
 
+            .journey-modal-header {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .journey-header-left {
+                width: 100%;
+            }
+
+            .journey-header-video {
+                position: relative;
+                padding-bottom: 45%;
+                width: 80%;
+                max-width: 80%;
+                margin: 0 auto;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                height: 0;
+                overflow: hidden;
+            }
+
             .journey-year-title {
                 font-size: 3rem;
             }
@@ -1387,6 +1485,12 @@
         @media (max-width: 480px) {
             .journey-modal-content {
                 padding: 1.5rem 1rem;
+            }
+
+            .journey-header-video {
+                padding-bottom: 50%;
+                width: 85%;
+                max-width: 85%;
             }
 
             .journey-year-title {
@@ -3293,7 +3397,7 @@
 
                 <div class="timeline-item">
                     <div class="timeline-video">
-                        <iframe id="video-timeline-2019" src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2019 Bradley"></iframe>
+                        <iframe id="video-timeline-2019" src="https://player.vimeo.com/video/1156997509?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2019 Bradley University"></iframe>
                         <div class="custom-controls">
                             <button class="control-btn play-btn" data-video="timeline-2019"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
                             <button class="control-btn fullscreen-btn" data-video="timeline-2019"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
@@ -3301,7 +3405,7 @@
                     </div>
                     <div class="timeline-info">
                         <div class="timeline-year">2019</div>
-                        <div class="timeline-label">Bradley</div>
+                        <div class="timeline-label">Bradley University</div>
                     </div>
                 </div>
 
@@ -3388,6 +3492,20 @@
                         <div class="timeline-label">Phillies</div>
                     </div>
                 </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-video">
+                        <iframe id="video-timeline-2026" src="https://player.vimeo.com/video/1168315456?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;" title="2026 Rangers"></iframe>
+                        <div class="custom-controls">
+                            <button class="control-btn play-btn" data-video="timeline-2026"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                            <button class="control-btn fullscreen-btn" data-video="timeline-2026"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                        </div>
+                    </div>
+                    <div class="timeline-info">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-label">Rangers</div>
+                    </div>
+                </div>
             </div>
 
             <div class="timeline-line">
@@ -3421,6 +3539,9 @@
                     </div>
                     <div class="timeline-dot" data-year="2025">
                         <span class="dot-year">2025</span>
+                    </div>
+                    <div class="timeline-dot" data-year="2026">
+                        <span class="dot-year">2026</span>
                     </div>
                 </div>
             </div>
@@ -4489,6 +4610,7 @@
             const modalYearTitle = document.getElementById('modalYearTitle');
             const modalPhase = document.getElementById('modalPhase');
             const modalBody = document.getElementById('modalBody');
+            const modalHeaderVideo = document.getElementById('modalHeaderVideo');
 
             // Journey content data structure - You can add your content here!
             const journeyContent = {
@@ -4499,7 +4621,7 @@
                         <p>[Add your story here - what you learned, challenges you faced, and moments that mattered...]</p>
                     `,
                     videos: [
-                        // { url: "https://player.vimeo.com/video/...", caption: "Training footage from 2016" }
+                        { url: "https://player.vimeo.com/video/1156669273", caption: "2016 High School Highlights" }
                     ]
                 },
                 2017: {
@@ -4507,63 +4629,90 @@
                     narrative: `
                         <p>[Your 2017 journey - growth, lessons learned, key moments...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1156697281", caption: "2017 High School Highlights" }
+                    ]
                 },
                 2018: {
                     phase: "High School",
                     narrative: `
                         <p>[Your 2018 story...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1157221519", caption: "2018 High School Highlights" }
+                    ]
                 },
                 2019: {
-                    phase: "Bradley",
+                    phase: "Bradley University",
                     narrative: `
                         <p>[Your 2019 journey at Bradley...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1156997509", caption: "2019 Bradley University Highlights" }
+                    ]
                 },
                 2020: {
                     phase: "University of Mary",
                     narrative: `
                         <p>[Your 2020 story...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1156705523", caption: "2020 University of Mary Highlights" }
+                    ]
                 },
                 2021: {
                     phase: "Parkland College",
                     narrative: `
                         <p>[Your 2021 journey...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1156697261", caption: "2021 Parkland College Highlights" }
+                    ]
                 },
                 2022: {
                     phase: "Charlotte",
                     narrative: `
                         <p>[Your 2022 story...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1156867881", caption: "2022 Charlotte Highlights" }
+                    ]
                 },
                 2023: {
                     phase: "Charlotte / Pro Debut",
                     narrative: `
                         <p>[Your 2023 journey - going pro...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1156869653", caption: "2023 Pro Debut Highlights" }
+                    ]
                 },
                 2024: {
-                    phase: "Phillies Organization",
+                    phase: "Phillies",
                     narrative: `
                         <p>[Your 2024 story...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1157234782", caption: "2024 Phillies Highlights" }
+                    ]
                 },
                 2025: {
-                    phase: "Phillies Organization",
+                    phase: "Phillies",
                     narrative: `
                         <p>[Your 2025 journey...]</p>
                     `,
-                    videos: []
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1157234759", caption: "2025 Phillies Highlights" }
+                    ]
+                },
+                2026: {
+                    phase: "Rangers",
+                    narrative: `
+                        <p>[Your 2026 journey with the Rangers...]</p>
+                    `,
+                    videos: [
+                        { url: "https://player.vimeo.com/video/1168315456", caption: "2026 Rangers Highlights" }
+                    ]
                 }
             };
 
@@ -4575,24 +4724,92 @@
                 modalYearTitle.textContent = year;
                 modalPhase.textContent = content.phase;
 
-                // Build the modal body content
-                let bodyHTML = `<div class="journey-narrative">${content.narrative}</div>`;
-
-                // Add videos if any
+                // Add video to header if available
                 if (content.videos && content.videos.length > 0) {
-                    content.videos.forEach(video => {
-                        bodyHTML += `
-                            <div class="journey-video-container">
-                                <iframe src="${video.url}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            ${video.caption ? `<p class="journey-video-caption">${video.caption}</p>` : ''}
-                        `;
-                    });
+                    const firstVideo = content.videos[0];
+                    const videoId = `journey-${year}`;
+                    modalHeaderVideo.innerHTML = `
+                        <iframe id="video-${videoId}" src="${firstVideo.url}?badge=0&autopause=0&title=0&byline=0&portrait=0&dnt=1&outro=0&transparent=0&controls=0&playsinline=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen playsinline style="width:100%;height:100%;"></iframe>
+                        <div class="custom-controls">
+                            <button class="control-btn play-btn" data-video="${videoId}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+                            <button class="control-btn fullscreen-btn" data-video="${videoId}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+                        </div>
+                    `;
+                    modalHeaderVideo.style.display = 'block';
+
+                    // Initialize video player controls
+                    setTimeout(() => initJourneyVideoPlayer(videoId), 100);
+                } else {
+                    modalHeaderVideo.innerHTML = '';
+                    modalHeaderVideo.style.display = 'none';
                 }
+
+                // Build the modal body content (just narrative now)
+                let bodyHTML = `<div class="journey-narrative">${content.narrative}</div>`;
 
                 modalBody.innerHTML = bodyHTML;
                 journeyModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+            }
+
+            // Initialize journey video player
+            function initJourneyVideoPlayer(videoId) {
+                const iframe = document.getElementById(`video-${videoId}`);
+                if (!iframe) return;
+
+                const player = new Vimeo.Player(iframe);
+                const playBtn = document.querySelector(`.play-btn[data-video="${videoId}"]`);
+                const fullscreenBtn = document.querySelector(`.fullscreen-btn[data-video="${videoId}"]`);
+
+                // Play/Pause functionality
+                if (playBtn) {
+                    playBtn.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const paused = await player.getPaused();
+                        if (paused) {
+                            player.play();
+                            playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
+                        } else {
+                            player.pause();
+                            playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+                        }
+                    });
+                }
+
+                // Fullscreen functionality
+                if (fullscreenBtn) {
+                    fullscreenBtn.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        try {
+                            await player.requestFullscreen();
+                        } catch (err) {
+                            console.log('Fullscreen failed:', err);
+                        }
+                    });
+                }
+
+                // Update play button on play/pause events
+                player.on('play', () => {
+                    if (playBtn) {
+                        playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>';
+                    }
+                });
+
+                player.on('pause', () => {
+                    if (playBtn) {
+                        playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+                    }
+                });
+
+                player.on('ended', () => {
+                    if (playBtn) {
+                        playBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+                    }
+                });
             }
 
             // Function to close modal
@@ -4672,8 +4889,13 @@
         <div class="journey-modal-content">
             <button class="journey-modal-close" id="closeJourneyModal">&times;</button>
             <div class="journey-modal-header">
-                <h2 class="journey-year-title" id="modalYearTitle">2023</h2>
-                <p class="journey-phase" id="modalPhase">Charlotte / Pro Debut</p>
+                <div class="journey-header-left">
+                    <h2 class="journey-year-title" id="modalYearTitle">2023</h2>
+                    <p class="journey-phase" id="modalPhase">Charlotte / Pro Debut</p>
+                </div>
+                <div class="journey-header-video" id="modalHeaderVideo">
+                    <!-- Video will be dynamically inserted here -->
+                </div>
             </div>
             <div class="journey-modal-body" id="modalBody">
                 <!-- Content will be dynamically inserted here -->
