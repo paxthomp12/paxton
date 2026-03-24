@@ -139,16 +139,12 @@
             background-attachment: fixed;
             color: var(--text);
             line-height: 1.6;
-            /* iOS safe area padding */
-            padding-top: env(safe-area-inset-top);
         }
 
         /* Ensure smooth blending at the top on iOS */
         html {
             background-color: #0a0f0a;
             scroll-behavior: smooth;
-            /* Support for iPhone notch and safe areas */
-            padding-top: env(safe-area-inset-top);
         }
 
         /* Navigation */
@@ -165,6 +161,8 @@
             mix-blend-mode: difference;
             pointer-events: none;
             transition: all 0.3s ease;
+            background: rgba(10, 15, 10, 0.8);
+            backdrop-filter: blur(10px);
         }
 
         nav.scrolled {
@@ -2150,6 +2148,25 @@
             .post-detail {
                 font-size: 0.85rem;
             }
+
+            /* Make carousel square and smaller on mobile */
+            .photo-carousel {
+                max-width: 350px;
+            }
+
+            .carousel-container {
+                height: 350px;
+            }
+
+            .carousel-slide img {
+                object-fit: contain;
+                object-position: center;
+                background: rgba(10, 15, 10, 0.3);
+            }
+
+            .carousel-slide:nth-child(8) img {
+                object-position: center;
+            }
         }
 
         /* Footer */
@@ -3678,6 +3695,11 @@
                 </div>
 
                 <div class="varc-carousel">
+                    <div style="text-align: center; margin: 2rem 0 1.5rem 0;">
+                        <a href="https://www.goodgamefoundation.org/paxton-thompson" target="_blank" style="color: var(--accent); text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; border: 1px solid var(--accent); padding: 0.75rem 1.5rem; display: inline-block; transition: all 0.3s ease;">
+                            My Donation Page
+                        </a>
+                    </div>
                     <div class="photo-carousel">
                         <div class="carousel-container">
                             <div class="carousel-slides">

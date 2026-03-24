@@ -37,8 +37,6 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             scroll-behavior: smooth;
-            /* Support for iPhone notch and safe areas */
-            padding-top: env(safe-area-inset-top);
         }
 
         body {
@@ -67,6 +65,8 @@
             mix-blend-mode: difference;
             pointer-events: none;
             transition: all 0.3s ease;
+            background: rgba(10, 15, 10, 0.8);
+            backdrop-filter: blur(10px);
         }
 
         nav.scrolled {
@@ -764,14 +764,24 @@
             }
 
             .mobile-icon-nav {
-                padding: 1rem 0.75rem;
+                padding: 4.5rem 0.75rem 1rem 0.75rem;
+                padding-top: calc(4.5rem + env(safe-area-inset-top, 0px));
                 gap: 0.4rem;
                 right: 0;
-                left: auto;
-                width: auto;
+                left: 0;
+                width: 100%;
                 max-width: 100%;
-                overflow-x: visible;
+                overflow-x: auto;
+                overflow-y: visible;
                 flex-wrap: nowrap;
+                justify-content: center;
+                background: transparent;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .mobile-icon-nav::-webkit-scrollbar {
+                display: none;
             }
 
             .nav-icon {
