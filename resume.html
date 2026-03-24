@@ -62,17 +62,15 @@
             justify-content: space-between;
             align-items: center;
             z-index: 999;
-            mix-blend-mode: difference;
             pointer-events: none;
             transition: all 0.3s ease;
-            background: rgba(10, 15, 10, 0.8);
+            background: rgba(10, 15, 10, 0.95);
             backdrop-filter: blur(10px);
         }
 
         nav.scrolled {
             background: rgba(10, 15, 10, 0.95);
             backdrop-filter: blur(10px);
-            mix-blend-mode: normal;
             padding: 1.5rem 4rem;
             border-bottom: 1px solid var(--border-subtle);
         }
@@ -181,6 +179,7 @@
             width: auto;
             flex-direction: row;
             justify-content: flex-end;
+            background: transparent;
         }
 
         .mobile-icon-nav .nav-icon {
@@ -196,8 +195,7 @@
             padding: 0.5rem;
             transition: all 0.3s ease;
             position: relative;
-            background: rgba(10, 15, 10, 0.7);
-            backdrop-filter: blur(10px);
+            background: transparent;
             border: 1px solid var(--border-subtle);
             border-radius: 50%;
             width: 40px;
