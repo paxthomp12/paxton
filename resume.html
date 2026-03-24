@@ -49,6 +49,7 @@
             margin: 0;
             -webkit-tap-highlight-color: transparent;
             overscroll-behavior-y: contain;
+            padding-top: calc(80px + env(safe-area-inset-top, 0px));
         }
 
         /* Navigation */
@@ -64,13 +65,12 @@
             z-index: 999;
             pointer-events: none;
             transition: all 0.3s ease;
-            background: rgba(10, 15, 10, 0.95);
-            backdrop-filter: blur(10px);
+            background: #0a0f0a;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         nav.scrolled {
-            background: rgba(10, 15, 10, 0.95);
-            backdrop-filter: blur(10px);
+            background: #0a0f0a;
             padding: 1.5rem 4rem;
             border-bottom: 1px solid var(--border-subtle);
         }
