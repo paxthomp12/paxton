@@ -147,6 +147,8 @@
         html {
             background-color: #0a0f0a;
             scroll-behavior: smooth;
+            /* Support for iPhone notch and safe areas */
+            padding-top: env(safe-area-inset-top);
         }
 
         /* Navigation */
@@ -155,6 +157,7 @@
             top: 0;
             width: 100%;
             padding: 1.5rem 3rem;
+            padding-top: calc(1.5rem + env(safe-area-inset-top, 0px));
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -262,6 +265,8 @@
             top: 0;
             right: 0;
             padding: 1.5rem 3rem;
+            padding-top: calc(1.5rem + env(safe-area-inset-top, 0px));
+            padding-right: calc(3rem + env(safe-area-inset-right, 0px));
             z-index: 1000;
             gap: 0.6rem;
             align-items: center;
@@ -746,11 +751,32 @@
             padding: 2rem 2rem 3rem 2rem;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) var(--bg-alt);
+            scrollbar-width: auto;
+            scrollbar-color: var(--accent) rgba(10, 15, 10, 0.5);
             touch-action: pan-x;
             cursor: grab;
             scroll-padding: 2rem;
+        }
+
+        /* Make scrollbar more obvious for evolution videos */
+        .timeline-track::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .timeline-track::-webkit-scrollbar-track {
+            background: rgba(10, 15, 10, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .timeline-track::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--accent) 0%, #d4b876 100%);
+            border-radius: 10px;
+            border: 2px solid rgba(10, 15, 10, 0.5);
+        }
+
+        .timeline-track::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(90deg, #d4b876 0%, var(--accent) 100%);
         }
 
         .timeline-track:active {
@@ -1899,6 +1925,12 @@
             max-width: 1400px;
         }
 
+        .varc-post-card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
         .varc-post-card {
             border: 1px solid rgba(201, 169, 98, 0.2);
             border-radius: 4px;
@@ -1906,6 +1938,7 @@
             background: rgba(10, 18, 15, 0.95);
             transition: all 0.3s;
             position: relative;
+            cursor: pointer;
         }
 
         .varc-post-card:hover {
@@ -1919,6 +1952,7 @@
             display: block;
             opacity: 0.88;
             filter: contrast(1.08) brightness(0.90) saturate(0.95);
+            pointer-events: none;
         }
 
         .custom-post-card {
@@ -2077,14 +2111,14 @@
             }
 
             .varc-four-posts {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
                 margin: 1.5rem 0;
                 padding: 0.5rem 0;
             }
 
             .varc-post-card iframe {
-                height: 350px;
+                height: 280px;
             }
 
             .varc-video-compact iframe {
@@ -3621,18 +3655,26 @@
                 <div class="varc-carousel">
 
                 <div class="varc-four-posts">
-                    <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7394436678876069888?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                    </div>
-                    <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7396633225235849216?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                    </div>
-                    <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7399168324200271873?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                    </div>
-                    <div class="varc-post-card">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7401687638908534785?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                    </div>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:share:7394436678876069888" target="_blank" class="varc-post-card-link">
+                        <div class="varc-post-card">
+                            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7394436678876069888?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:share:7396633225235849216" target="_blank" class="varc-post-card-link">
+                        <div class="varc-post-card">
+                            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7396633225235849216?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:share:7399168324200271873" target="_blank" class="varc-post-card-link">
+                        <div class="varc-post-card">
+                            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7399168324200271873?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:share:7401687638908534785" target="_blank" class="varc-post-card-link">
+                        <div class="varc-post-card">
+                            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7401687638908534785?compact=1" height="300" width="100%" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="varc-carousel">
@@ -4290,6 +4332,42 @@
                 carouselEl.addEventListener('mouseenter', stopAutoplay);
                 carouselEl.addEventListener('mouseleave', startAutoplay);
 
+                // Add swipe/touch functionality for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+                let touchStartY = 0;
+                let touchEndY = 0;
+
+                carouselEl.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                    stopAutoplay();
+                }, { passive: true });
+
+                carouselEl.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    touchEndY = e.changedTouches[0].screenY;
+                    handleSwipe();
+                    resetAutoplay();
+                }, { passive: true });
+
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+                    const horizontalDiff = touchStartX - touchEndX;
+                    const verticalDiff = Math.abs(touchStartY - touchEndY);
+
+                    // Only trigger swipe if horizontal movement is greater than vertical
+                    if (Math.abs(horizontalDiff) > swipeThreshold && Math.abs(horizontalDiff) > verticalDiff) {
+                        if (horizontalDiff > 0) {
+                            // Swiped left - go to next slide
+                            nextSlide();
+                        } else {
+                            // Swiped right - go to previous slide
+                            prevSlide();
+                        }
+                    }
+                }
+
                 startAutoplay();
             });
         }
@@ -4306,11 +4384,13 @@
             const proxies = [
                 'https://api.allorigins.win/raw?url=',
                 'https://corsproxy.io/?',
-                'https://api.codetabs.com/v1/proxy?quest='
+                'https://api.rss2json.com/v1/api.json?rss_url=',
+                'https://api.codetabs.com/v1/proxy?quest=',
+                'https://cors-anywhere.herokuapp.com/'
             ];
 
-            // Try to fetch with timeout
-            async function fetchWithTimeout(url, timeout = 8000) {
+            // Try to fetch with timeout - increased timeout for better reliability
+            async function fetchWithTimeout(url, timeout = 15000) {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), timeout);
 
