@@ -157,16 +157,15 @@
             justify-content: space-between;
             align-items: center;
             z-index: 999;
+            mix-blend-mode: difference;
             pointer-events: none;
             transition: all 0.3s ease;
-            background: rgba(10, 15, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-subtle);
         }
 
         nav.scrolled {
             background: rgba(10, 15, 10, 0.95);
             backdrop-filter: blur(10px);
+            mix-blend-mode: normal;
             padding: 1.5rem 4rem;
             border-bottom: 1px solid var(--border-subtle);
         }
@@ -261,8 +260,6 @@
             top: 0;
             right: 0;
             padding: 1.5rem 3rem;
-            padding-top: calc(1.5rem + env(safe-area-inset-top, 0px));
-            padding-right: calc(3rem + env(safe-area-inset-right, 0px));
             z-index: 1000;
             gap: 0.6rem;
             align-items: center;
@@ -270,7 +267,6 @@
             width: auto;
             flex-direction: row;
             justify-content: flex-end;
-            background: transparent;
         }
 
         .mobile-icon-nav .nav-icon {
@@ -286,7 +282,8 @@
             padding: 0.5rem;
             transition: all 0.3s ease;
             position: relative;
-            background: transparent;
+            background: rgba(10, 15, 10, 0.7);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-subtle);
             border-radius: 50%;
             width: 40px;
