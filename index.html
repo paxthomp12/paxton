@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Paxton Thompson</title>
 
     <!-- Favicon -->
@@ -137,6 +137,7 @@
             background-attachment: fixed;
             color: var(--text);
             line-height: 1.6;
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         /* Ensure smooth blending at the top on iOS */
@@ -146,28 +147,34 @@
         }
 
         /* Main scrollbar styles for visibility on mobile */
-        body::-webkit-scrollbar {
-            width: 8px;
+        html::-webkit-scrollbar {
+            width: 12px;
         }
 
-        body::-webkit-scrollbar-track {
-            background: rgba(10, 15, 10, 0.5);
-            border-radius: 4px;
+        html::-webkit-scrollbar-track {
+            background: rgba(10, 15, 10, 0.8);
+            border-radius: 6px;
         }
 
-        body::-webkit-scrollbar-thumb {
+        html::-webkit-scrollbar-thumb {
             background: var(--accent);
-            border-radius: 4px;
+            border-radius: 6px;
+            border: 2px solid rgba(10, 15, 10, 0.8);
         }
 
-        body::-webkit-scrollbar-thumb:hover {
+        html::-webkit-scrollbar-thumb:hover {
             background: #d4b876;
         }
 
         /* For Firefox */
+        html {
+            scrollbar-width: auto;
+            scrollbar-color: var(--accent) rgba(10, 15, 10, 0.8);
+        }
+
+        /* iOS-specific scrolling improvements */
         body {
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) rgba(10, 15, 10, 0.5);
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Navigation */
@@ -176,6 +183,9 @@
             top: 0;
             width: 100%;
             padding: 1.5rem 3rem;
+            padding-top: max(1.5rem, env(safe-area-inset-top));
+            padding-left: max(3rem, env(safe-area-inset-left));
+            padding-right: max(3rem, env(safe-area-inset-right));
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -190,6 +200,9 @@
             backdrop-filter: blur(10px);
             mix-blend-mode: normal;
             padding: 1.5rem 4rem;
+            padding-top: max(1.5rem, env(safe-area-inset-top));
+            padding-left: max(4rem, env(safe-area-inset-left));
+            padding-right: max(4rem, env(safe-area-inset-right));
             border-bottom: 1px solid var(--border-subtle);
         }
 
@@ -1045,6 +1058,23 @@
                 border-radius: 10px;
                 border: 2px solid rgba(10, 15, 10, 0.5);
                 min-width: 50px;
+            }
+
+            /* Main page scrollbar on mobile */
+            html::-webkit-scrollbar {
+                width: 14px;
+                -webkit-appearance: none;
+            }
+
+            html::-webkit-scrollbar-track {
+                background: rgba(10, 15, 10, 0.9);
+                border-radius: 8px;
+            }
+
+            html::-webkit-scrollbar-thumb {
+                background: linear-gradient(180deg, var(--accent) 0%, #d4b876 100%);
+                border-radius: 8px;
+                border: 2px solid rgba(10, 15, 10, 0.9);
             }
 
             .timeline-info {
