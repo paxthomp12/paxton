@@ -139,14 +139,12 @@
             background-attachment: fixed;
             color: var(--text);
             line-height: 1.6;
-            padding-top: calc(80px + env(safe-area-inset-top, 0px));
         }
 
         /* Ensure smooth blending at the top on iOS */
         html {
             background-color: #0a0f0a;
             scroll-behavior: smooth;
-            padding-top: env(safe-area-inset-top);
         }
 
         /* Navigation */
@@ -155,19 +153,20 @@
             top: 0;
             width: 100%;
             padding: 1.5rem 3rem;
-            padding-top: calc(1.5rem + env(safe-area-inset-top, 0px));
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 999;
             pointer-events: none;
             transition: all 0.3s ease;
-            background: #0a0f0a;
+            background: rgba(10, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-subtle);
         }
 
         nav.scrolled {
-            background: #0a0f0a;
+            background: rgba(10, 15, 10, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1.5rem 4rem;
             border-bottom: 1px solid var(--border-subtle);
         }
