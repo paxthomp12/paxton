@@ -784,8 +784,12 @@
                 padding-top: calc(1rem + env(safe-area-inset-top));
             }
 
-            /* Hide back arrow on mobile */
+            /* Hide back arrow and PT logo on mobile */
             .back-arrow {
+                display: none;
+            }
+
+            .logo-container .logo {
                 display: none;
             }
 
@@ -793,10 +797,13 @@
                 padding: 1rem 0.75rem;
                 padding-top: calc(1rem + env(safe-area-inset-top));
                 gap: 0.5rem;
-                left: 0;
                 right: 0;
-                width: 100%;
-                justify-content: center;
+                left: auto;
+                width: auto;
+                max-width: 100%;
+                overflow-x: visible;
+                flex-wrap: nowrap;
+                justify-content: flex-end;
             }
 
             .nav-icon {
@@ -1052,6 +1059,9 @@
         <div class="logo-container">
             <a href="/" class="back-arrow">
                 <i class="fas fa-arrow-left"></i>
+            </a>
+            <a href="/index.html" class="logo">
+                <span class="logo-text">PT</span>
             </a>
         </div>
     </nav>
