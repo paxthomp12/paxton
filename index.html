@@ -184,10 +184,11 @@
             top: 0;
             width: 100%;
             padding: 1.5rem 3rem;
+            padding-top: calc(1.5rem + env(safe-area-inset-top));
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 999;
+            z-index: 1000;
             mix-blend-mode: difference;
             pointer-events: none;
             transition: all 0.3s ease;
@@ -291,6 +292,7 @@
             top: 0;
             right: 0;
             padding: 1.5rem 3rem;
+            padding-top: calc(1.5rem + env(safe-area-inset-top));
             z-index: 1000;
             gap: 0.6rem;
             align-items: center;
@@ -361,7 +363,7 @@
             grid-template-columns: 1fr 1fr;
             position: relative;
             margin-bottom: -2rem;
-            padding-top: 80px;
+            padding-top: calc(80px + env(safe-area-inset-top));
         }
 
         .hero-image {
@@ -1200,8 +1202,17 @@
 
         @media (max-width: 768px) {
             .timeline-dots {
-                gap: 2rem;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem 1.5rem;
+                justify-items: center;
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .timeline-dots::before {
+                display: none;
             }
 
             .timeline-line::before {
@@ -1219,7 +1230,13 @@
 
         @media (max-width: 480px) {
             .timeline-dots {
-                gap: 1.5rem;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem 1rem;
+                max-width: 400px;
+            }
+
+            .timeline-dots::before {
+                display: none;
             }
 
             .timeline-line {
@@ -2813,6 +2830,7 @@
             position: relative;
             mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+            transition: overflow 0.3s ease;
         }
 
         .quotes-scroll {
@@ -3777,7 +3795,7 @@
                 <div class="varc-carousel">
                     <div style="text-align: center; margin: 2rem 0 1.5rem 0;">
                         <a href="https://www.goodgamefoundation.org/paxton-thompson" target="_blank" style="color: var(--accent); text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; border: 1px solid var(--accent); padding: 0.75rem 1.5rem; display: inline-block; transition: all 0.3s ease;">
-                            My Donation Page
+                            Donation Page
                         </a>
                     </div>
                     <div class="photo-carousel">
@@ -5061,6 +5079,56 @@
             // Update on window resize
             window.addEventListener('resize', updateActiveDot);
         });
+
+        // Quotes Section - Touch to Pause and Scroll
+        const quotesContainer = document.querySelector('.quotes-container');
+        const quotesScroll = document.querySelector('.quotes-scroll');
+
+        if (quotesContainer && quotesScroll) {
+            let isPaused = false;
+            let startY = 0;
+            let scrollY = 0;
+            let isScrolling = false;
+
+            // Handle touch start
+            quotesContainer.addEventListener('touchstart', function(e) {
+                if (!isPaused) {
+                    // First tap - pause the animation
+                    isPaused = true;
+                    quotesScroll.style.animationPlayState = 'paused';
+                    quotesContainer.style.overflowY = 'auto';
+                    quotesContainer.style.webkitOverflowScrolling = 'touch';
+                }
+                startY = e.touches[0].clientY;
+                isScrolling = false;
+            }, { passive: true });
+
+            // Handle touch move
+            quotesContainer.addEventListener('touchmove', function(e) {
+                if (isPaused) {
+                    isScrolling = true;
+                }
+            }, { passive: true });
+
+            // Handle touch end
+            quotesContainer.addEventListener('touchend', function(e) {
+                // If it was a tap (not a scroll), toggle pause state
+                if (isPaused && !isScrolling) {
+                    // Resume animation
+                    isPaused = false;
+                    quotesScroll.style.animationPlayState = 'running';
+                    quotesContainer.style.overflowY = 'hidden';
+                }
+            }, { passive: true });
+
+            // Also handle mouse events for desktop testing
+            quotesContainer.addEventListener('click', function(e) {
+                if (window.matchMedia('(hover: hover)').matches) {
+                    // On desktop, just use the hover behavior
+                    return;
+                }
+            });
+        }
     </script>
 
     <!-- Classic Library Bookshelf Script -->
