@@ -2517,7 +2517,14 @@
                 margin-bottom: -1.5rem;
             }
             .hero-image {
-                display: none;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem 1.5rem;
+                opacity: 1;
+                z-index: 1;
+                order: 1;
             }
             .watch-frame {
                 width: 200px;
@@ -3277,6 +3284,12 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="#home" class="logo">
+            <span class="logo-text">PT</span>
+        </a>
+    </nav>
+
     <!-- Mobile Icon Navigation -->
     <nav class="mobile-icon-nav">
         <a href="#baseball" class="nav-icon" data-label="Baseball">

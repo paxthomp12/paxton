@@ -784,8 +784,12 @@
                 padding-top: calc(1rem + env(safe-area-inset-top));
             }
 
-            /* Hide back arrow on mobile, keep PT logo which links to index.html */
+            /* Hide back arrow and PT logo on mobile for cleaner header */
             .back-arrow {
+                display: none;
+            }
+
+            .logo-container .logo {
                 display: none;
             }
 
@@ -874,7 +878,7 @@
             }
 
             .hero-image {
-                padding: 2rem 1.5rem;
+                display: none;
             }
 
             .resume-container {
