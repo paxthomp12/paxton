@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Paxton Thompson</title>
 
     <!-- Favicon -->
@@ -178,13 +178,12 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Navigation */
+        /* Navigation - Legacy styles kept for specificity */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             padding: 1.5rem 3rem;
-            padding-top: calc(1.5rem + env(safe-area-inset-top));
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -290,10 +289,11 @@
             display: flex;
             position: fixed;
             top: 0;
+            left: 0;
             right: 0;
-            padding: 1.5rem 3rem;
+            padding: 1.5rem 3rem 1.5rem 3rem;
             padding-top: calc(1.5rem + env(safe-area-inset-top));
-            z-index: 1000;
+            z-index: 9999;
             gap: 0.6rem;
             align-items: center;
             pointer-events: none;
@@ -363,7 +363,7 @@
             grid-template-columns: 1fr 1fr;
             position: relative;
             margin-bottom: -2rem;
-            padding-top: calc(80px + env(safe-area-inset-top));
+            padding-top: calc(90px + env(safe-area-inset-top));
         }
 
         .hero-image {
@@ -1202,13 +1202,18 @@
 
         @media (max-width: 768px) {
             .timeline-dots {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
+                display: flex;
+                flex-wrap: wrap;
                 gap: 2rem 1.5rem;
-                justify-items: center;
+                justify-content: center;
                 width: 100%;
                 max-width: 600px;
                 margin: 0 auto;
+            }
+
+            .timeline-dot {
+                flex: 0 0 calc(25% - 1.5rem);
+                min-width: 60px;
             }
 
             .timeline-dots::before {
@@ -1230,9 +1235,13 @@
 
         @media (max-width: 480px) {
             .timeline-dots {
-                grid-template-columns: repeat(4, 1fr);
                 gap: 1.5rem 1rem;
                 max-width: 400px;
+            }
+
+            .timeline-dot {
+                flex: 0 0 calc(25% - 1rem);
+                min-width: 50px;
             }
 
             .timeline-dots::before {
@@ -2508,14 +2517,7 @@
                 margin-bottom: -1.5rem;
             }
             .hero-image {
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 2rem 1.5rem;
-                opacity: 1;
-                z-index: 1;
-                order: 1;
+                display: none;
             }
             .watch-frame {
                 width: 200px;
@@ -3275,12 +3277,6 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a href="#home" class="logo">
-            <span class="logo-text">PT</span>
-        </a>
-    </nav>
-
     <!-- Mobile Icon Navigation -->
     <nav class="mobile-icon-nav">
         <a href="#baseball" class="nav-icon" data-label="Baseball">
@@ -4186,68 +4182,6 @@
                 </blockquote>
                 <p class="quote-author">— Charlie Munger</p>
             </div>
-
-            <!-- Duplicate quotes for seamless loop -->
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-triangle"></span>
-                </div>
-                <blockquote class="quote-text">
-                    "So remember this principle when something threatens to cause you pain: the thing itself was no misfortune at all; to endure it and prevail is great good fortune."
-                </blockquote>
-                <p class="quote-author">— Marcus Aurelius, Meditations</p>
-            </div>
-
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-triangle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-rectangle"></span>
-                </div>
-                <blockquote class="quote-text">
-                    "For it is within you, that both your destruction and deliverance lie."
-                </blockquote>
-                <p class="quote-author">— Epictetus</p>
-            </div>
-
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-circle"></span>
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-circle"></span>
-                </div>
-                <blockquote class="quote-text">
-                    "To be like the rock that the waves keep crashing over. It stands unmoved and the raging of the sea falls still around it."
-                </blockquote>
-                <p class="quote-author">— Marcus Aurelius, Meditations</p>
-            </div>
-
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-triangle"></span>
-                    <span class="marker-circle"></span>
-                </div>
-                <blockquote class="quote-text">
-                    "I like people admitting they were complete stupid horses' asses. I know I'll perform better if I <strong>rub my nose in my mistakes</strong>. This is a wonderful trick to learn."
-                </blockquote>
-                <p class="quote-author">— Charlie Munger</p>
-            </div>
-
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-circle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-rectangle"></span>
-                </div>
-                <blockquote class="quote-text">
-                    "And so my lesson to all of you is conduct your life so that you can handle the 50% decline with aplomb and grace. Don't try to avoid it. It will come. In fact, I would say if it doesn't come, you're not being aggressive enough."
-                </blockquote>
-                <p class="quote-author">— Charlie Munger</p>
-            </div>
-
                         </div>
         </div>
     </section>
