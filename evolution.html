@@ -329,8 +329,9 @@
         }
 
         .pitch-4seam { background-color: #4A90E2; color: white; }
+        .pitch-sinker { background-color: #FF6B35; color: white; }
         .pitch-cutter { background-color: #9B59B6; color: white; }
-        .pitch-changeup { background-color: #FF6B35; color: white; }
+        .pitch-changeup { background-color: #F39C12; color: white; }
         .pitch-sweeper { background-color: #1ABC9C; color: white; }
 
         .trackman-chart-wrapper {
@@ -386,7 +387,7 @@
             transform: translateY(-50%);
         }
 
-        #trackmanTooltip {
+        #trackmanTooltip, #springTooltip {
             position: absolute;
             background-color: rgba(0, 0, 0, 0.95);
             color: #fff;
@@ -400,24 +401,24 @@
             min-width: 180px;
         }
 
-        #trackmanTooltip .tooltip-pitch {
+        #trackmanTooltip .tooltip-pitch, #springTooltip .tooltip-pitch {
             font-weight: bold;
             margin-bottom: 8px;
             padding-bottom: 8px;
             border-bottom: 1px solid #444;
         }
 
-        #trackmanTooltip .tooltip-row {
+        #trackmanTooltip .tooltip-row, #springTooltip .tooltip-row {
             display: flex;
             justify-content: space-between;
             margin: 4px 0;
         }
 
-        #trackmanTooltip .tooltip-label {
+        #trackmanTooltip .tooltip-label, #springTooltip .tooltip-label {
             color: #888;
         }
 
-        #trackmanTooltip .tooltip-value {
+        #trackmanTooltip .tooltip-value, #springTooltip .tooltip-value {
             color: var(--accent);
             font-weight: bold;
         }
@@ -1010,7 +1011,154 @@
 
     <!-- BEST VERSION SECTION - NOW FIRST -->
     <section style="padding-top: 7rem;">
-        <h2 class="section-title">Best Version of Myself Entering 2026</h2>
+        <h2 class="section-title">Best Version of Myself in 2026</h2>
+
+        <!-- SPRING TRAINING & REGULAR SEASON PITCH ARSENAL -->
+        <h3 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; text-align: center;">2026 Spring Training & Regular Season Pitch Arsenal</h3>
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">
+            Combined data from spring training and first 2 regular season outings.<br>
+            <a href="assets/data/2026 pitch arsenal data.csv" style="color: var(--accent); text-decoration: underline;" download>Download Full Data</a>
+        </p>
+        <div class="trackman-container" style="margin-top: 1rem; margin-bottom: 3rem;">
+            <div>
+                <div class="trackman-table-wrapper">
+                    <table class="trackman-table">
+                        <thead>
+                            <tr>
+                                <th>Pitch</th>
+                                <th>Velo</th>
+                                <th>Max</th>
+                                <th>Spin</th>
+                                <th>IVB</th>
+                                <th>HB</th>
+                                <th>Tilt</th>
+                                <th>REL_H</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-4seam">4-Seam</span></td>
+                                <td>92.0</td>
+                                <td>94.1</td>
+                                <td>2484</td>
+                                <td>16.3</td>
+                                <td>10.4</td>
+                                <td>1:10</td>
+                                <td>5.1</td>
+                            </tr>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-sinker">2-Seam</span></td>
+                                <td>91.9</td>
+                                <td>93.0</td>
+                                <td>2337</td>
+                                <td>12.1</td>
+                                <td>15.3</td>
+                                <td>1:38</td>
+                                <td>5.1</td>
+                            </tr>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-changeup">Changeup</span></td>
+                                <td>84.5</td>
+                                <td>86.0</td>
+                                <td>988</td>
+                                <td>3.0</td>
+                                <td>7.8</td>
+                                <td>2:45</td>
+                                <td>5.0</td>
+                            </tr>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-cutter">Cutter</span></td>
+                                <td>85.7</td>
+                                <td>88.0</td>
+                                <td>2094</td>
+                                <td>2.8</td>
+                                <td>-2.4</td>
+                                <td>10:00</td>
+                                <td>5.0</td>
+                            </tr>
+                            <tr>
+                                <td><span class="trackman-pitch-type pitch-sweeper">Sweeper</span></td>
+                                <td>80.4</td>
+                                <td>82.0</td>
+                                <td>2308</td>
+                                <td>4.9</td>
+                                <td>-14.3</td>
+                                <td>8:20</td>
+                                <td>5.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <h4 style="color: var(--accent); margin-bottom: 0.75rem; font-size: 0.95rem; text-align: center;">Spring Training Stats</h4>
+                    <table class="trackman-table" style="max-width: 600px; margin: 0 auto;">
+                        <thead>
+                            <tr>
+                                <th>IP</th>
+                                <th>SO</th>
+                                <th>BB</th>
+                                <th>OBA</th>
+                                <th>FPS%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5.0</td>
+                                <td>5</td>
+                                <td>0</td>
+                                <td>2/19 (.105)</td>
+                                <td>68%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 1.5rem; text-align: center;">
+                        <h4 style="color: var(--accent); margin-bottom: 0.75rem; font-size: 0.95rem;">My FPS Impact</h4>
+                        <img src="assets/images/FPS Impact.jpg" alt="FPS Impact" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="trackman-chart-wrapper">
+                <canvas id="springChart"></canvas>
+                <div class="trackman-circle-overlay">
+                    <div class="trackman-axis-label bottom">-24</div>
+                    <div class="trackman-axis-label left">-24</div>
+                    <div class="trackman-axis-label right">+24</div>
+                </div>
+                <div style="position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">12</div>
+                <div style="position: absolute; bottom: 25%; left: 50%; transform: translateX(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">-12</div>
+                <div style="position: absolute; top: 50%; left: 25%; transform: translateY(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">-12</div>
+                <div style="position: absolute; top: 50%; right: 25%; transform: translateY(-50%); color: #555; font-size: 10px; pointer-events: none; z-index: 15;">12</div>
+            </div>
+        </div>
+
+        <div id="springTooltip"></div>
+
+        <div style="max-width: 900px; margin: 2rem auto; padding: 0 2rem;">
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative; color: var(--text); line-height: 1.6;">
+                    <span style="position: absolute; left: 0; color: var(--accent);">•</span>
+                    To begin my 2026 season, I had the 2 worst outings of my career and then released by the Rangers
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative; color: var(--text); line-height: 1.6;">
+                    <span style="position: absolute; left: 0; color: var(--accent);">•</span>
+                    I'm truly excited with where I'm at and know what I put together in spring is more indicative of the pitcher I am, rather than 2 bad outings to begin a year.
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative; color: var(--text); line-height: 1.6;">
+                    <span style="position: absolute; left: 0; color: var(--accent);">•</span>
+                    I'm right where I'm suppose to be in my journey
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-divider" style="margin: 3rem 0;">
+            <div class="divider-markers">
+                <div class="marker-circle"></div>
+                <div class="marker-circle"></div>
+                <div class="marker-circle"></div>
+            </div>
+        </div>
+
         <p class="section-subtitle">Offseason Improvements at Driveline Baseball</p>
 
         <div class="dexa-stats" style="margin: 2rem 0;">
@@ -1804,6 +1952,318 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Spring Training Chart Initialization
+        (function() {
+            // Spring Training pitch data from CSV
+            const springPitchData = [
+                // All pitches from spring training and first 2 regular season outings
+                {type: '4-Seam', velocity: 93, hb: 7.7, ivb: 17.8},
+                {type: '4-Seam', velocity: 92, hb: 10.7, ivb: 15.3},
+                {type: 'Changeup', velocity: 86, hb: 3, ivb: 1.6},
+                {type: '4-Seam', velocity: 91, hb: 6.3, ivb: 17.1},
+                {type: '4-Seam', velocity: 92, hb: 9.3, ivb: 14.5},
+                {type: 'Cutter', velocity: 87, hb: -0.8, ivb: 2.8},
+                {type: 'Cutter', velocity: 86, hb: -3.2, ivb: -1.4},
+                {type: '4-Seam', velocity: 92, hb: 8.5, ivb: 15.5},
+                {type: 'Changeup', velocity: 85, hb: 10.1, ivb: -1.4},
+                {type: 'Cutter', velocity: 87, hb: -3.7, ivb: 2.6},
+                {type: '2-Seam', velocity: 92, hb: 13.8, ivb: 12.5},
+                {type: 'Sweeper', velocity: 80, hb: -13.6, ivb: -8.5},
+                {type: 'Sweeper', velocity: 80, hb: -15.7, ivb: -10.2},
+                {type: '4-Seam', velocity: 93, hb: 8.5, ivb: 16.5},
+                {type: '2-Seam', velocity: 93, hb: 14.1, ivb: 10.5},
+                {type: '4-Seam', velocity: 93, hb: 9.6, ivb: 15.4},
+                {type: 'Sweeper', velocity: 81, hb: -16.3, ivb: -3.7},
+                {type: 'Cutter', velocity: 86, hb: -1.3, ivb: 4.6},
+                {type: '4-Seam', velocity: 92, hb: 14.2, ivb: 18.6},
+                {type: 'Cutter', velocity: 86, hb: -3.5, ivb: 6.6},
+                {type: 'Sweeper', velocity: 79, hb: -17, ivb: -0.2},
+                {type: '4-Seam', velocity: 94, hb: 12.9, ivb: 21.6},
+                {type: 'Changeup', velocity: 83, hb: 8.6, ivb: 3.1},
+                {type: 'Cutter', velocity: 86, hb: -2.9, ivb: 5.7},
+                {type: '4-Seam', velocity: 93, hb: 8.9, ivb: 18.3},
+                {type: 'Changeup', velocity: 84, hb: 3.7, ivb: 5.8},
+                {type: 'Changeup', velocity: 85, hb: 6.4, ivb: 1.1},
+                {type: '4-Seam', velocity: 93, hb: 12.1, ivb: 16.6},
+                {type: 'Changeup', velocity: 85, hb: 10.7, ivb: 7.6},
+                {type: 'Cutter', velocity: 87, hb: -0.9, ivb: 5.3},
+                {type: '4-Seam', velocity: 94, hb: 11.3, ivb: 18.3},
+                {type: 'Sweeper', velocity: 79, hb: -13.5, ivb: -9.9},
+                {type: '2-Seam', velocity: 93, hb: 14.8, ivb: 11.3},
+                {type: '2-Seam', velocity: 92, hb: 14.5, ivb: 14.8},
+                {type: 'Cutter', velocity: 87, hb: -2.4, ivb: 4.8},
+                {type: 'Cutter', velocity: 86, hb: -4.1, ivb: 6.7},
+                {type: '2-Seam', velocity: 91, hb: 17.9, ivb: 11},
+                {type: 'Sweeper', velocity: 81, hb: -14.8, ivb: 3.4},
+                {type: '4-Seam', velocity: 93, hb: 10.1, ivb: 14.3},
+                {type: '4-Seam', velocity: 92, hb: 7.1, ivb: 14.6},
+                {type: '4-Seam', velocity: 92, hb: 14.2, ivb: 16.2},
+                {type: '4-Seam', velocity: 92, hb: 9.1, ivb: 17.3},
+                {type: '4-Seam', velocity: 92, hb: 10.2, ivb: 18.1},
+                {type: '4-Seam', velocity: 92, hb: 16.8, ivb: 16.6},
+                {type: 'Changeup', velocity: 84, hb: 8.8, ivb: -4.5},
+                {type: '4-Seam', velocity: 92, hb: 11.6, ivb: 16.9},
+                {type: '4-Seam', velocity: 91, hb: 8.9, ivb: 16.8},
+                {type: 'Changeup', velocity: 84, hb: 8.7, ivb: -4.7},
+                {type: 'Changeup', velocity: 84, hb: 7.9, ivb: -0.7},
+                {type: 'Cutter', velocity: 86, hb: -2, ivb: 3.7},
+                {type: '2-Seam', velocity: 92, hb: 16.9, ivb: 11.2},
+                {type: '4-Seam', velocity: 92, hb: 13.7, ivb: 15},
+                {type: '2-Seam', velocity: 93, hb: 12.8, ivb: 13.9},
+                {type: '4-Seam', velocity: 92, hb: 7.5, ivb: 17.5},
+                {type: '2-Seam', velocity: 93, hb: 14.7, ivb: 13.7},
+                {type: 'Sweeper', velocity: 81, hb: -18.7, ivb: -3.3},
+                {type: '4-Seam', velocity: 93, hb: 9.8, ivb: 17.7},
+                {type: '2-Seam', velocity: 92, hb: 16.3, ivb: 12.5},
+                {type: '4-Seam', velocity: 93, hb: 12.9, ivb: 15},
+                {type: '4-Seam', velocity: 92, hb: 11.6, ivb: 19.9},
+                {type: 'Cutter', velocity: 85, hb: -1.5, ivb: 0.7},
+                {type: '4-Seam', velocity: 92, hb: 12, ivb: 16.8},
+                {type: 'Cutter', velocity: 85, hb: 0.1, ivb: 4},
+                {type: 'Cutter', velocity: 88, hb: 1.9, ivb: 2.4},
+                {type: '4-Seam', velocity: 92, hb: 11.4, ivb: 17.6},
+                {type: 'Changeup', velocity: 84, hb: 5.3, ivb: 1.7},
+                {type: '4-Seam', velocity: 93, hb: 12.1, ivb: 14.1},
+                {type: '4-Seam', velocity: 92, hb: 11.4, ivb: 17.9},
+                {type: 'Cutter', velocity: 87, hb: -0.2, ivb: 3.2},
+                {type: '4-Seam', velocity: 91, hb: 7.5, ivb: 19.1},
+                {type: '2-Seam', velocity: 92, hb: 19.4, ivb: 8.9},
+                {type: 'Cutter', velocity: 85, hb: -0.7, ivb: -0.5},
+                {type: 'Sweeper', velocity: 79, hb: -17, ivb: -3.9},
+                {type: 'Cutter', velocity: 84, hb: -0.6, ivb: 2.3},
+                {type: '4-Seam', velocity: 92, hb: 15.2, ivb: 16.2},
+                {type: 'Changeup', velocity: 85, hb: 7.4, ivb: 3.1},
+                {type: '4-Seam', velocity: 91, hb: 10, ivb: 14.8},
+                {type: 'Sweeper', velocity: 82, hb: -1.2, ivb: -0.7},
+                {type: 'Changeup', velocity: 85, hb: 7.1, ivb: 0.5},
+                {type: '4-Seam', velocity: 91, hb: 13.5, ivb: 15},
+                {type: 'Sweeper', velocity: 82, hb: -13, ivb: 4.7},
+                {type: '4-Seam', velocity: 90, hb: 9.4, ivb: 8.9},
+                {type: 'Changeup', velocity: 85, hb: 14.2, ivb: -3.6},
+                {type: '4-Seam', velocity: 92, hb: 13.9, ivb: 14.9},
+                {type: '2-Seam', velocity: 91, hb: 16.6, ivb: 10.5},
+                {type: '2-Seam', velocity: 91, hb: 16.6, ivb: 10.5},
+                {type: '2-Seam', velocity: 90, hb: 19, ivb: 9.8},
+                {type: 'Sweeper', velocity: 80, hb: -13.1, ivb: -3.1},
+                {type: 'Cutter', velocity: 84, hb: -3.4, ivb: 2.9},
+                {type: 'Cutter', velocity: 85, hb: -1.4, ivb: 0.9},
+                {type: '2-Seam', velocity: 92, hb: 14.8, ivb: 11.6},
+                {type: '4-Seam', velocity: 92, hb: 13.4, ivb: 16.6},
+                {type: '2-Seam', velocity: 92, hb: 13.3, ivb: 14.8},
+                {type: 'Cutter', velocity: 85, hb: -3.9, ivb: -3.2},
+                {type: '4-Seam', velocity: 92, hb: 8.9, ivb: 13.5},
+                {type: 'Sweeper', velocity: 80, hb: -17.8, ivb: -7.6},
+                {type: '4-Seam', velocity: 92, hb: 10.3, ivb: 18.5},
+                {type: '4-Seam', velocity: 92, hb: 9.6, ivb: 17.6},
+                {type: '4-Seam', velocity: 92, hb: 7.3, ivb: 18},
+                {type: 'Cutter', velocity: 85, hb: -4.4, ivb: -2.7},
+                {type: '4-Seam', velocity: 92, hb: 8.1, ivb: 16.6},
+                {type: '4-Seam', velocity: 92, hb: 8.7, ivb: 17.5},
+                {type: 'Cutter', velocity: 85, hb: -3.5, ivb: -2.7},
+                {type: 'Cutter', velocity: 85, hb: -4.1, ivb: -0.3},
+                {type: '4-Seam', velocity: 91, hb: 8.5, ivb: 13},
+                {type: '4-Seam', velocity: 92, hb: 9.5, ivb: 16.8},
+                {type: 'Cutter', velocity: 85, hb: -1.3, ivb: 0.5},
+                {type: '2-Seam', velocity: 92, hb: 11.5, ivb: 11.6},
+                {type: 'Cutter', velocity: 86, hb: -3.8, ivb: -1.9},
+                {type: '2-Seam', velocity: 92, hb: 14.5, ivb: 15.1},
+                {type: 'Cutter', velocity: 86, hb: 0.6, ivb: 1.7},
+                {type: '4-Seam', velocity: 91, hb: 13.3, ivb: 16},
+                {type: 'Cutter', velocity: 86, hb: -1.9, ivb: 2.9},
+                {type: '4-Seam', velocity: 91, hb: 6, ivb: 15.9},
+                {type: 'Cutter', velocity: 85, hb: -1.2, ivb: -2.2},
+                {type: 'Sweeper', velocity: 81, hb: -11.5, ivb: 7.4},
+                {type: 'Cutter', velocity: 85, hb: -5.1, ivb: 0.8},
+                {type: 'Sweeper', velocity: 80, hb: -17.6, ivb: -5.2},
+                {type: '2-Seam', velocity: 92, hb: 13.8, ivb: 12.8},
+                {type: 'Cutter', velocity: 85, hb: -3.2, ivb: -0.3},
+                {type: 'Cutter', velocity: 86, hb: -1.9, ivb: 4.1},
+                {type: 'Cutter', velocity: 86, hb: -2.3, ivb: 1.9},
+                {type: 'Sweeper', velocity: 81, hb: -12.5, ivb: -2.5},
+                {type: 'Sweeper', velocity: 80, hb: -16, ivb: -4.7},
+                {type: '4-Seam', velocity: 91, hb: 7, ivb: 15.6},
+                {type: '4-Seam', velocity: 92, hb: 9.2, ivb: 14.8},
+                {type: '4-Seam', velocity: 91, hb: 9.4, ivb: 12.3},
+                {type: 'Cutter', velocity: 86, hb: -1.6, ivb: 1.7},
+                {type: '4-Seam', velocity: 90, hb: 3.6, ivb: 15.1}
+            ];
+
+            const pitchTypes = ['4-Seam', '2-Seam', 'Cutter', 'Changeup', 'Sweeper'];
+            const pitchColors = {
+                '4-Seam': '#4A90E2',
+                '2-Seam': '#FF6B35',
+                'Cutter': '#9B59B6',
+                'Changeup': '#F39C12',
+                'Sweeper': '#1ABC9C'
+            };
+
+            function clusterPitch(pitch) {
+                const samePitches = springPitchData.filter(p => p.type === pitch.type);
+                const avgHB = samePitches.reduce((sum, p) => sum + p.hb, 0) / samePitches.length;
+                const avgIVB = samePitches.reduce((sum, p) => sum + p.ivb, 0) / samePitches.length;
+                const clusterFactor = 0.15;
+                return {
+                    ...pitch,
+                    hb: pitch.hb + (avgHB - pitch.hb) * clusterFactor,
+                    ivb: pitch.ivb + (avgIVB - pitch.ivb) * clusterFactor
+                };
+            }
+
+            const clusteredData = springPitchData.map(clusterPitch);
+
+            const ctx = document.getElementById('springChart').getContext('2d');
+
+            // Plugin to draw circle and axis lines
+            const circlePlugin = {
+                id: 'circleBackground',
+                beforeDatasetsDraw: (chart) => {
+                    const { ctx, chartArea: { left, right, top, bottom, width, height } } = chart;
+                    const centerX = (left + right) / 2;
+                    const centerY = (top + bottom) / 2;
+                    const radius = Math.min(width, height) / 2;
+
+                    ctx.save();
+
+                    // Draw axis lines clipped to circle
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.clip();
+
+                    // Draw horizontal axis line
+                    ctx.beginPath();
+                    ctx.moveTo(left, centerY);
+                    ctx.lineTo(right, centerY);
+                    ctx.strokeStyle = '#555';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Draw vertical axis line
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, top);
+                    ctx.lineTo(centerX, bottom);
+                    ctx.strokeStyle = '#555';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    ctx.restore();
+
+                    // Draw circle border
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                    ctx.strokeStyle = '#555';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+            };
+
+            const datasets = pitchTypes.map(type => {
+                const pitches = clusteredData.filter(p => p.type === type);
+                return {
+                    label: type,
+                    data: pitches.map(p => ({ x: p.hb, y: p.ivb, pitch: p })),
+                    backgroundColor: pitchColors[type],
+                    borderColor: pitchColors[type],
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                };
+            });
+
+            const chart = new Chart(ctx, {
+                type: 'scatter',
+                data: { datasets },
+                plugins: [circlePlugin],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 1,
+                    layout: {
+                        padding: {
+                            right: 15
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#e0e0e0',
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            title: { display: false },
+                            min: -25,
+                            max: 25,
+                            grid: {
+                                display: true,
+                                drawBorder: false,
+                                color: (context) => context.tick.value === 0 ? '#555' : 'transparent',
+                                lineWidth: 1
+                            },
+                            ticks: { display: false },
+                            border: { display: false }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            title: { display: false },
+                            min: -25,
+                            max: 25,
+                            grid: {
+                                display: true,
+                                drawBorder: false,
+                                color: (context) => context.tick.value === 0 ? '#555' : 'transparent',
+                                lineWidth: 1
+                            },
+                            ticks: { display: false },
+                            border: { display: false }
+                        }
+                    },
+                    onHover: (event, activeElements) => {
+                        const tooltip = document.getElementById('springTooltip');
+                        if (activeElements.length > 0) {
+                            const dataPoint = activeElements[0];
+                            const pitch = datasets[dataPoint.datasetIndex].data[dataPoint.index].pitch;
+
+                            tooltip.style.display = 'block';
+                            tooltip.style.left = event.native.pageX + 15 + 'px';
+                            tooltip.style.top = event.native.pageY - 15 + 'px';
+
+                            tooltip.innerHTML = `
+                                <div class="tooltip-pitch" style="color: ${pitchColors[pitch.type]}">${pitch.type}</div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">Velocity:</span>
+                                    <span class="tooltip-value">${pitch.velocity.toFixed(1)} mph</span>
+                                </div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">HB:</span>
+                                    <span class="tooltip-value">${pitch.hb.toFixed(1)}"</span>
+                                </div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">IVB:</span>
+                                    <span class="tooltip-value">${pitch.ivb.toFixed(1)}"</span>
+                                </div>
+                            `;
+                        } else {
+                            tooltip.style.display = 'none';
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('springChart').addEventListener('mouseleave', () => {
+                document.getElementById('springTooltip').style.display = 'none';
+            });
+        })();
+    </script>
     <script>
         // Trackman Chart Initialization
         (function() {
