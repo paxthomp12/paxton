@@ -2784,15 +2784,11 @@
             .timeline-label {
                 font-size: 0.7rem;
             }
-            .quotes-container {
-                gap: 1.5rem;
-                height: 500px;
-            }
             .quote-card {
-                padding: 1.25rem;
+                padding: 1.5rem;
             }
             .quote-text {
-                font-size: 1rem;
+                font-size: 1.2rem;
             }
             .reading-grid {
                 gap: 1.5rem;
@@ -2839,52 +2835,125 @@
             }
         }
 
-        /* Quotes Section */
-        .quotes-container {
-            max-width: 900px;
+        /* Thank You Section - Masonry Layout */
+        .thankyou-container {
+            max-width: 1200px;
             margin: 0 auto;
-            height: 600px;
-            overflow: hidden;
-            position: relative;
-            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-            transition: overflow 0.3s ease;
+            padding: 2rem 1rem;
         }
 
-        .quotes-scroll {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            padding: 100px 0;
-            animation: scrollCredits 60s linear infinite;
+        .thankyou-quote {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 2.5rem;
+            border-left: 3px solid rgba(198, 162, 93, 0.4);
+            border-right: 3px solid rgba(198, 162, 93, 0.4);
+            background: rgba(18, 107, 74, 0.03);
         }
 
-        .quotes-scroll:hover {
-            animation-play-state: paused;
+        .thankyou-quote blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            color: var(--text);
+            font-style: italic;
+            margin: 0 0 1rem 0;
+            font-weight: 400;
         }
 
-        @keyframes scrollCredits {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(-100%);
-            }
+        .thankyou-quote cite {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-style: normal;
+        }
+
+        .thankyou-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .thankyou-masonry {
+            column-count: 4;
+            column-gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .thankyou-card {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            background: rgba(18, 107, 74, 0.025);
+            padding: 1.25rem 1.5rem;
+            border: 1px solid rgba(198, 162, 93, 0.15);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .thankyou-card:hover {
+            border-color: rgba(198, 162, 93, 0.35);
+            background: rgba(18, 107, 74, 0.04);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(198, 162, 93, 0.12);
+        }
+
+        .thankyou-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 400;
+            margin: 0;
+            text-align: center;
+        }
+
+        .thankyou-note {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Quotes Section - Masonry Layout */
+        .quotes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .quotes-masonry {
+            column-count: 3;
+            column-gap: 2rem;
         }
 
         .quote-card {
+            break-inside: avoid;
+            margin-bottom: 2rem;
             background: linear-gradient(135deg, rgba(18, 107, 74, 0.03) 0%, transparent 100%);
             padding: 3rem;
             border: 1px solid var(--border-subtle);
             border-left: 3px solid var(--accent);
             position: relative;
-            transition: all 0.3s;
+            transition: border-color 0.3s;
         }
 
         .quote-card:hover {
-            border-color: var(--border-light);
-            border-left-color: var(--accent);
-            transform: translateX(5px);
+            border-color: rgba(198, 162, 93, 0.25);
+            border-left-color: var(--lume);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(198, 162, 93, 0.15);
+            background: rgba(18, 107, 74, 0.05);
         }
 
         .quote-markers {
@@ -2917,7 +2986,7 @@
             line-height: 1.6;
             color: var(--text);
             font-style: italic;
-            margin: 0 0 1.5rem 0;
+            margin: 0 0 1rem 0;
             font-weight: 400;
         }
 
@@ -2925,9 +2994,41 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1rem;
             color: var(--accent);
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Responsive adjustments for masonry layouts */
+        @media (max-width: 1024px) {
+            .thankyou-masonry {
+                column-count: 3;
+            }
+            .quotes-masonry {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .thankyou-masonry {
+                column-count: 2;
+            }
+            .quotes-masonry {
+                column-count: 1;
+            }
+            .thankyou-quote blockquote {
+                font-size: 1.3rem;
+            }
+            .quote-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .thankyou-masonry {
+                column-count: 1;
+            }
         }
 
         /* Reading & Learning Section - Classic Library Design */
@@ -3193,9 +3294,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             font-style: italic;
+            opacity: 0.8;
         }
 
         .substack-feed {
@@ -3289,6 +3391,155 @@
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
+        }
+
+        /* Frontend Polish Enhancements */
+
+        /* Scroll-triggered fade-in animations */
+        section {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ensure hero is always visible */
+        section:first-of-type,
+        #home {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Enhanced card hover effects with scale and glow */
+        .thankyou-card,
+        .quote-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .thankyou-card:hover {
+            /* Already defined in thankyou section */
+        }
+
+        .quote-card:hover {
+            /* Already defined in quotes section */
+        }
+
+        /* Smooth transitions for all interactive elements */
+        a, button, .nav-icon, .card-tab {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Enhanced section dividers with subtle animation */
+        .section-divider {
+            transition: opacity 0.4s ease-out;
+        }
+
+        /* Stagger animation for masonry items */
+        .thankyou-card,
+        .quote-card {
+            animation: fadeInUp 0.4s ease-out backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger delays for masonry items */
+        .thankyou-card:nth-child(1) { animation-delay: 0.05s; }
+        .thankyou-card:nth-child(2) { animation-delay: 0.08s; }
+        .thankyou-card:nth-child(3) { animation-delay: 0.11s; }
+        .thankyou-card:nth-child(4) { animation-delay: 0.14s; }
+        .thankyou-card:nth-child(5) { animation-delay: 0.17s; }
+        .thankyou-card:nth-child(6) { animation-delay: 0.2s; }
+        .thankyou-card:nth-child(7) { animation-delay: 0.23s; }
+        .thankyou-card:nth-child(8) { animation-delay: 0.26s; }
+        .thankyou-card:nth-child(n+9) { animation-delay: 0.3s; }
+
+        .quote-card:nth-child(1) { animation-delay: 0.05s; }
+        .quote-card:nth-child(2) { animation-delay: 0.1s; }
+        .quote-card:nth-child(3) { animation-delay: 0.15s; }
+        .quote-card:nth-child(4) { animation-delay: 0.2s; }
+        .quote-card:nth-child(5) { animation-delay: 0.25s; }
+        .quote-card:nth-child(6) { animation-delay: 0.3s; }
+        .quote-card:nth-child(7) { animation-delay: 0.35s; }
+        .quote-card:nth-child(8) { animation-delay: 0.4s; }
+        .quote-card:nth-child(9) { animation-delay: 0.45s; }
+        .quote-card:nth-child(10) { animation-delay: 0.5s; }
+
+        /* Subtle parallax effect for section headers */
+        .section-header {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Enhanced loading state */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        /* Improved focus states for accessibility */
+        a:focus-visible,
+        button:focus-visible,
+        .nav-icon:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        /* Performance optimization - Hardware acceleration */
+        .thankyou-card,
+        .quote-card,
+        .nav-icon,
+        section {
+            transform: translateZ(0);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Subtle glow effect on accent elements */
+        .thankyou-quote,
+        .quote-author {
+            transition: all 0.3s ease;
+        }
+
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            section {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Enhanced mobile interactions */
+        @media (max-width: 768px) {
+            .thankyou-card:active,
+            .quote-card:active {
+                transform: scale(0.98);
+            }
         }
     </style>
 </head>
@@ -4138,73 +4389,208 @@
         </div>
     </div>
 
+    <section id="thankyou">
+        <div class="section-header">
+            <h2>Thank You</h2>
+        </div>
+
+        <div class="thankyou-container">
+            <div class="thankyou-quote">
+                <blockquote>
+                    "If I have seen further it is by standing on the shoulders of giants"
+                </blockquote>
+                <cite>— Sir Isaac Newton</cite>
+            </div>
+
+            <p class="thankyou-intro">
+                These are the people who have influenced my thoughts and actions, my ideas and my work, and the lessons I've learned. In my career and as a person, they have noticeably left an impact on me and my life. For those reasons, I would like to say "thank you" to...
+            </p>
+
+            <div class="thankyou-masonry">
+                <div class="thankyou-card"><p class="thankyou-name">Mom</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Dad</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Alaina Thompson</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Grandma Lewis</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Kim Baker</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Dan Baker</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Shannon Welle</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Jeff Welle</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Brockton Welle</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Adam Brian</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Ari Gordon</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Jack Fiedler</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Charlie Hodges</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Wyatt Hudepohl</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Collin Kramer</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Josh Hejka</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Casey Jacobson</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Tyler Peterson</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Jon Goebel</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Alex Wilde</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Cole LaLonde</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Sam Thoresen</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Alex Evenson</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Vaughn Deinhart</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Tim Collins</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Aaron Barrett</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Luke Melms</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Jonathan Gassman</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Coach Woodard</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Coach Bick</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Coach Simmons</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Michael Oh</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Will Lancaster</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Josh Madole</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Kaden Hopson</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Anthony Casciola</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">AJ Wilson</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Aaron Combs</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Jesse Hackenmueller</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Scott Morris</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Andy Judkins</p></div>
+            </div>
+
+            <p class="thankyou-note">* My apologies to anyone I left off, I update this once a year.</p>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <span class="marker-rectangle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-circle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-rectangle"></span>
+        </div>
+    </div>
+
     <section id="quotes">
         <div class="section-header">
             <h2>Words That Resonate</h2>
         </div>
 
         <div class="quotes-container">
-            <div class="quotes-scroll">
+            <div class="quotes-masonry">
                 <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-triangle"></span>
+                    <div class="quote-markers">
+                        <span class="marker-rectangle"></span>
+                        <span class="marker-circle"></span>
+                        <span class="marker-triangle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "So remember this principle when something threatens to cause you pain: the thing itself was no misfortune at all; to endure it and prevail is great good fortune."
+                    </blockquote>
+                    <p class="quote-author">— Marcus Aurelius, Meditations</p>
                 </div>
-                <blockquote class="quote-text">
-                    "So remember this principle when something threatens to cause you pain: the thing itself was no misfortune at all; to endure it and prevail is great good fortune."
-                </blockquote>
-                <p class="quote-author">— Marcus Aurelius, Meditations</p>
-            </div>
 
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-triangle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-rectangle"></span>
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-triangle"></span>
+                        <span class="marker-circle"></span>
+                        <span class="marker-rectangle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "For it is within you, that both your destruction and deliverance lie."
+                    </blockquote>
+                    <p class="quote-author">— Epictetus</p>
                 </div>
-                <blockquote class="quote-text">
-                    "For it is within you, that both your destruction and deliverance lie."
-                </blockquote>
-                <p class="quote-author">— Epictetus</p>
-            </div>
 
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-circle"></span>
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-circle"></span>
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-circle"></span>
+                        <span class="marker-rectangle"></span>
+                        <span class="marker-circle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "To be like the rock that the waves keep crashing over. It stands unmoved and the raging of the sea falls still around it."
+                    </blockquote>
+                    <p class="quote-author">— Marcus Aurelius, Meditations</p>
                 </div>
-                <blockquote class="quote-text">
-                    "To be like the rock that the waves keep crashing over. It stands unmoved and the raging of the sea falls still around it."
-                </blockquote>
-                <p class="quote-author">— Marcus Aurelius, Meditations</p>
-            </div>
 
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-rectangle"></span>
-                    <span class="marker-triangle"></span>
-                    <span class="marker-circle"></span>
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-rectangle"></span>
+                        <span class="marker-triangle"></span>
+                        <span class="marker-circle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "I like people admitting they were complete stupid horses' asses. I know I'll perform better if I <strong>rub my nose in my mistakes</strong>. This is a wonderful trick to learn."
+                    </blockquote>
+                    <p class="quote-author">— Charlie Munger</p>
                 </div>
-                <blockquote class="quote-text">
-                    "I like people admitting they were complete stupid horses' asses. I know I'll perform better if I <strong>rub my nose in my mistakes</strong>. This is a wonderful trick to learn."
-                </blockquote>
-                <p class="quote-author">— Charlie Munger</p>
-            </div>
 
-            <div class="quote-card">
-                <div class="quote-markers">
-                    <span class="marker-circle"></span>
-                    <span class="marker-circle"></span>
-                    <span class="marker-rectangle"></span>
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-circle"></span>
+                        <span class="marker-circle"></span>
+                        <span class="marker-rectangle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "And so my lesson to all of you is conduct your life so that you can handle the 50% decline with aplomb and grace. Don't try to avoid it. It will come. In fact, I would say if it doesn't come, you're not being aggressive enough."
+                    </blockquote>
+                    <p class="quote-author">— Charlie Munger</p>
                 </div>
-                <blockquote class="quote-text">
-                    "And so my lesson to all of you is conduct your life so that you can handle the 50% decline with aplomb and grace. Don't try to avoid it. It will come. In fact, I would say if it doesn't come, you're not being aggressive enough."
-                </blockquote>
-                <p class="quote-author">— Charlie Munger</p>
+
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-triangle"></span>
+                        <span class="marker-rectangle"></span>
+                        <span class="marker-circle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "These [hard & failure] moments in my life were wracked with pain, but they were also defining gut-checks packed with potential. The setbacks taught me how to succeed. And what kept me on my path was a love for learning..."
+                    </blockquote>
+                    <p class="quote-author">— Josh Waitzkin, The Art of Learning</p>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-rectangle"></span>
+                        <span class="marker-circle"></span>
+                        <span class="marker-triangle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "In my experience, successful people shoot for the stars, put their hearts on the line in every battle, and ultimately discover that the lessons learned from the pursuit of excellence mean much more than the immediate trophies and glory. In the long run, painful losses may prove much more valuable than wins - those who are armed with a healthy attitude and are able to draw wisdom from every experience, "good" or bad," are the ones who make it down the road."
+                    </blockquote>
+                    <p class="quote-author">— Josh Waitzkin, The Art of Learning</p>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-circle"></span>
+                        <span class="marker-triangle"></span>
+                        <span class="marker-rectangle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "Each habit not only gets results but also teaches you something far more important: to trust yourself."
+                    </blockquote>
+                    <p class="quote-author">— James Clear, Atomic Habits</p>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-rectangle"></span>
+                        <span class="marker-rectangle"></span>
+                        <span class="marker-circle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "The road less traveled is the road of delayed gratification. If you're willing to wait for the rewards, you'll face less competition and often get a bigger payoff. As the saying goes, the last mile is always the least crowded."
+                    </blockquote>
+                    <p class="quote-author">— James Clear, Atomic Habits</p>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-markers">
+                        <span class="marker-triangle"></span>
+                        <span class="marker-circle"></span>
+                        <span class="marker-triangle"></span>
+                    </div>
+                    <blockquote class="quote-text">
+                        "Men are born soft and supple; dead, they are stiff and hard. Plants are born tender and pliant; dead, they are brittle and dry. Thus whoever is stiff and inflexible is a disciple of death. Whoever is soft and yielding is a disciple of life. The hard and stiff will be broken. The soft and supple will prevail."
+                    </blockquote>
+                    <p class="quote-author">— Lao Tzu, Tao Te Ching</p>
+                </div>
             </div>
-                        </div>
         </div>
     </section>
 
@@ -5036,55 +5422,73 @@
             window.addEventListener('resize', updateActiveDot);
         });
 
-        // Quotes Section - Touch to Pause and Scroll
-        const quotesContainer = document.querySelector('.quotes-container');
-        const quotesScroll = document.querySelector('.quotes-scroll');
+        // Scroll-triggered animations for sections
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        if (quotesContainer && quotesScroll) {
-            let isPaused = false;
-            let startY = 0;
-            let scrollY = 0;
-            let isScrolling = false;
-
-            // Handle touch start
-            quotesContainer.addEventListener('touchstart', function(e) {
-                if (!isPaused) {
-                    // First tap - pause the animation
-                    isPaused = true;
-                    quotesScroll.style.animationPlayState = 'paused';
-                    quotesContainer.style.overflowY = 'auto';
-                    quotesContainer.style.webkitOverflowScrolling = 'touch';
-                }
-                startY = e.touches[0].clientY;
-                isScrolling = false;
-            }, { passive: true });
-
-            // Handle touch move
-            quotesContainer.addEventListener('touchmove', function(e) {
-                if (isPaused) {
-                    isScrolling = true;
-                }
-            }, { passive: true });
-
-            // Handle touch end
-            quotesContainer.addEventListener('touchend', function(e) {
-                // If it was a tap (not a scroll), toggle pause state
-                if (isPaused && !isScrolling) {
-                    // Resume animation
-                    isPaused = false;
-                    quotesScroll.style.animationPlayState = 'running';
-                    quotesContainer.style.overflowY = 'hidden';
-                }
-            }, { passive: true });
-
-            // Also handle mouse events for desktop testing
-            quotesContainer.addEventListener('click', function(e) {
-                if (window.matchMedia('(hover: hover)').matches) {
-                    // On desktop, just use the hover behavior
-                    return;
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
+        }, observerOptions);
+
+        // Observe all sections except the hero
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                // Skip the first section (hero) or any section with id="home"
+                if (index > 0 && section.id !== 'home') {
+                    sectionObserver.observe(section);
+                } else {
+                    section.classList.add('visible');
+                }
+            });
+        });
+
+        // Smooth parallax effect for section headers
+        let lastScrollTop = 0;
+        let ticking = false;
+
+        function updateParallax() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const sectionHeaders = document.querySelectorAll('.section-header');
+
+            sectionHeaders.forEach(header => {
+                const rect = header.getBoundingClientRect();
+                const scrollPercent = (window.innerHeight - rect.top) / window.innerHeight;
+
+                if (scrollPercent > 0 && scrollPercent < 1) {
+                    const translateY = (scrollPercent - 0.5) * 5;
+                    header.style.transform = `translateY(${translateY}px)`;
+                }
+            });
+
+            lastScrollTop = scrollTop;
+            ticking = false;
         }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+
+        // Enhanced hover glow for accent text
+        const accentElements = document.querySelectorAll('.thankyou-quote cite, .quote-author');
+        accentElements.forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.textShadow = '0 0 10px rgba(198, 162, 93, 0.3)';
+            });
+            element.addEventListener('mouseleave', function() {
+                this.style.textShadow = 'none';
+            });
+        });
+
     </script>
 
     <!-- Classic Library Bookshelf Script -->
