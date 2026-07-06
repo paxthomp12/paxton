@@ -10,21 +10,21 @@
     <link rel="icon" type="image/png" href="assets/images/pt-logo.png">
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Professional Baseball Player | Co-Founder of Old Logan Capital | Wealth Management Intern">
+    <meta name="description" content="Professional Baseball Player | Co-Founder of Old Logan Capital">
     <meta name="author" content="Paxton Thompson">
 
     <!-- Open Graph / Facebook / iMessage -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://paxthomp12.github.io/paxton/">
     <meta property="og:title" content="Paxton Thompson">
-    <meta property="og:description" content="Professional Baseball Player | Co-Founder of Old Logan Capital | Wealth Management Intern">
+    <meta property="og:description" content="Professional Baseball Player | Co-Founder of Old Logan Capital">
     <meta property="og:image" content="https://paxthomp12.github.io/paxton/assets/images/pt-logo.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="https://paxthomp12.github.io/paxton/">
     <meta name="twitter:title" content="Paxton Thompson">
-    <meta name="twitter:description" content="Professional Baseball Player | Co-Founder of Old Logan Capital | Wealth Management Intern">
+    <meta name="twitter:description" content="Professional Baseball Player | Co-Founder of Old Logan Capital">
     <meta name="twitter:image" content="https://paxthomp12.github.io/paxton/assets/images/pt-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <script src="https://player.vimeo.com/api/player.js"></script>
@@ -2941,48 +2941,27 @@
             break-inside: avoid;
             margin-bottom: 1.5rem;
             background: rgba(18, 107, 74, 0.015);
-            padding: 1.5rem;
-            border: 1px solid var(--border-subtle);
-            border-left: 2px solid var(--accent);
+            padding: 1.25rem;
+            border: 1px solid rgba(198, 162, 93, 0.15);
+            border-radius: 3px;
             position: relative;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
         }
 
         .quote-card:hover {
-            border-color: rgba(198, 162, 93, 0.2);
-            border-left-color: var(--lume);
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(198, 162, 93, 0.1);
+            border-color: rgba(198, 162, 93, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(198, 162, 93, 0.1);
             background: rgba(18, 107, 74, 0.025);
         }
 
         .quote-markers {
-            display: flex;
-            gap: 0.75rem;
-            align-items: center;
-            margin-bottom: 2rem;
-            opacity: 0.6;
-        }
-
-        .quote-markers .marker-circle {
-            width: 6px;
-            height: 6px;
-        }
-
-        .quote-markers .marker-rectangle {
-            width: 4px;
-            height: 12px;
-        }
-
-        .quote-markers .marker-triangle {
-            border-left-width: 5px;
-            border-right-width: 5px;
-            border-top-width: 9px;
+            display: none;
         }
 
         .quote-text {
             font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
+            font-size: 1.15rem;
             line-height: 1.6;
             color: var(--text);
             font-style: italic;
@@ -3421,6 +3400,74 @@
             transform: translateY(0);
         }
 
+        /* Projects Section */
+        .projects-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(18, 107, 74, 0.015);
+            padding: 2rem;
+            border: 1px solid rgba(198, 162, 93, 0.15);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: rgba(198, 162, 93, 0.35);
+            background: rgba(18, 107, 74, 0.025);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(198, 162, 93, 0.12);
+        }
+
+        .project-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .project-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text);
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Ensure hero is always visible */
         section:first-of-type,
         #home {
@@ -3592,6 +3639,11 @@
                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
             </svg>
         </a>
+        <a href="#projects" class="nav-icon" data-label="Projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </a>
     </nav>
 
     <section id="home" class="hero">
@@ -3600,7 +3652,6 @@
             <p class="hero-desc">
                 <span>Professional Baseball Player</span>
                 <span>Co-Founder of Old Logan Capital</span>
-                <span>Wealth Management Intern</span>
             </p>
             <div class="hero-buttons">
                 <a href="https://www.linkedin.com/in/paxton-thompson/" target="_blank" class="hero-btn">LinkedIn</a>
@@ -4014,12 +4065,6 @@
                 <p class="card-subtitle">Old Logan Capital</p>
                 <p class="card-desc">Co-founded an investment company focused on strategic market opportunities and long-term value creation. Leading initiatives in market analysis and investment decision-making.</p>
             </a>
-            <a href="https://www.firmfoundationfw.com/" target="_blank" class="card card-link">
-                <img src="assets/images/FFFW Icon.png" alt="Firm Foundation Family Wealth" class="card-logo">
-                <h3 class="card-title">Wealth Management Intern</h3>
-                <p class="card-subtitle">Firm Foundation Family Wealth</p>
-                <p class="card-desc">Gaining hands-on experience in financial planning, client relations, and developing expertise in investment strategies and portfolio management.</p>
-            </a>
         </div>
     </section>
 
@@ -4415,6 +4460,39 @@
         </div>
     </div>
 
+    <section id="projects">
+        <div class="section-header">
+            <h2>Projects</h2>
+        </div>
+
+        <div class="projects-container">
+            <div class="projects-grid">
+                <a href="/" class="project-card">
+                    <h3 class="project-title">Personal Website</h3>
+                    <p class="project-desc">My personal portfolio showcasing my career, interests, and projects.</p>
+                </a>
+                <a href="https://paxthomp12.github.io/old-logan-capital/index.html#" target="_blank" class="project-card">
+                    <h3 class="project-title">Old Logan Capital</h3>
+                    <p class="project-desc">Investment company website featuring our investment philosophy and approach.</p>
+                </a>
+                <a href="https://oldlogancapital.com/trail/thepursuit" target="_blank" class="project-card">
+                    <h3 class="project-title">The Pursuit Blog</h3>
+                    <p class="project-desc">A blog exploring investment insights, personal growth, and lessons learned.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-markers">
+            <span class="marker-rectangle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-circle"></span>
+            <span class="marker-triangle"></span>
+            <span class="marker-rectangle"></span>
+        </div>
+    </div>
+
     <section id="thankyou">
         <div class="section-header">
             <h2>Thank You</h2>
@@ -4465,9 +4543,8 @@
                 <div class="thankyou-card"><p class="thankyou-name">Coach Simmons</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Michael Oh</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Josh Madole</p></div>
-                <div class="thankyou-card"><p class="thankyou-name">Kaden Hopson</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">Chase Haves & All my Charlotte Teammates</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Anthony Casciola</p></div>
-                <div class="thankyou-card"><p class="thankyou-name">AJ Wilson</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Aaron Combs</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Jesse Hackenmueller</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Scott Morris</p></div>
