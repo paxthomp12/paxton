@@ -3462,9 +3462,18 @@
             line-height: 1.6;
         }
 
+        .project-card-centered {
+            grid-column: 1 / -1;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: 1fr;
+            }
+            .project-card-centered {
+                max-width: 100%;
             }
         }
 
@@ -4065,6 +4074,12 @@
                 <p class="card-subtitle">Old Logan Capital</p>
                 <p class="card-desc">Co-founded an investment company focused on strategic market opportunities and long-term value creation. Leading initiatives in market analysis and investment decision-making.</p>
             </a>
+            <a href="https://www.firmfoundationfw.com/" target="_blank" class="card card-link">
+                <img src="assets/images/FFFW Icon.png" alt="Firm Foundation Family Wealth" class="card-logo">
+                <h3 class="card-title">Wealth Management Intern</h3>
+                <p class="card-subtitle">Firm Foundation Family Wealth</p>
+                <p class="card-desc">Gaining hands-on experience in financial planning, client relations, and developing expertise in investment strategies and portfolio management.</p>
+            </a>
         </div>
     </section>
 
@@ -4475,9 +4490,9 @@
                     <h3 class="project-title">Old Logan Capital</h3>
                     <p class="project-desc">Investment company website featuring our investment philosophy and approach.</p>
                 </a>
-                <a href="https://oldlogancapital.com/trail/thepursuit" target="_blank" class="project-card">
+                <a href="https://oldlogancapital.com/trail/thepursuit" target="_blank" class="project-card project-card-centered">
                     <h3 class="project-title">The Pursuit Blog</h3>
-                    <p class="project-desc">A blog exploring investment insights, personal growth, and lessons learned.</p>
+                    <p class="project-desc">A blog exploring personal growth and lessons learned.</p>
                 </a>
             </div>
         </div>
@@ -4543,7 +4558,7 @@
                 <div class="thankyou-card"><p class="thankyou-name">Coach Simmons</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Michael Oh</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Josh Madole</p></div>
-                <div class="thankyou-card"><p class="thankyou-name">Chase Haves & All my Charlotte Teammates</p></div>
+                <div class="thankyou-card"><p class="thankyou-name">All of my Charlotte Teammates</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Anthony Casciola</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Aaron Combs</p></div>
                 <div class="thankyou-card"><p class="thankyou-name">Jesse Hackenmueller</p></div>
